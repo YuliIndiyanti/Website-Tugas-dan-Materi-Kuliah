@@ -1,0 +1,350 @@
+import {
+  Semester,
+  Course,
+  Material,
+  Assignment,
+  Submission,
+  NoteComment,
+} from "@/types";
+
+export const INITIAL_SEMESTERS: Semester[] = [
+  {
+    id: "sem-2026-ganjil",
+    name: "Semester Ganjil 2026/2027",
+    startDate: "2026-09-01",
+    endDate: "2027-01-30",
+    isActive: true,
+    createdAt: "2026-09-01T00:00:00.000Z",
+  },
+  {
+    id: "sem-2025-genap",
+    name: "Semester Genap 2025/2026",
+    startDate: "2026-02-01",
+    endDate: "2026-07-15",
+    isActive: false,
+    createdAt: "2026-02-01T00:00:00.000Z",
+  },
+];
+
+export const INITIAL_COURSES: Course[] = [
+  {
+    id: "course-adpl",
+    semesterId: "sem-2026-ganjil",
+    code: "IF301",
+    name: "Analisis dan Desain Perangkat Lunak",
+    credits: 4,
+    lecturerName: "Prof. Dr. Ir. Hendra Kusuma, M.T.",
+    scheduleDay: "Senin",
+    scheduleTime: "08:00 - 11:30",
+    roomOrLink: "Lab Rekayasa Perangkat Lunak (Gedung B-302)",
+    pastelThemeId: "baby-blue",
+    pastelColorHex: "#DBEAFE",
+    pastelTextHex: "#1E3A8A",
+    createdAt: "2026-09-01T08:00:00.000Z",
+  },
+  {
+    id: "course-db",
+    semesterId: "sem-2026-ganjil",
+    code: "IF305",
+    name: "Basis Data Lanjut & Big Data",
+    credits: 3,
+    lecturerName: "Dr. Siti Nurhaliza, M.Kom.",
+    scheduleDay: "Selasa",
+    scheduleTime: "10:00 - 12:30",
+    roomOrLink: "Ruang Kuliah 304 (Gedung D)",
+    pastelThemeId: "mint-sage",
+    pastelColorHex: "#D1FAE5",
+    pastelTextHex: "#065F46",
+    createdAt: "2026-09-01T08:00:00.000Z",
+  },
+  {
+    id: "course-ai",
+    semesterId: "sem-2026-ganjil",
+    code: "IF309",
+    name: "Kecerdasan Buatan & Machine Learning",
+    credits: 3,
+    lecturerName: "Ahmad Fauzi, Ph.D.",
+    scheduleDay: "Rabu",
+    scheduleTime: "13:00 - 15:30",
+    roomOrLink: "Gedung D-201 / Zoom Meeting",
+    pastelThemeId: "soft-lavender",
+    pastelColorHex: "#EDE9FE",
+    pastelTextHex: "#5B21B6",
+    createdAt: "2026-09-01T08:00:00.000Z",
+  },
+  {
+    id: "course-uiux",
+    semesterId: "sem-2026-ganjil",
+    code: "IF312",
+    name: "Desain Pengalaman Pengguna (UI/UX)",
+    credits: 3,
+    lecturerName: "Maya Safitri, M.Ds.",
+    scheduleDay: "Kamis",
+    scheduleTime: "08:00 - 10:30",
+    roomOrLink: "Studio Desain Interaktif (Gedung F-101)",
+    pastelThemeId: "sakura-blush",
+    pastelColorHex: "#FCE7F3",
+    pastelTextHex: "#9D174D",
+    createdAt: "2026-09-01T08:00:00.000Z",
+  },
+  {
+    id: "course-biz",
+    semesterId: "sem-2026-ganjil",
+    code: "MKU201",
+    name: "Manajemen Produk & Kewirausahaan Teknologi",
+    credits: 2,
+    lecturerName: "Drs. Bambang Sugito, M.M.",
+    scheduleDay: "Jumat",
+    scheduleTime: "09:00 - 10:40",
+    roomOrLink: "Ruang Seminar B-102",
+    pastelThemeId: "soft-peach",
+    pastelColorHex: "#FFEDD5",
+    pastelTextHex: "#9A3412",
+    createdAt: "2026-09-01T08:00:00.000Z",
+  },
+];
+
+export const INITIAL_MATERIALS: Material[] = [
+  {
+    id: "mat-adpl-w6",
+    courseId: "course-adpl",
+    weekNumber: 6,
+    title: "Slide 06: Object-Oriented Analysis & Class Diagram Architecture",
+    description: "Pembahasan prinsip SOLID, diagram kelas UML, relasi asosiasi, komposisi, serta perancangan domain model.",
+    category: "SLIDE",
+    fileUrl: "/sample-files/adpl-week6-class-diagrams.pdf",
+    fileName: "ADPL_W06_ClassDiagrams_SOLID.pdf",
+    fileSize: "4.8 MB",
+    mimeType: "application/pdf",
+    tags: [
+      { id: "bahan-uts", name: "#bahan-uts", bgHex: "#FCE7F3", textHex: "#9D174D" },
+      { id: "penting", name: "#penting", bgHex: "#FFE4E6", textHex: "#9F1239" },
+    ],
+    createdAt: "2026-10-18T10:00:00.000Z",
+  },
+  {
+    id: "mat-adpl-w7",
+    courseId: "course-adpl",
+    weekNumber: 7,
+    title: "Modul Praktikum: Sequence Diagram & State Machine",
+    description: "Panduan interaksi dinamis antar komponen sistem menggunakan Enterprise Architect dan PlantUML.",
+    category: "SLIDE",
+    fileUrl: "/sample-files/adpl-week7-sequence-diagrams.pdf",
+    fileName: "Modul_Praktikum_Sequence_State.pdf",
+    fileSize: "3.2 MB",
+    mimeType: "application/pdf",
+    tags: [
+      { id: "praktikum", name: "#praktikum", bgHex: "#D1FAE5", textHex: "#065F46" },
+      { id: "bahan-uts", name: "#bahan-uts", bgHex: "#FCE7F3", textHex: "#9D174D" },
+    ],
+    createdAt: "2026-10-23T14:30:00.000Z",
+  },
+  {
+    id: "mat-db-w5",
+    courseId: "course-db",
+    weekNumber: 5,
+    title: "E-Book: Designing Data-Intensive Applications (Chapter 3)",
+    description: "Bab 3: Storage and Retrieval, B-Trees vs LSM-Trees, indeks indexing engines.",
+    category: "BOOK",
+    fileUrl: "/sample-files/ddia-storage-engines.pdf",
+    fileName: "DDIA_Storage_And_Retrieval_Ch3.pdf",
+    fileSize: "8.1 MB",
+    mimeType: "application/pdf",
+    tags: [
+      { id: "bacaan-wajib", name: "#bacaan-wajib", bgHex: "#DBEAFE", textHex: "#1E3A8A" },
+    ],
+    createdAt: "2026-10-12T09:15:00.000Z",
+  },
+  {
+    id: "mat-ai-w6",
+    courseId: "course-ai",
+    weekNumber: 6,
+    title: "Rekaman Kuliah: Convolutional Neural Networks (CNN) & Computer Vision",
+    description: "Video penjelasan filter konvolusi, pooling layer, stride, padding, dan arsitektur ResNet-50.",
+    category: "RECORDING",
+    externalUrl: "https://www.youtube.com/watch?v=sample-cnn-lecture",
+    fileName: "Kuliah_AI_Minggu6_CNN_ResNet.mp4",
+    fileSize: "320 MB",
+    tags: [
+      { id: "bahan-uts", name: "#bahan-uts", bgHex: "#FCE7F3", textHex: "#9D174D" },
+    ],
+    createdAt: "2026-10-21T16:00:00.000Z",
+  },
+  {
+    id: "mat-uiux-w5",
+    courseId: "course-uiux",
+    weekNumber: 5,
+    title: "Design System Guidelines & Soft Pastel Component Library",
+    description: "Tautan ke file master Figma untuk soft pastel color tokens, elevation shadow, dan kartu kanban.",
+    category: "LINK",
+    externalUrl: "https://figma.com/@kuliahvault/soft-pastel-ui-kit",
+    tags: [
+      { id: "praktikum", name: "#praktikum", bgHex: "#D1FAE5", textHex: "#065F46" },
+      { id: "penting", name: "#penting", bgHex: "#FFE4E6", textHex: "#9F1239" },
+    ],
+    createdAt: "2026-10-15T11:00:00.000Z",
+  },
+];
+
+export const INITIAL_ASSIGNMENTS: Assignment[] = [
+  {
+    id: "assign-adpl-uts",
+    courseId: "course-adpl",
+    weekNumber: 8,
+    title: "Dokumen Analisis & Spesifikasi Kebutuhan Sistem (SRS) KuliahVault",
+    instructions: "Susun dokumen SRS lengkap dengan Use Case Diagram, Activity Diagram 5 proses utama, dan kamus data. Format PDF 15-20 halaman.",
+    dueDate: "2026-10-25T14:00:00.000Z", // < 24 jam (Darurat Rose Coral)
+    priority: "HIGH",
+    status: "READY",
+    type: "PROJECT",
+    weightPercentage: 25,
+    createdAt: "2026-10-15T09:00:00.000Z",
+  },
+  {
+    id: "assign-db-tugas2",
+    courseId: "course-db",
+    weekNumber: 7,
+    title: "Optimasi Query SQL & Partisi Index PostgreSQL 16",
+    instructions: "Analisis output EXPLAIN ANALYZE pada tabel transaksi 1.000.000 baris. Buat B-Tree index dan BRIN index, bandingkan execution time.",
+    dueDate: "2026-10-26T23:59:00.000Z", // ~2 hari (Perlu Perhatian Peach)
+    priority: "HIGH",
+    status: "IN_PROGRESS",
+    type: "TASK",
+    weightPercentage: 15,
+    createdAt: "2026-10-18T10:00:00.000Z",
+  },
+  {
+    id: "assign-uiux-prototype",
+    courseId: "course-uiux",
+    weekNumber: 7,
+    title: "Interactive High-Fidelity Prototype: Split-View Workspace",
+    instructions: "Rancang prototipe Figma interaktif dengan micro-interaction pada Kanban drag-and-drop dan transisi split-view PDF reader.",
+    dueDate: "2026-10-27T18:00:00.000Z", // ~3 hari (Perlu Perhatian Peach)
+    priority: "MEDIUM",
+    status: "TODO",
+    type: "PROJECT",
+    weightPercentage: 20,
+    createdAt: "2026-10-19T11:00:00.000Z",
+  },
+  {
+    id: "assign-ai-lab3",
+    courseId: "course-ai",
+    weekNumber: 8,
+    title: "Implementasi Transfer Learning PyTorch pada Dataset Medis",
+    instructions: "Fine-tune model MobileNetV2 dan ResNet18 untuk klasifikasi citra rontgen dada. Target akurasi validasi minimal 92%.",
+    dueDate: "2026-10-31T23:59:00.000Z", // >3 hari (Aman Warm Stone)
+    priority: "MEDIUM",
+    status: "TODO",
+    type: "TASK",
+    weightPercentage: 15,
+    createdAt: "2026-10-22T08:00:00.000Z",
+  },
+  {
+    id: "assign-biz-pitch",
+    courseId: "course-biz",
+    weekNumber: 6,
+    title: "Pitch Deck & Lean Canvas Produk EdTech KuliahVault",
+    instructions: "Rancang presentasi 10 slide pitch deck mencakup Problem, Solution, Market Size (TAM/SAM/SOM), dan Unit Economics.",
+    dueDate: "2026-10-18T23:59:00.000Z",
+    priority: "LOW",
+    status: "SUBMITTED",
+    type: "TASK",
+    weightPercentage: 15,
+    score: 94,
+    gradeLetter: "A",
+    lecturerFeedback: "Struktur Lean Canvas sangat tajam dan validasi persona mahasiswa sangat realistis. Desain pitch deck bersih dengan warna pastel yang menarik!",
+    submittedAt: "2026-10-18T19:42:00.000Z",
+    createdAt: "2026-10-10T14:00:00.000Z",
+  },
+];
+
+export const INITIAL_SUBMISSIONS: Submission[] = [
+  {
+    id: "sub-biz-v1",
+    assignmentId: "assign-biz-pitch",
+    versionNumber: 1,
+    fileName: "Draft_PitchDeck_KuliahVault_v1.pdf",
+    fileUrl: "/sample-files/draft-pitchdeck-v1.pdf",
+    fileSize: "3.4 MB",
+    notes: "Draf awal kerangka slide sebelum feedback kelompok.",
+    uploadedAt: "2026-10-16T15:20:00.000Z",
+  },
+  {
+    id: "sub-biz-v2",
+    assignmentId: "assign-biz-pitch",
+    versionNumber: 2,
+    fileName: "Final_PitchDeck_KuliahVault_v2_Submitted.pdf",
+    fileUrl: "/sample-files/final-pitchdeck-v2.pdf",
+    fileSize: "5.1 MB",
+    proofUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800",
+    submissionLink: "https://lms.kampus.ac.id/mod/assign/view.php?id=89234",
+    notes: "Versi final disubmit tepat waktu ke LMS pada jam 19:42 WIB.",
+    uploadedAt: "2026-10-18T19:42:00.000Z",
+  },
+  {
+    id: "sub-adpl-v1",
+    assignmentId: "assign-adpl-uts",
+    versionNumber: 1,
+    fileName: "Draft_SRS_KuliahVault_v1.pdf",
+    fileUrl: "/sample-files/draft-srs-v1.pdf",
+    fileSize: "2.8 MB",
+    notes: "Sudah mencakup Bab 1 pendahuluan dan Bab 2 gambaran umum sistem.",
+    uploadedAt: "2026-10-22T21:00:00.000Z",
+  },
+  {
+    id: "sub-adpl-v2",
+    assignmentId: "assign-adpl-uts",
+    versionNumber: 2,
+    fileName: "Final_Draft_SRS_KuliahVault_v2.pdf",
+    fileUrl: "/sample-files/final-draft-srs-v2.pdf",
+    fileSize: "4.2 MB",
+    notes: "Bab 3 Use Case & Activity Diagram selesai direview, siap disubmit ke LMS kampus besok pagi.",
+    uploadedAt: "2026-10-24T18:30:00.000Z",
+  },
+];
+
+export const INITIAL_NOTES: NoteComment[] = [
+  {
+    id: "note-adpl-w6",
+    materialId: "mat-adpl-w6",
+    courseId: "course-adpl",
+    contentMarkdown: `### 📌 Rangkuman Pertemuan 6: Domain Modeling & SOLID
+
+> [!NOTE]
+> Prinsip **Single Responsibility** menyatakan sebuah kelas hanya boleh memiliki satu alasan untuk berubah.
+
+#### Catatan Inti:
+1. **Dependency Inversion:** Modul tingkat tinggi tidak boleh bergantung pada modul tingkat rendah, keduanya harus bergantung pada abstraksi.
+2. Relasi **Komposisi** memiliki lifecycle terikat erat (jika induk hancur, anak ikut hancur), berbeda dengan **Agregasi**.
+3. Gunakan *Soft Pastel Badges* untuk menandai boundary context modul vault vs assignment.
+
+\`\`\`typescript
+interface AssignmentRepository {
+  findById(id: string): Promise<Assignment>;
+  save(assignment: Assignment): Promise<void>;
+}
+\`\`\`
+`,
+    type: "SUMMARY_NOTE",
+    isShared: true,
+    shareToken: "share-adpl-solid-2026",
+    createdAt: "2026-10-19T09:30:00.000Z",
+    updatedAt: "2026-10-19T10:15:00.000Z",
+  },
+  {
+    id: "comment-adpl-assign-1",
+    assignmentId: "assign-adpl-uts",
+    contentMarkdown: "Dosen mengonfirmasi bahwa diagram state machine cukup untuk siklus hidup tugas: `TODO -> IN_PROGRESS -> READY -> SUBMITTED`.",
+    type: "COMMENT_LOG",
+    createdAt: "2026-10-22T14:00:00.000Z",
+    updatedAt: "2026-10-22T14:00:00.000Z",
+  },
+  {
+    id: "comment-adpl-assign-2",
+    assignmentId: "assign-adpl-uts",
+    contentMarkdown: "Draf final v2 sudah selesai digabungkan dengan lampiran kamus data. Menunggu persetujuan review akhir sebelum upload ke LMS.",
+    type: "COMMENT_LOG",
+    createdAt: "2026-10-24T18:35:00.000Z",
+    updatedAt: "2026-10-24T18:35:00.000Z",
+  },
+];
