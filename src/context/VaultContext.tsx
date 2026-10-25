@@ -33,6 +33,7 @@ import {
   updateCourseAction,
   deleteCourseAction,
   createAssignmentAction,
+  deleteAssignmentAction,
   updateAssignmentStatusAction,
   updateAssignmentGradeAction,
   createMaterialAction,
@@ -373,6 +374,10 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
   const deleteAssignment = (id: string) => {
     setAssignments((prev) => prev.filter((a) => a.id !== id));
     setSubmissions((prev) => prev.filter((s) => s.assignmentId !== id));
+    setNotes((prev) => prev.filter((n) => n.assignmentId !== id));
+    deleteAssignmentAction(id).catch((err) =>
+      console.error("Failed to delete assignment in SQLite:", err)
+    );
   };
 
   const updateAssignmentStatus = (id: string, status: AssignmentStatus) => {

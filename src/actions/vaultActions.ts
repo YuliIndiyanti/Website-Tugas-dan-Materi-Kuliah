@@ -424,6 +424,18 @@ export async function updateAssignmentGradeAction(
   }
 }
 
+export async function deleteAssignmentAction(id: string) {
+  try {
+    await prisma.assignment.delete({
+      where: { id },
+    });
+    return { success: true };
+  } catch (error) {
+    console.error("deleteAssignmentAction error:", error);
+    return { success: false, error };
+  }
+}
+
 // Material Actions
 export async function createMaterialAction(material: Material) {
   try {

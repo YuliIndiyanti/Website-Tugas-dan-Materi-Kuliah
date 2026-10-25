@@ -16,6 +16,8 @@ import {
   FileCheck,
   Award,
   ArrowRight,
+  Trash2,
+  Paperclip,
 } from "lucide-react";
 import { AssignmentStatus, Priority } from "@/types";
 import { STATUS_CONFIG } from "@/lib/constants";
@@ -28,6 +30,7 @@ export default function AssignmentsPage() {
     activeAssignments,
     courses,
     updateAssignmentStatus,
+    deleteAssignment,
     activeSemester,
   } = useVault();
 
@@ -325,6 +328,22 @@ export default function AssignmentsPage() {
                                   <ArrowRight className="w-3.5 h-3.5" />
                                 </button>
                               )}
+
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  if (confirm(`Apakah Anda yakin ingin menghapus tugas "${assignment.title}"?`)) {
+                                    deleteAssignment(assignment.id);
+                                    toast.success(`Tugas "${assignment.title}" berhasil dihapus! 🗑️`);
+                                  }
+                                }}
+                                title="Hapus Tugas"
+                                aria-label={`Hapus tugas ${assignment.title}`}
+                                className="p-1 rounded-lg hover:bg-rose-50 hover:text-rose-600 text-slate-400 opacity-50 group-hover:opacity-100 transition-all btn-tactile"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
                             </div>
                           </div>
 
@@ -335,6 +354,13 @@ export default function AssignmentsPage() {
                           <p className="text-[11px] text-slate-500 mt-1 line-clamp-2 break-anywhere break-words">
                             {assignment.instructions}
                           </p>
+
+                          {assignment.attachmentUrl && (
+                            <div className="mt-2 flex items-center gap-1 text-[10px] text-indigo-700 dark:text-indigo-300 bg-indigo-50/80 dark:bg-indigo-950/40 px-2 py-0.5 rounded-lg border border-indigo-100 dark:border-indigo-900/60 truncate">
+                              <Paperclip className="w-3 h-3 flex-shrink-0" />
+                              <span className="truncate">{assignment.attachmentName || "Lampiran Soal"}</span>
+                            </div>
+                          )}
 
                           {/* Urgency Badge */}
                           <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] gap-1">
@@ -377,7 +403,8 @@ export default function AssignmentsPage() {
                 <th className="p-4">Urgensi</th>
                 <th className="p-4">Status</th>
                 <th className="p-4">Bobot</th>
-                <th className="p-4 pr-6">Nilai</th>
+                <th className="p-4">Nilai</th>
+                <th className="p-4 pr-6 text-right">Aksi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -432,10 +459,27 @@ export default function AssignmentsPage() {
                       </span>
                     </td>
                     <td className="p-4 text-slate-600">{a.weightPercentage}%</td>
-                    <td className="p-4 pr-6 font-bold text-slate-800 dark:text-slate-100">
+                    <td className="p-4 font-bold text-slate-800 dark:text-slate-100">
                       {a.score !== undefined
                         ? `${a.score} (${a.gradeLetter})`
                         : "-"}
+                    </td>
+                    <td className="p-4 pr-6 text-right">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (confirm(`Apakah Anda yakin ingin menghapus tugas "${a.title}"?`)) {
+                            deleteAssignment(a.id);
+                            toast.success(`Tugas "${a.title}" berhasil dihapus! 🗑️`);
+                          }
+                        }}
+                        className="p-1.5 rounded-lg hover:bg-rose-50 hover:text-rose-600 text-slate-400 transition-colors"
+                        title="Hapus Tugas"
+                        aria-label={`Hapus tugas ${a.title}`}
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
                     </td>
                   </tr>
                 );

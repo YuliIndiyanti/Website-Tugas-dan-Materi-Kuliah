@@ -25,6 +25,8 @@ import {
   Save,
   Check,
   Trash2,
+  Paperclip,
+  Download,
 } from "lucide-react";
 import {
   formatDate,
@@ -51,6 +53,7 @@ export default function CourseDetailPage({
     addNoteComment,
     updateNoteComment,
     deleteMaterial,
+    deleteAssignment,
   } = useVault();
 
   const [activeTab, setActiveTab] = useState<
@@ -402,6 +405,14 @@ export default function CourseDetailPage({
                     <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">
                       {a.instructions}
                     </p>
+                    {a.attachmentUrl && (
+                      <div className="flex items-center gap-1.5 mt-2">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-0.5 rounded-lg border border-indigo-200/80 dark:border-indigo-800/60">
+                          <Paperclip className="w-3 h-3" />
+                          <span className="truncate max-w-[200px]">{a.attachmentName || "Lampiran Berkas"}</span>
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex items-center gap-2 flex-shrink-0">
@@ -425,6 +436,21 @@ export default function CourseDetailPage({
                     >
                       {st.icon} {st.label}
                     </span>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (confirm(`Apakah Anda yakin ingin menghapus tugas "${a.title}"?`)) {
+                          deleteAssignment(a.id);
+                          toast.success(`Tugas "${a.title}" berhasil dihapus! 🗑️`);
+                        }
+                      }}
+                      className="p-1.5 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                      title="Hapus Tugas Ini"
+                      aria-label={`Hapus tugas ${a.title}`}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
               );

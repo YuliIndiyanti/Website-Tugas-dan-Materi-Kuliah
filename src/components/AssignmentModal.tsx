@@ -20,6 +20,8 @@ import {
   UploadCloud,
   CheckCircle2,
   Loader2,
+  Trash2,
+  Paperclip,
 } from "lucide-react";
 import {
   formatDate,
@@ -49,6 +51,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
     updateAssignmentGrade,
     addSubmission,
     addNoteComment,
+    deleteAssignment,
   } = useVault();
 
   const [activeTab, setActiveTab] = useState<"DETAILS" | "SUBMISSIONS" | "NOTES" | "GRADE">("DETAILS");
@@ -237,14 +240,35 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
             </h2>
           </div>
 
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Tutup modal rincian tugas"
-            className="p-1.5 rounded-xl bg-white/80 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-700 transition-colors shadow-xs flex-shrink-0"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-1.5 flex-shrink-0">
+            <button
+              type="button"
+              onClick={() => {
+                if (
+                  confirm(
+                    `Apakah Anda yakin ingin menghapus tugas "${assignment.title}"?\n\nSeluruh data pengumpulan berkas dan catatan terkait tugas ini juga akan dihapus.`
+                  )
+                ) {
+                  deleteAssignment(assignment.id);
+                  toast.success(`Tugas "${assignment.title}" berhasil dihapus! 🗑️`);
+                  onClose();
+                }
+              }}
+              aria-label="Hapus tugas ini"
+              title="Hapus Tugas Ini"
+              className="p-2 rounded-xl bg-white/80 dark:bg-slate-800 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/40 text-slate-400 transition-colors shadow-xs"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Tutup modal rincian tugas"
+              className="p-2 rounded-xl bg-white/80 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-700 transition-colors shadow-xs"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         {/* Status Bar & Urgency Bar */}
@@ -365,6 +389,36 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                   {assignment.instructions}
                 </p>
               </div>
+
+              {/* Lampiran Berkas / Soal Tugas */}
+              {assignment.attachmentUrl && (
+                <div className="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-800/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+                  <div className="flex items-center gap-3 min-w-0 pr-2">
+                    <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/60 text-[#3730A3] dark:text-indigo-300 flex items-center justify-center flex-shrink-0">
+                      <FileText className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">
+                        {assignment.attachmentName || "Berkas Lampiran Soal Tugas"}
+                      </p>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                        Dokumen Panduan / Soal yang dilampirkan dosen
+                      </p>
+                    </div>
+                  </div>
+
+                  <a
+                    href={assignment.attachmentUrl}
+                    download={assignment.attachmentName || "Lampiran_Tugas.pdf"}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#3730A3] text-white hover:bg-indigo-800 text-xs font-bold shadow-xs transition-colors self-start sm:self-auto"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Unduh Berkas Soal</span>
+                  </a>
+                </div>
+              )}
 
               {/* Status Summary */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">

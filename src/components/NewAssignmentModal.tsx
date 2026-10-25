@@ -1,8 +1,20 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useVault } from "@/context/VaultContext";
-import { X, Plus, Calendar, Clock, Sparkles } from "lucide-react";
+import {
+  X,
+  Plus,
+  Calendar,
+  Clock,
+  Sparkles,
+  UploadCloud,
+  FileText,
+  CheckCircle2,
+  Loader2,
+  Paperclip,
+  Trash2,
+} from "lucide-react";
 import { Priority, AssignmentType } from "@/types";
 import { toast } from "sonner";
 
@@ -30,7 +42,73 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
   const [type, setType] = useState<AssignmentType>("TASK");
   const [weightPercentage, setWeightPercentage] = useState(15);
 
+  // File Attachment State
+  const [attachmentUrl, setAttachmentUrl] = useState("");
+  const [attachmentName, setAttachmentName] = useState("");
+  const [attachmentSize, setAttachmentSize] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   if (!isOpen) return null;
+
+  const handleFileSelect = async (file: File) => {
+    const sizeFormatted =
+      file.size >= 1024 * 1024
+        ? `${(file.size / (1024 * 1024)).toFixed(1)} MB`
+        : `${Math.round(file.size / 1024)} KB`;
+
+    setAttachmentName(file.name);
+    setAttachmentSize(sizeFormatted);
+
+    // Auto-detect title if empty
+    if (!title.trim()) {
+      const cleanTitle = file.name
+        .replace(/\.[^/.]+$/, "")
+        .replace(/[-_]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+      setTitle(cleanTitle);
+    }
+
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.fileUrl) {
+          setAttachmentUrl(data.fileUrl);
+          toast.success(`Berkas tugas "${file.name}" berhasil diunggah! 📁`);
+        }
+      } else {
+        const localUrl = URL.createObjectURL(file);
+        setAttachmentUrl(localUrl);
+        toast.info(`Berkas "${file.name}" terlampir di browser.`);
+      }
+    } catch (err) {
+      console.warn("Upload fallback to local URL:", err);
+      const localUrl = URL.createObjectURL(file);
+      setAttachmentUrl(localUrl);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleRemoveAttachment = () => {
+    setAttachmentUrl("");
+    setAttachmentName("");
+    setAttachmentSize("");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,6 +119,8 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
       weekNumber: Number(weekNumber),
       title,
       instructions,
+      attachmentUrl: attachmentUrl || undefined,
+      attachmentName: attachmentName || undefined,
       dueDate: new Date(dueDate).toISOString(),
       priority,
       status: "TODO",
@@ -50,6 +130,7 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
 
     toast.success(`Tugas "${title}" berhasil dicatat! 📝`);
 
+    handleRemoveAttachment();
     onClose();
   };
 
@@ -158,6 +239,105 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
             />
           </div>
 
+          {/* Attachment Upload (Soal / Dokumen Tugas) */}
+          <div>
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center justify-between">
+              <span className="flex items-center gap-1.5">
+                <Paperclip className="w-3.5 h-3.5 text-indigo-500" />
+                <span>Unggah Berkas / Soal Tugas (PDF, DOCX, ZIP, dll)</span>
+              </span>
+              <span className="text-[10px] text-slate-400 font-normal">Opsional</span>
+            </label>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) handleFileSelect(file);
+              }}
+            />
+
+            {attachmentName ? (
+              <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-emerald-300 dark:border-emerald-700 shadow-xs">
+                <div className="flex items-center gap-3 min-w-0 pr-2">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center flex-shrink-0">
+                    {isUploading ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <FileText className="w-4 h-4" />
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">
+                      {attachmentName}
+                    </p>
+                    <p className="text-[10px] text-slate-400 flex items-center gap-1.5 mt-0.5">
+                      <span>{attachmentSize || "Berkas terpilih"}</span>
+                      {isUploading ? (
+                        <span className="text-indigo-600 font-semibold animate-pulse">
+                          Mengunggah ke server...
+                        </span>
+                      ) : (
+                        <span className="text-emerald-600 font-semibold flex items-center gap-0.5">
+                          <CheckCircle2 className="w-3 h-3 inline" /> Berkas Siap
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1 flex-shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="text-xs px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 hover:bg-slate-100 transition-colors shadow-2xs"
+                  >
+                    Ganti
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleRemoveAttachment}
+                    className="p-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                    title="Hapus Lampiran"
+                    aria-label="Hapus Lampiran"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setIsDragging(true);
+                }}
+                onDragLeave={() => setIsDragging(false)}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setIsDragging(false);
+                  const file = e.dataTransfer.files?.[0];
+                  if (file) handleFileSelect(file);
+                }}
+                onClick={() => fileInputRef.current?.click()}
+                className={`border-2 border-dashed rounded-2xl p-4 text-center cursor-pointer transition-all ${
+                  isDragging
+                    ? "border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/30"
+                    : "border-slate-300 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40 hover:border-emerald-500 hover:bg-emerald-50/20"
+                }`}
+              >
+                <UploadCloud className="w-6 h-6 mx-auto text-emerald-600 mb-1" />
+                <p className="text-xs font-bold text-slate-700 dark:text-slate-200">
+                  Tarik file soal/tugas ke sini atau klik untuk browse
+                </p>
+                <p className="text-[10px] text-slate-400 mt-0.5">
+                  Mendukung PDF, DOCX, PPTX, XLSX, MP4, MP3, PNG, ZIP hingga 50 MB
+                </p>
+              </div>
+            )}
+          </div>
+
           {/* Deadline */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
@@ -242,10 +422,20 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
           <div className="pt-3">
             <button
               type="submit"
-              className="w-full py-2.5 rounded-2xl bg-[#065F46] text-white text-xs font-bold hover:bg-emerald-800 transition-colors shadow-md flex items-center justify-center gap-1.5 btn-tactile"
+              disabled={isUploading}
+              className="w-full py-2.5 rounded-2xl bg-[#065F46] disabled:opacity-50 text-white text-xs font-bold hover:bg-emerald-800 transition-colors shadow-md flex items-center justify-center gap-1.5 btn-tactile"
             >
-              <Plus className="w-4 h-4 stroke-[2.5]" />
-              <span>Simpan Tugas Baru</span>
+              {isUploading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Mengunggah Berkas Tugas...</span>
+                </>
+              ) : (
+                <>
+                  <Plus className="w-4 h-4 stroke-[2.5]" />
+                  <span>Simpan Tugas Baru</span>
+                </>
+              )}
             </button>
           </div>
         </form>
