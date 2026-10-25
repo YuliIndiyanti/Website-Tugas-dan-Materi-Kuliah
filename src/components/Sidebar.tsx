@@ -156,7 +156,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenNewCourse }) => {
       </div>
 
       {/* Footer Info Box */}
-      <div className="mt-4 pt-3 border-t border-slate-200/80 dark:border-slate-800">
+      <div className="mt-4 pt-3 border-t border-slate-200/80 dark:border-slate-800 space-y-2">
         <div className="p-3 rounded-2xl bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-slate-800/80 dark:via-indigo-950/40 dark:to-slate-800/80 border border-indigo-100/80 dark:border-indigo-900/40">
           <div className="flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-200">
             <span className="flex items-center gap-1.5">
@@ -169,6 +169,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenNewCourse }) => {
           <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 truncate">
             {activeSemester?.name || "Semester Aktif"}
           </p>
+        </div>
+
+        {/* Pemilik Vault Pill */}
+        <div className="flex items-center gap-2.5 p-2 rounded-xl bg-white dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 shadow-2xs">
+          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-200 via-pink-200 to-amber-200 flex items-center justify-center text-[10px] font-bold text-slate-700 flex-shrink-0">
+            YI
+          </div>
+          <div className="min-w-0">
+            <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
+              Yuli Indiyanti
+            </p>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
+              240511130 • TI24D
+            </p>
+          </div>
         </div>
       </div>
     </aside>

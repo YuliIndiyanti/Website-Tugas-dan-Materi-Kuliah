@@ -61,7 +61,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-bold text-lg text-slate-800 dark:text-slate-100 tracking-tight">
-                  KuliahVault
+                  Yuli&apos;s Vault
                 </span>
                 <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FCE7F3] text-[#9D174D] dark:bg-[#831843] dark:text-[#FCE7F3]">
                   Soft Pastel
@@ -164,16 +164,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           {/* Profile pill */}
-          <div className="hidden lg:flex items-center gap-2 pl-2 border-l border-slate-200 dark:border-slate-800">
+          <div
+            className="hidden lg:flex items-center gap-2.5 pl-2.5 border-l border-slate-200 dark:border-slate-800"
+            title="Yuli Indiyanti - NIM 240511130 KELAS TI24D (Pemilik Vault)"
+          >
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-200 via-pink-200 to-amber-200 flex items-center justify-center text-xs font-bold text-slate-700 shadow-sm border border-white dark:border-slate-700">
-              KV
+              YI
             </div>
             <div className="text-left">
               <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-none">
-                Mahasiswa
+                Yuli Indiyanti
               </p>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-none mt-0.5">
-                Pemilik Vault
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-none mt-1">
+                240511130 • TI24D
               </p>
             </div>
           </div>

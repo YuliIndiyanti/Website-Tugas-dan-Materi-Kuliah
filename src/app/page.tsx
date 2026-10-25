@@ -34,13 +34,13 @@ export default function DashboardPage() {
         <div className="relative z-10 max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-white/90 dark:bg-slate-800/90 text-[#3730A3] dark:text-indigo-300 shadow-xs mb-3 border border-indigo-200/60 dark:border-indigo-700/60">
             <span>🌸</span>
-            <span>KuliahVault • {activeSemester?.name || "Semester Aktif"}</span>
+            <span>Yuli&apos;s Vault • {activeSemester?.name || "Semester Aktif"}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-800 dark:text-slate-100 tracking-tight">
-            Selamat Datang di Personal Academic Vault
+            Yuli&apos;s Second Brain
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
-            Semua slide PDF, rekaman kuliah, tenggat tugas, riwayat revisi berkas, dan catatan tersentralisasi dalam tampilan soft pastel yang nyaman di mata.
+            Streamline your study workflow. Track tasks and manage materials effortlessly.
           </p>
         </div>
 

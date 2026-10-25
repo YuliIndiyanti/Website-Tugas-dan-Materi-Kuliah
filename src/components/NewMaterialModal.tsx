@@ -169,7 +169,7 @@ export const NewMaterialModal: React.FC<NewMaterialModalProps> = ({
           <div className="flex items-center gap-2">
             <span className="text-xl" aria-hidden="true">📂</span>
             <h3 id="new-material-modal-title" className="text-base font-bold text-slate-800 dark:text-slate-100">
-              Unggah Materi ke KuliahVault
+              Unggah Materi ke Yuli&apos;s Vault
             </h3>
           </div>
           <button

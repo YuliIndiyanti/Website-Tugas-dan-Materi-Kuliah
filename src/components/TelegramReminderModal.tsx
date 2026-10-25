@@ -50,7 +50,7 @@ export const TelegramReminderModal: React.FC<TelegramReminderModalProps> = ({
       // Trigger standard browser Notification if supported
       if (typeof window !== "undefined" && "Notification" in window) {
         if (Notification.permission === "granted") {
-          new Notification("🌸 KuliahVault: Pengingat Deadline Tugas", {
+          new Notification("🌸 Yuli's Vault: Pengingat Deadline Tugas", {
             body: "Dokumen Analisis & Spesifikasi Kebutuhan Sistem (SRS) tersisa kurang dari 24 jam!",
             icon: "/favicon.ico",
           });

@@ -37,7 +37,7 @@ export default function SharedViewPage({
         <div className="flex items-center gap-2">
           <Sparkles className="w-4 h-4" />
           <span>
-            <b>Tautan Baca-Saja (Read-Only Share):</b> Dokumen ini dibagikan melalui KuliahVault
+            <b>Tautan Baca-Saja (Read-Only Share):</b> Dokumen ini dibagikan melalui Yuli&apos;s Vault
           </span>
         </div>
         <Link

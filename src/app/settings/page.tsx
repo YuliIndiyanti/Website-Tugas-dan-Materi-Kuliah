@@ -38,7 +38,7 @@ export default function SettingsPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `kuliahvault-backup-${new Date().toISOString().split("T")[0]}.json`;
+    a.download = `yulis-vault-backup-${new Date().toISOString().split("T")[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
 
@@ -60,7 +60,7 @@ export default function SettingsPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `kuliahvault-assignments-${new Date().toISOString().split("T")[0]}.csv`;
+    a.download = `yulis-vault-assignments-${new Date().toISOString().split("T")[0]}.csv`;
     a.click();
     URL.revokeObjectURL(url);
 
@@ -72,7 +72,7 @@ export default function SettingsPage() {
     if (!importText.trim()) return;
     const ok = importDataJSON(importText.trim());
     if (ok) {
-      setFeedbackMsg({ text: "✅ Data KuliahVault berhasil dipulihkan dari file backup!" });
+      setFeedbackMsg({ text: "✅ Data Yuli's Vault berhasil dipulihkan dari file backup!" });
       setImportText("");
     } else {
       setFeedbackMsg({
@@ -90,7 +90,7 @@ export default function SettingsPage() {
       )
     ) {
       resetToDefault();
-      setFeedbackMsg({ text: "🌸 Data KuliahVault berhasil di-reset ke data bawaan!" });
+      setFeedbackMsg({ text: "🌸 Data Yuli's Vault berhasil di-reset ke data bawaan!" });
       setTimeout(() => setFeedbackMsg(null), 3000);
     }
   };
@@ -178,32 +178,54 @@ export default function SettingsPage() {
       </div>
 
       {/* Single-User Profile & Security Specification (PRD Section 2 & 9.1) */}
-      <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft space-y-3">
-        <div className="flex items-center gap-2">
-          <Shield className="w-4 h-4 text-emerald-500" />
-          <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">
-            Profil & Spesifikasi Single-User Pribadi
-          </h3>
+      <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Shield className="w-4 h-4 text-emerald-500" />
+            <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">
+              Profil Pemilik Vault & Spesifikasi Akun
+            </h3>
+          </div>
+          <span className="text-[10px] px-2.5 py-0.5 rounded-full font-bold bg-[#D1FAE5] text-[#065F46] border border-[#A7F3D0]">
+            Single-User Active
+          </span>
         </div>
         <p className="text-xs text-slate-500 leading-relaxed">
-          Aplikasi berjalan dalam mode Pengguna Tunggal (*Single-User Whitelist*) berkecepatan tinggi tanpa otorisasi bertingkat yang memperlambat alur kerja harian.
+          Aplikasi berjalan dalam mode Pengguna Tunggal (*Single-User Vault*) eksklusif untuk pemilik sistem akademik mandiri.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
           <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
             <span className="text-[10px] uppercase font-bold text-slate-400">
-              Peran Akun
+              Pemilik Vault
             </span>
             <p className="font-bold text-slate-800 dark:text-slate-100 mt-1">
-              🧑‍🎓 Mahasiswa (Pemilik Vault Tunggal)
+              👩‍🎓 Yuli Indiyanti
+            </p>
+            <p className="text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold mt-0.5">
+              NIM: 240511130
             </p>
           </div>
           <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
             <span className="text-[10px] uppercase font-bold text-slate-400">
-              Kapasitas Free-Tier
+              Kelas Akademik
+            </span>
+            <p className="font-bold text-slate-800 dark:text-slate-100 mt-1">
+              KELAS TI24D
+            </p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+              Teknik Informatika
+            </p>
+          </div>
+          <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+            <span className="text-[10px] uppercase font-bold text-slate-400">
+              Status Sistem
             </span>
             <p className="font-bold text-emerald-600 dark:text-emerald-400 mt-1">
-              🌱 100% Gratis Selamanya (Rp 0/bulan)
+              🌱 Yuli&apos;s Second Brain
+            </p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+              100% Free-Tier Offline
             </p>
           </div>
         </div>

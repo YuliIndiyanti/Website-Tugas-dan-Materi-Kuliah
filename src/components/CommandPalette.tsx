@@ -88,7 +88,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Pencarian Cepat KuliahVault"
+      aria-label="Pencarian Cepat Yuli's Vault"
       className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-slate-900/60 backdrop-blur-sm transition-all animate-in fade-in"
     >
       <div

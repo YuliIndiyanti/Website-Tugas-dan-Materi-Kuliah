@@ -4,9 +4,9 @@ import { VaultProvider } from "@/context/VaultContext";
 import { AppShell } from "@/components/AppShell";
 
 export const metadata: Metadata = {
-  title: "KuliahVault 🌸 - Personal Academic Vault & Assignment Management",
+  title: "Yuli's Vault 🌸 - Yuli's Second Brain",
   description:
-    "Aplikasi web manajemen akademik pribadi dengan Soft Pastel Design System untuk mengorganisir seluruh materi kuliah, tugas, riwayat pengumpulan, dan nilai.",
+    "Streamline your study workflow. Track tasks and manage materials effortlessly with Yuli's Vault.",
 };
 
 export default function RootLayout({
