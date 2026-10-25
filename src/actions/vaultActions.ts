@@ -386,6 +386,35 @@ export async function createAssignmentAction(assignment: Assignment) {
   }
 }
 
+export async function updateAssignmentAction(id: string, patch: Partial<Assignment>) {
+  try {
+    const dataToUpdate: any = {};
+    if (patch.title !== undefined) dataToUpdate.title = patch.title;
+    if (patch.instructions !== undefined) dataToUpdate.instructions = patch.instructions;
+    if (patch.dueDate !== undefined) dataToUpdate.dueDate = patch.dueDate;
+    if (patch.priority !== undefined) dataToUpdate.priority = patch.priority;
+    if (patch.status !== undefined) dataToUpdate.status = patch.status;
+    if (patch.type !== undefined) dataToUpdate.type = patch.type;
+    if (patch.weightPercentage !== undefined) dataToUpdate.weightPercentage = patch.weightPercentage;
+    if (patch.weekNumber !== undefined) dataToUpdate.weekNumber = patch.weekNumber;
+    if (patch.attachmentUrl !== undefined) dataToUpdate.attachmentUrl = patch.attachmentUrl;
+    if (patch.attachmentName !== undefined) dataToUpdate.attachmentName = patch.attachmentName;
+    if (patch.score !== undefined) dataToUpdate.score = patch.score;
+    if (patch.gradeLetter !== undefined) dataToUpdate.gradeLetter = patch.gradeLetter;
+    if (patch.lecturerFeedback !== undefined) dataToUpdate.lecturerFeedback = patch.lecturerFeedback;
+    if (patch.submittedAt !== undefined) dataToUpdate.submittedAt = patch.submittedAt;
+
+    const updated = await prisma.assignment.update({
+      where: { id },
+      data: dataToUpdate,
+    });
+    return { success: true, assignment: updated };
+  } catch (error) {
+    console.error("updateAssignmentAction error:", error);
+    return { success: false, error };
+  }
+}
+
 export async function updateAssignmentStatusAction(id: string, status: AssignmentStatus) {
   try {
     const updated = await prisma.assignment.update({

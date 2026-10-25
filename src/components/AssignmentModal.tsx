@@ -22,6 +22,9 @@ import {
   Loader2,
   Trash2,
   Paperclip,
+  Edit,
+  Save,
+  Check,
 } from "lucide-react";
 import {
   formatDate,
@@ -48,6 +51,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
     submissions,
     notes,
     updateAssignmentStatus,
+    updateAssignment,
     updateAssignmentGrade,
     addSubmission,
     addNoteComment,
@@ -75,6 +79,20 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
   // Comment state
   const [newComment, setNewComment] = useState("");
 
+  // Edit Assignment Form State
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState("");
+  const [editInstructions, setEditInstructions] = useState("");
+  const [editDueDate, setEditDueDate] = useState("");
+  const [editPriority, setEditPriority] = useState<Priority>("HIGH");
+  const [editType, setEditType] = useState<AssignmentType>("TASK");
+  const [editWeightPercentage, setEditWeightPercentage] = useState(15);
+  const [editWeekNumber, setEditWeekNumber] = useState(1);
+  const [editAttachmentUrl, setEditAttachmentUrl] = useState("");
+  const [editAttachmentName, setEditAttachmentName] = useState("");
+  const [isUploadingEditAttachment, setIsUploadingEditAttachment] = useState(false);
+  const editFileInputRef = useRef<HTMLInputElement>(null);
+
   if (!assignmentId) return null;
 
   const assignment = assignments.find((a) => a.id === assignmentId);
@@ -87,6 +105,85 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
   const assignmentNotes = notes.filter((n) => n.assignmentId === assignment.id);
   const urg = getAssignmentUrgency(assignment);
   const statusMeta = STATUS_CONFIG[assignment.status];
+
+  const toLocalDatetimeInput = (isoDateStr: string) => {
+    try {
+      const d = new Date(isoDateStr);
+      if (isNaN(d.getTime())) return "";
+      const offset = d.getTimezoneOffset() * 60000;
+      const localTime = new Date(d.getTime() - offset);
+      return localTime.toISOString().slice(0, 16);
+    } catch {
+      return "";
+    }
+  };
+
+  const startEditing = () => {
+    setEditTitle(assignment.title);
+    setEditInstructions(assignment.instructions || "");
+    setEditDueDate(toLocalDatetimeInput(assignment.dueDate));
+    setEditPriority(assignment.priority);
+    setEditType(assignment.type);
+    setEditWeightPercentage(assignment.weightPercentage);
+    setEditWeekNumber(assignment.weekNumber);
+    setEditAttachmentUrl(assignment.attachmentUrl || "");
+    setEditAttachmentName(assignment.attachmentName || "");
+    setIsEditing(true);
+    setActiveTab("DETAILS");
+  };
+
+  const handleEditAttachmentSelect = async (file: File) => {
+    setEditAttachmentName(file.name);
+    setIsUploadingEditAttachment(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.fileUrl) {
+          setEditAttachmentUrl(data.fileUrl);
+          toast.success(`Berkas "${file.name}" berhasil diunggah! 📁`);
+        }
+      } else {
+        const localUrl = URL.createObjectURL(file);
+        setEditAttachmentUrl(localUrl);
+        toast.info(`Berkas "${file.name}" terlampir.`);
+      }
+    } catch (err) {
+      console.warn("Upload fallback to local URL:", err);
+      const localUrl = URL.createObjectURL(file);
+      setEditAttachmentUrl(localUrl);
+    } finally {
+      setIsUploadingEditAttachment(false);
+    }
+  };
+
+  const handleSaveEdit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editTitle.trim()) {
+      toast.error("Judul tugas tidak boleh kosong!");
+      return;
+    }
+
+    updateAssignment(assignment.id, {
+      title: editTitle.trim(),
+      instructions: editInstructions.trim(),
+      dueDate: editDueDate ? new Date(editDueDate).toISOString() : assignment.dueDate,
+      priority: editPriority,
+      type: editType,
+      weightPercentage: Number(editWeightPercentage),
+      weekNumber: Number(editWeekNumber),
+      attachmentUrl: editAttachmentUrl || undefined,
+      attachmentName: editAttachmentName || undefined,
+    });
+
+    setIsEditing(false);
+    toast.success("Rincian tugas berhasil diperbarui! 💾");
+  };
 
   const handleStatusChange = (newStatus: AssignmentStatus) => {
     updateAssignmentStatus(assignment.id, newStatus);
@@ -234,6 +331,11 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
               <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex-shrink-0">
                 Bobot: {assignment.weightPercentage}%
               </span>
+              {isEditing && (
+                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-200 text-amber-900 dark:bg-amber-900 dark:text-amber-200 animate-pulse flex-shrink-0">
+                  Mode Edit
+                </span>
+              )}
             </div>
             <h2 id="assignment-detail-modal-title" className="text-lg font-bold text-slate-900 dark:text-slate-100 break-anywhere break-words">
               {assignment.title}
@@ -241,6 +343,25 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
           </div>
 
           <div className="flex items-center gap-1.5 flex-shrink-0">
+            <button
+              type="button"
+              onClick={() => {
+                if (!isEditing) {
+                  startEditing();
+                } else {
+                  setIsEditing(false);
+                }
+              }}
+              aria-label={isEditing ? "Batal Edit" : "Edit Rincian Tugas"}
+              title={isEditing ? "Batal Edit" : "Edit Rincian Tugas (Judul, Deadline, Instruksi, Lampiran)"}
+              className={`p-2 rounded-xl transition-colors shadow-xs ${
+                isEditing
+                  ? "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-200"
+                  : "bg-white/80 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300"
+              }`}
+            >
+              {isEditing ? <X className="w-4 h-4" /> : <Edit className="w-4 h-4" />}
+            </button>
             <button
               type="button"
               onClick={() => {
@@ -380,84 +501,348 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           {/* TAB 1: DETAILS */}
           {activeTab === "DETAILS" && (
-            <div className="space-y-4">
-              <div className="p-4 rounded-2xl bg-[#FDFBF7] dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                  Instruksi Pengerjaan
-                </h4>
-                <p className="text-sm text-slate-700 dark:text-slate-200 whitespace-pre-wrap leading-relaxed">
-                  {assignment.instructions}
-                </p>
-              </div>
-
-              {/* Lampiran Berkas / Soal Tugas */}
-              {assignment.attachmentUrl && (
-                <div className="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-800/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
-                  <div className="flex items-center gap-3 min-w-0 pr-2">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/60 text-[#3730A3] dark:text-indigo-300 flex items-center justify-center flex-shrink-0">
-                      <FileText className="w-5 h-5" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">
-                        {assignment.attachmentName || "Berkas Lampiran Soal Tugas"}
-                      </p>
-                      <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                        Dokumen Panduan / Soal yang dilampirkan dosen
+            isEditing ? (
+              <form onSubmit={handleSaveEdit} className="space-y-4 animate-in fade-in-50 duration-200">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-200/70 dark:border-slate-800">
+                  <div className="flex items-center gap-2">
+                    <span className="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
+                      <Edit className="w-4 h-4" />
+                    </span>
+                    <div>
+                      <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100">
+                        Mode Edit Rincian Tugas
+                      </h4>
+                      <p className="text-[11px] text-slate-500">
+                        Ubah judul, deadline, instruksi pengerjaan, bobot, dan lampiran soal
                       </p>
                     </div>
                   </div>
-
-                  <a
-                    href={assignment.attachmentUrl}
-                    download={assignment.attachmentName || "Lampiran_Tugas.pdf"}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#3730A3] text-white hover:bg-indigo-800 text-xs font-bold shadow-xs transition-colors self-start sm:self-auto"
+                  <button
+                    type="button"
+                    onClick={() => setIsEditing(false)}
+                    className="text-xs px-2.5 py-1 rounded-lg text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                   >
-                    <Download className="w-3.5 h-3.5" />
-                    <span>Unduh Berkas Soal</span>
-                  </a>
+                    Batal
+                  </button>
                 </div>
-              )}
 
-              {/* Status Summary */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-                  <span className="text-[10px] font-bold uppercase text-slate-400">
-                    Prioritas
-                  </span>
-                  <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">
-                    {assignment.priority === "HIGH"
-                      ? "🌷 Tinggi"
-                      : assignment.priority === "MEDIUM"
-                      ? "🍑 Sedang"
-                      : "🌱 Rendah"}
+                {/* Judul Tugas */}
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    Judul Tugas <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                    placeholder="Contoh: TUGAS INSTALLING, CONNECTING DAN PEMBUATAN WEBSITE"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-xs"
+                  />
+                </div>
+
+                {/* Grid: Deadline & Kategori */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-indigo-500" />
+                      <span>Tenggat Waktu (Deadline) <span className="text-rose-500">*</span></span>
+                    </label>
+                    <input
+                      type="datetime-local"
+                      required
+                      value={editDueDate}
+                      onChange={(e) => setEditDueDate(e.target.value)}
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      Kategori Asesmen
+                    </label>
+                    <select
+                      value={editType}
+                      onChange={(e) => setEditType(e.target.value as AssignmentType)}
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-xs"
+                    >
+                      <option value="TASK">Tugas Mandiri / Kelompok</option>
+                      <option value="PROJECT">Proyek / Tugas Besar</option>
+                      <option value="QUIZ">Kuis Mandiri</option>
+                      <option value="MIDTERM">Ujian Tengah Semester (UTS)</option>
+                      <option value="FINAL">Ujian Akhir Semester (UAS)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Grid: Minggu & Bobot Nilai */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      Minggu Pertemuan Kuliah
+                    </label>
+                    <input
+                      type="number"
+                      min={1}
+                      max={16}
+                      value={editWeekNumber}
+                      onChange={(e) => setEditWeekNumber(Number(e.target.value) || 1)}
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      Bobot Nilai (%)
+                    </label>
+                    <input
+                      type="number"
+                      min={0}
+                      max={100}
+                      value={editWeightPercentage}
+                      onChange={(e) => setEditWeightPercentage(Number(e.target.value) || 0)}
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-xs"
+                    />
+                  </div>
+                </div>
+
+                {/* Tingkat Prioritas */}
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                    Tingkat Prioritas
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { value: "LOW", label: "🌱 Rendah", bg: "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-700" },
+                      { value: "MEDIUM", label: "🍑 Sedang", bg: "bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-700" },
+                      { value: "HIGH", label: "🌷 Tinggi", bg: "bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-700" },
+                    ].map((item) => (
+                      <button
+                        key={item.value}
+                        type="button"
+                        onClick={() => setEditPriority(item.value as Priority)}
+                        className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all text-center flex items-center justify-center gap-1.5 ${
+                          editPriority === item.value
+                            ? `${item.bg} ring-2 ring-indigo-500/40 shadow-xs font-extrabold`
+                            : "bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 opacity-70 hover:opacity-100"
+                        }`}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Deskripsi & Instruksi Pengerjaan */}
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    Deskripsi & Instruksi Pengerjaan
+                  </label>
+                  <textarea
+                    rows={4}
+                    value={editInstructions}
+                    onChange={(e) => setEditInstructions(e.target.value)}
+                    placeholder="Tuliskan petunjuk pengerjaan, format berkas yang diminta dosen, kriteria penilaian, dll."
+                    className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-xs leading-relaxed"
+                  />
+                </div>
+
+                {/* Lampiran Dokumen / Soal */}
+                <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700">
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                      <Paperclip className="w-3.5 h-3.5 text-indigo-500" />
+                      <span>Lampiran Soal / Dokumen Acuan (Opsional)</span>
+                    </label>
+                    {editAttachmentUrl && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditAttachmentUrl("");
+                          setEditAttachmentName("");
+                        }}
+                        className="text-[11px] font-medium text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                        <span>Hapus Lampiran</span>
+                      </button>
+                    )}
+                  </div>
+
+                  <input
+                    type="file"
+                    ref={editFileInputRef}
+                    className="hidden"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) handleEditAttachmentSelect(f);
+                    }}
+                  />
+
+                  {editAttachmentName || editAttachmentUrl ? (
+                    <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-indigo-200 dark:border-indigo-800 flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 flex items-center justify-center flex-shrink-0">
+                          {isUploadingEditAttachment ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            <FileText className="w-4 h-4" />
+                          )}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
+                            {editAttachmentName || "Berkas Terlampir"}
+                          </p>
+                          <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
+                            ✓ Berkas siap disimpan
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        disabled={isUploadingEditAttachment}
+                        onClick={() => editFileInputRef.current?.click()}
+                        className="text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors flex-shrink-0"
+                      >
+                        Ganti File
+                      </button>
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => editFileInputRef.current?.click()}
+                      className="p-4 rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-indigo-400 dark:hover:border-indigo-500 bg-white/70 dark:bg-slate-900/50 cursor-pointer text-center transition-all group"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950 text-slate-500 group-hover:text-indigo-600 flex items-center justify-center mx-auto mb-1.5 transition-colors">
+                        {isUploadingEditAttachment ? (
+                          <Loader2 className="w-4 h-4 animate-spin text-indigo-600" />
+                        ) : (
+                          <UploadCloud className="w-4 h-4" />
+                        )}
+                      </div>
+                      <p className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+                        {isUploadingEditAttachment ? "Mengunggah berkas..." : "Klik untuk unggah berkas soal / panduan tugas"}
+                      </p>
+                      <p className="text-[10px] text-slate-400 mt-0.5">
+                        PDF, DOCX, ZIP, PPTX hingga 50MB
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-200/70 dark:border-slate-800">
+                  <button
+                    type="button"
+                    onClick={() => setIsEditing(false)}
+                    className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isUploadingEditAttachment}
+                    className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-500/20 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
+                  >
+                    <Save className="w-3.5 h-3.5" />
+                    <span>Simpan Perubahan</span>
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                    Instruksi Pengerjaan
+                  </h4>
+                  <button
+                    type="button"
+                    onClick={startEditing}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 dark:hover:bg-indigo-900 border border-indigo-200/80 dark:border-indigo-800 transition-colors shadow-2xs"
+                  >
+                    <Edit className="w-3.5 h-3.5" />
+                    <span>Edit Rincian Tugas</span>
+                  </button>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#FDFBF7] dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+                  <p className="text-sm text-slate-700 dark:text-slate-200 whitespace-pre-wrap leading-relaxed">
+                    {assignment.instructions || "Tidak ada instruksi khusus dari dosen."}
                   </p>
                 </div>
-                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-                  <span className="text-[10px] font-bold uppercase text-slate-400">
-                    Tipe Asesmen
-                  </span>
-                  <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">
-                    {assignment.type === "PROJECT"
-                      ? "Proyek / Tugas Besar"
-                      : assignment.type === "QUIZ"
-                      ? "Kuis Mandiri"
-                      : "Tugas Rutin"}
-                  </p>
-                </div>
-                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-                  <span className="text-[10px] font-bold uppercase text-slate-400">
-                    Status Pengumpulan
-                  </span>
-                  <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">
-                    {assignmentSubmissions.length > 0
-                      ? `Tersimpan v${assignmentSubmissions[0].versionNumber}`
-                      : "Belum ada berkas draft"}
-                  </p>
+
+                {/* Lampiran Berkas / Soal Tugas */}
+                {assignment.attachmentUrl && (
+                  <div className="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-800/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+                    <div className="flex items-center gap-3 min-w-0 pr-2">
+                      <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/60 text-[#3730A3] dark:text-indigo-300 flex items-center justify-center flex-shrink-0">
+                        <FileText className="w-5 h-5" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">
+                          {assignment.attachmentName || "Berkas Lampiran Soal Tugas"}
+                        </p>
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                          Dokumen Panduan / Soal yang dilampirkan dosen
+                        </p>
+                      </div>
+                    </div>
+
+                    <a
+                      href={assignment.attachmentUrl}
+                      download={assignment.attachmentName || "Lampiran_Tugas.pdf"}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#3730A3] text-white hover:bg-indigo-800 text-xs font-bold shadow-xs transition-colors self-start sm:self-auto"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Unduh Berkas Soal</span>
+                    </a>
+                  </div>
+                )}
+
+                {/* Status Summary */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                    <span className="text-[10px] font-bold uppercase text-slate-400">
+                      Prioritas
+                    </span>
+                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">
+                      {assignment.priority === "HIGH"
+                        ? "🌷 Tinggi"
+                        : assignment.priority === "MEDIUM"
+                        ? "🍑 Sedang"
+                        : "🌱 Rendah"}
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                    <span className="text-[10px] font-bold uppercase text-slate-400">
+                      Tipe Asesmen
+                    </span>
+                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">
+                      {assignment.type === "PROJECT"
+                        ? "Proyek / Tugas Besar"
+                        : assignment.type === "QUIZ"
+                        ? "Kuis Mandiri"
+                        : assignment.type === "MIDTERM"
+                        ? "Ujian Tengah Semester (UTS)"
+                        : assignment.type === "FINAL"
+                        ? "Ujian Akhir Semester (UAS)"
+                        : "Tugas Rutin"}
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                    <span className="text-[10px] font-bold uppercase text-slate-400">
+                      Status Pengumpulan
+                    </span>
+                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">
+                      {assignmentSubmissions.length > 0
+                        ? `Tersimpan v${assignmentSubmissions[0].versionNumber}`
+                        : "Belum ada berkas draft"}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )
           )}
 
           {/* TAB 2: SUBMISSIONS & VERSIONING (FR-11) */}

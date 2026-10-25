@@ -33,6 +33,7 @@ import {
   updateCourseAction,
   deleteCourseAction,
   createAssignmentAction,
+  updateAssignmentAction,
   deleteAssignmentAction,
   updateAssignmentStatusAction,
   updateAssignmentGradeAction,
@@ -368,6 +369,9 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
   const updateAssignment = (id: string, patch: Partial<Assignment>) => {
     setAssignments((prev) =>
       prev.map((a) => (a.id === id ? { ...a, ...patch } : a))
+    );
+    updateAssignmentAction(id, patch).catch((err) =>
+      console.error("Failed to update assignment in SQLite:", err)
     );
   };
 
