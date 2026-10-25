@@ -30,3 +30,15 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# SQLite Database
+prisma/*.db
+prisma/*.db-journal
+prisma/*.db-shm
+prisma/*.db-wal
+
+# Uploaded User Files
+public/uploads/*
+!public/uploads/.gitkeep
+
+

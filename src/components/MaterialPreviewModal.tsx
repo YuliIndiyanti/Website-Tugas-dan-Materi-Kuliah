@@ -83,6 +83,21 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
           </div>
 
           <div className="flex items-center gap-2 flex-shrink-0">
+            {/* Download / Open File */}
+            {material.fileUrl && (
+              <a
+                href={material.fileUrl}
+                download={material.fileName || material.title}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#D1FAE5] text-[#065F46] hover:bg-emerald-200 border border-emerald-200 shadow-xs transition-colors"
+                title="Unduh Berkas Materi"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Unduh</span>
+              </a>
+            )}
+
             {/* Open in Split-view Workspace */}
             <Link
               href={`/materials/${material.id}`}
@@ -141,27 +156,84 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
           )}
         </div>
 
-        {/* Preview Area (Simulated Interactive PDF / Media Reader) */}
+        {/* Preview Area (Interactive PDF / Media Reader / Document Viewer) */}
         <div className="flex-1 overflow-y-auto p-6 bg-slate-100/60 dark:bg-slate-950/60 flex flex-col items-center justify-center min-h-[420px]">
-          {material.category === "RECORDING" ? (
+          {material.fileUrl && (material.fileUrl.toLowerCase().endsWith(".pdf") || material.fileName?.toLowerCase().endsWith(".pdf") || material.fileUrl.startsWith("blob:")) ? (
+            <div className="w-full h-full flex flex-col items-center">
+              <div className="w-full flex items-center justify-between px-2 pb-3 text-xs text-slate-500">
+                <span className="font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 truncate pr-3">
+                  <FileText className="w-4 h-4 text-rose-500 flex-shrink-0" />
+                  <span className="truncate">Pratinjau PDF: {material.fileName || material.title}</span>
+                </span>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <a
+                    href={material.fileUrl}
+                    download={material.fileName || material.title}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:underline flex items-center gap-1"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Unduh</span>
+                  </a>
+                  <span className="text-slate-300">|</span>
+                  <a
+                    href={material.fileUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Tab Baru</span>
+                  </a>
+                </div>
+              </div>
+              <iframe
+                src={`${material.fileUrl}#toolbar=1`}
+                title={material.title}
+                className="w-full h-[540px] rounded-2xl border border-slate-200 dark:border-slate-800 shadow-inner bg-slate-50 dark:bg-slate-900"
+              />
+            </div>
+          ) : material.fileUrl && material.fileUrl.match(/\.(png|jpg|jpeg|webp|gif|svg)$/i) ? (
+            <div className="w-full max-w-2xl flex flex-col items-center">
+              <img
+                src={material.fileUrl}
+                alt={material.title}
+                className="max-h-[500px] rounded-2xl shadow-md object-contain border border-slate-200 dark:border-slate-800"
+              />
+              <p className="text-xs text-slate-500 mt-3 font-medium">
+                {material.fileName || material.title} ({material.fileSize})
+              </p>
+            </div>
+          ) : material.category === "RECORDING" ? (
             <div className="w-full max-w-xl aspect-video rounded-2xl bg-black flex flex-col items-center justify-center text-white p-6 shadow-lg">
-              <Film className="w-12 h-12 text-purple-400 mb-3" />
-              <p className="text-sm font-semibold text-center">
-                {material.fileName || material.title}
-              </p>
-              <p className="text-xs text-slate-400 mt-1">
-                In-App Media Player • Video Kuliah
-              </p>
-              {material.externalUrl && (
-                <a
-                  href={material.externalUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-4 px-4 py-2 rounded-xl bg-purple-600 text-white text-xs font-semibold hover:bg-purple-700 flex items-center gap-2"
-                >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                  <span>Buka Video di Tab Baru</span>
-                </a>
+              {material.fileUrl && material.fileUrl.match(/\.(mp4|webm|mov|mkv)$/i) ? (
+                <video
+                  controls
+                  src={material.fileUrl}
+                  className="w-full h-full rounded-xl object-contain"
+                />
+              ) : (
+                <>
+                  <Film className="w-12 h-12 text-purple-400 mb-3" />
+                  <p className="text-sm font-semibold text-center">
+                    {material.fileName || material.title}
+                  </p>
+                  <p className="text-xs text-slate-400 mt-1">
+                    In-App Media Player • Video Kuliah
+                  </p>
+                  {material.externalUrl && (
+                    <a
+                      href={material.externalUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-4 px-4 py-2 rounded-xl bg-purple-600 text-white text-xs font-semibold hover:bg-purple-700 flex items-center gap-2"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>Buka Video di Tab Baru</span>
+                    </a>
+                  )}
+                </>
               )}
             </div>
           ) : material.category === "LINK" ? (
@@ -184,6 +256,43 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
                 <span>Buka Referensi Sekarang</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
+            </div>
+          ) : material.fileUrl ? (
+            <div className="w-full max-w-lg p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center shadow-lg space-y-4">
+              <div className="w-14 h-14 rounded-2xl mx-auto flex items-center justify-center bg-emerald-100 text-[#065F46] dark:bg-emerald-950 dark:text-emerald-300">
+                <FileText className="w-7 h-7" />
+              </div>
+              <div>
+                <h4 className="text-base font-bold text-slate-800 dark:text-slate-100">
+                  {material.fileName || material.title}
+                </h4>
+                <p className="text-xs text-slate-500 mt-1">
+                  Ukuran: {material.fileSize || "Berkas Kuliah"}
+                </p>
+              </div>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                {material.description || "Berkas dokumen siap diunduh dan dipelajari."}
+              </p>
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a
+                  href={material.fileUrl}
+                  download={material.fileName || material.title}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#065F46] text-white text-xs font-semibold hover:bg-emerald-800 shadow-md transition-colors"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Unduh Berkas Sekarang</span>
+                </a>
+                <Link
+                  href={`/materials/${material.id}`}
+                  onClick={onClose}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-indigo-50 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 text-xs font-semibold hover:bg-indigo-100 border border-indigo-200 dark:border-slate-700"
+                >
+                  <Columns className="w-4 h-4" />
+                  <span>Buka di Catatan</span>
+                </Link>
+              </div>
             </div>
           ) : (
             // PDF Document Reader Simulation with structured interactive pages

@@ -1,0 +1,114 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Semester {
+  id        String   @id @default(cuid())
+  name      String
+  startDate String
+  endDate   String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  courses Course[]
+}
+
+model Course {
+  id             String   @id @default(cuid())
+  semesterId     String
+  code           String
+  name           String
+  credits        Int
+  lecturerName   String
+  scheduleDay    String
+  scheduleTime   String
+  roomOrLink     String
+  pastelThemeId  String
+  pastelColorHex String
+  pastelTextHex  String
+  createdAt      DateTime @default(now())
+
+  semester    Semester      @relation(fields: [semesterId], references: [id], onDelete: Cascade)
+  materials   Material[]
+  assignments Assignment[]
+  notes       NoteComment[]
+}
+
+model Material {
+  id          String   @id @default(cuid())
+  courseId    String
+  weekNumber  Int
+  title       String
+  description String
+  category    String
+  fileUrl     String?
+  fileName    String?
+  fileSize    String?
+  mimeType    String?
+  externalUrl String?
+  tagsJson    String   @default("[]")
+  createdAt   DateTime @default(now())
+
+  course Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  notes  NoteComment[]
+}
+
+model Assignment {
+  id               String   @id @default(cuid())
+  courseId         String
+  weekNumber       Int
+  title            String
+  instructions     String
+  attachmentUrl    String?
+  attachmentName   String?
+  dueDate          String
+  priority         String
+  status           String
+  type             String
+  weightPercentage Float    @default(10)
+  score            Float?
+  gradeLetter      String?
+  lecturerFeedback String?
+  submittedAt      String?
+  createdAt        DateTime @default(now())
+
+  course      Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  submissions Submission[]
+  notes       NoteComment[]
+}
+
+model Submission {
+  id             String   @id @default(cuid())
+  assignmentId   String
+  versionNumber  Int
+  fileName       String
+  fileUrl        String
+  fileSize       String?
+  proofUrl       String?
+  submissionLink String?
+  notes          String?
+  uploadedAt     DateTime @default(now())
+
+  assignment Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+}
+
+model NoteComment {
+  id              String   @id @default(cuid())
+  courseId        String?
+  materialId      String?
+  assignmentId    String?
+  type            String
+  contentMarkdown String
+  isShared        Boolean  @default(false)
+  shareToken      String?
+  createdAt       DateTime @default(now())
+
+  course     Course?     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  material   Material?   @relation(fields: [materialId], references: [id], onDelete: Cascade)
+  assignment Assignment? @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+}

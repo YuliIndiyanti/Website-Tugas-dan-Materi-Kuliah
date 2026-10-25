@@ -27,6 +27,21 @@ import {
   WORST_CASE_NOTES,
 } from "@/lib/worstCaseData";
 import { generateId, scoreToLetter } from "@/lib/utils";
+import {
+  getInitialVaultData,
+  createCourseAction,
+  updateCourseAction,
+  deleteCourseAction,
+  createAssignmentAction,
+  updateAssignmentStatusAction,
+  updateAssignmentGradeAction,
+  createMaterialAction,
+  createSubmissionAction,
+  saveNoteCommentAction,
+  toggleShareNoteAction,
+  createSemesterAction,
+  deleteSemesterAction,
+} from "@/actions/vaultActions";
 
 export type DatasetMode = "DEMO" | "WORST_CASE" | "EMPTY";
 
@@ -107,30 +122,47 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
   const [submissions, setSubmissions] = useState<Submission[]>(INITIAL_SUBMISSIONS);
   const [notes, setNotes] = useState<NoteComment[]>(INITIAL_NOTES);
 
-  // Load from localStorage on client mount
+  // Load from SQLite database on client mount
   useEffect(() => {
-    try {
-      const savedTheme = localStorage.getItem(THEME_KEY);
-      if (savedTheme === "dark") {
-        setIsDarkMode(true);
-        document.documentElement.classList.add("dark");
-      }
+    async function initVault() {
+      try {
+        const savedTheme = localStorage.getItem(THEME_KEY);
+        if (savedTheme === "dark") {
+          setIsDarkMode(true);
+          document.documentElement.classList.add("dark");
+        }
 
-      const savedData = localStorage.getItem(STORAGE_KEY);
-      if (savedData) {
-        const parsed = JSON.parse(savedData);
-        if (parsed.semesters) setSemesters(parsed.semesters);
-        if (parsed.activeSemesterId) setActiveSemesterId(parsed.activeSemesterId);
-        if (parsed.courses) setCourses(parsed.courses);
-        if (parsed.materials) setMaterials(parsed.materials);
-        if (parsed.assignments) setAssignments(parsed.assignments);
-        if (parsed.submissions) setSubmissions(parsed.submissions);
-        if (parsed.notes) setNotes(parsed.notes);
+        const res = await getInitialVaultData();
+        if (res.success && res.semesters.length > 0) {
+          setSemesters(res.semesters);
+          const active = res.semesters.find((s) => s.isActive) || res.semesters[0];
+          if (active) setActiveSemesterId(active.id);
+          setCourses(res.courses);
+          setMaterials(res.materials);
+          setAssignments(res.assignments);
+          setSubmissions(res.submissions);
+          setNotes(res.notes);
+        } else {
+          // Fallback to localStorage if any
+          const savedData = localStorage.getItem(STORAGE_KEY);
+          if (savedData) {
+            const parsed = JSON.parse(savedData);
+            if (parsed.semesters) setSemesters(parsed.semesters);
+            if (parsed.activeSemesterId) setActiveSemesterId(parsed.activeSemesterId);
+            if (parsed.courses) setCourses(parsed.courses);
+            if (parsed.materials) setMaterials(parsed.materials);
+            if (parsed.assignments) setAssignments(parsed.assignments);
+            if (parsed.submissions) setSubmissions(parsed.submissions);
+            if (parsed.notes) setNotes(parsed.notes);
+          }
+        }
+      } catch (e) {
+        console.error("Failed to load data from SQLite / localStorage", e);
+      } finally {
+        setMounted(true);
       }
-    } catch (e) {
-      console.error("Failed to load data from localStorage", e);
     }
-    setMounted(true);
+    initVault();
   }, []);
 
   // Save to localStorage on state changes
@@ -200,6 +232,9 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
     } else {
       setSemesters((prev) => [...prev, newSem]);
     }
+    createSemesterAction(newSem).catch((err) =>
+      console.error("Failed to persist semester to SQLite:", err)
+    );
     return newSem;
   };
 
@@ -229,6 +264,9 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
         setActiveSemesterId(remaining[0].id);
       }
     }
+    deleteSemesterAction(id).catch((err) =>
+      console.error("Failed to delete semester from SQLite:", err)
+    );
   };
 
   // Course actions
@@ -239,6 +277,9 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
       createdAt: new Date().toISOString(),
     };
     setCourses((prev) => [newCourse, ...prev]);
+    createCourseAction(newCourse).catch((err) =>
+      console.error("Failed to persist course to SQLite:", err)
+    );
     return newCourse;
   };
 
@@ -246,12 +287,18 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
     setCourses((prev) =>
       prev.map((c) => (c.id === id ? { ...c, ...patch } : c))
     );
+    updateCourseAction(id, patch).catch((err) =>
+      console.error("Failed to update course in SQLite:", err)
+    );
   };
 
   const deleteCourse = (id: string) => {
     setCourses((prev) => prev.filter((c) => c.id !== id));
     setMaterials((prev) => prev.filter((m) => m.courseId !== id));
     setAssignments((prev) => prev.filter((a) => a.courseId !== id));
+    deleteCourseAction(id).catch((err) =>
+      console.error("Failed to delete course from SQLite:", err)
+    );
   };
 
   // Material actions
@@ -262,6 +309,9 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
       createdAt: new Date().toISOString(),
     };
     setMaterials((prev) => [newMat, ...prev]);
+    createMaterialAction(newMat).catch((err) =>
+      console.error("Failed to persist material to SQLite:", err)
+    );
     return newMat;
   };
 
@@ -285,6 +335,9 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
       createdAt: new Date().toISOString(),
     };
     setAssignments((prev) => [newAssign, ...prev]);
+    createAssignmentAction(newAssign).catch((err) =>
+      console.error("Failed to persist assignment to SQLite:", err)
+    );
     return newAssign;
   };
 
@@ -313,6 +366,9 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
         };
       })
     );
+    updateAssignmentStatusAction(id, status).catch((err) =>
+      console.error("Failed to update status in SQLite:", err)
+    );
   };
 
   const updateAssignmentGrade = (
@@ -333,6 +389,9 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
             }
           : a
       )
+    );
+    updateAssignmentGradeAction(id, score, feedback, letter).catch((err) =>
+      console.error("Failed to update grade in SQLite:", err)
     );
   };
 
@@ -368,6 +427,10 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
         return a;
       })
     );
+
+    createSubmissionAction(newSub).catch((err) =>
+      console.error("Failed to persist submission in SQLite:", err)
+    );
     return newSub;
   };
 
@@ -382,10 +445,14 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
       updatedAt: new Date().toISOString(),
     };
     setNotes((prev) => [newNote, ...prev]);
+    saveNoteCommentAction(newNote).catch((err) =>
+      console.error("Failed to persist note comment in SQLite:", err)
+    );
     return newNote;
   };
 
   const updateNoteComment = (id: string, content: string) => {
+    const target = notes.find((n) => n.id === id);
     setNotes((prev) =>
       prev.map((n) =>
         n.id === id
@@ -393,6 +460,14 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
           : n
       )
     );
+    if (target) {
+      saveNoteCommentAction({
+        ...target,
+        contentMarkdown: content,
+      }).catch((err) =>
+        console.error("Failed to update note in SQLite:", err)
+      );
+    }
   };
 
   const deleteNoteComment = (id: string) => {
@@ -401,6 +476,7 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const toggleShareNote = (id: string): string => {
     let token = "";
+    const target = notes.find((n) => n.id === id);
     setNotes((prev) =>
       prev.map((n) => {
         if (n.id === id) {
@@ -411,6 +487,16 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
         return n;
       })
     );
+    if (target) {
+      const willBeShared = !target.isShared;
+      toggleShareNoteAction(
+        id,
+        willBeShared,
+        willBeShared ? target.shareToken || "share-" + generateId() : undefined
+      ).catch((err) =>
+        console.error("Failed to toggle share in SQLite:", err)
+      );
+    }
     return token;
   };
 

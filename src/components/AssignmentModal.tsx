@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useVault } from "@/context/VaultContext";
 import {
   X,
@@ -16,6 +16,10 @@ import {
   ExternalLink,
   ChevronRight,
   ShieldCheck,
+  Download,
+  UploadCloud,
+  CheckCircle2,
+  Loader2,
 } from "lucide-react";
 import {
   formatDate,
@@ -52,10 +56,14 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
   // Submission form state
   const [subFileName, setSubFileName] = useState("");
   const [subFileUrl, setSubFileUrl] = useState("");
+  const [subFileSize, setSubFileSize] = useState("");
   const [subProofUrl, setSubProofUrl] = useState("");
   const [subLmsLink, setSubLmsLink] = useState("");
   const [subNotes, setSubNotes] = useState("");
   const [isSubmittingNewVer, setIsSubmittingNewVer] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const subFileInputRef = useRef<HTMLInputElement>(null);
 
   // Grade form state
   const [scoreInput, setScoreInput] = useState<number | "">("");
@@ -88,15 +96,57 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
     }
   };
 
+  const handleSubFileSelect = async (file: File) => {
+    const sizeFormatted =
+      file.size >= 1024 * 1024
+        ? `${(file.size / (1024 * 1024)).toFixed(1)} MB`
+        : `${Math.round(file.size / 1024)} KB`;
+
+    setSubFileName(file.name);
+    setSubFileSize(sizeFormatted);
+
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.fileUrl) {
+          setSubFileUrl(data.fileUrl);
+          toast.success(`Berkas "${file.name}" berhasil diunggah! 📁`);
+        }
+      } else {
+        const localUrl = URL.createObjectURL(file);
+        setSubFileUrl(localUrl);
+        toast.info(`Berkas "${file.name}" siap disubmit.`);
+      }
+    } catch (err) {
+      console.warn("Upload fallback to local URL:", err);
+      const localUrl = URL.createObjectURL(file);
+      setSubFileUrl(localUrl);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const handleCreateSubmission = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!subFileName) return;
+    if (!subFileName) {
+      toast.error("Harap pilih atau beri nama berkas tugas!");
+      return;
+    }
 
     addSubmission({
       assignmentId: assignment.id,
       fileName: subFileName,
       fileUrl: subFileUrl || `/sample-files/${subFileName}`,
-      fileSize: "3.5 MB",
+      fileSize: subFileSize || "1.5 MB",
       proofUrl: subProofUrl || undefined,
       submissionLink: subLmsLink || undefined,
       notes: subNotes || undefined,
@@ -111,6 +161,8 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
     toast.success("Versi pengumpulan berhasil disimpan! 🚀");
 
     setSubFileName("");
+    setSubFileUrl("");
+    setSubFileSize("");
     setSubProofUrl("");
     setSubLmsLink("");
     setSubNotes("");
@@ -381,7 +433,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
               {isSubmittingNewVer && (
                 <form
                   onSubmit={handleCreateSubmission}
-                  className="p-4 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/80 dark:border-emerald-800/50 space-y-3"
+                  className="p-5 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/80 dark:border-emerald-800/50 space-y-4"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300">
@@ -396,9 +448,92 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                     </button>
                   </div>
 
+                  {/* Real File Upload Dropzone */}
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                      Unggah Berkas Tugas (PDF, DOCX, ZIP, dll) *
+                    </label>
+                    <input
+                      ref={subFileInputRef}
+                      type="file"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleSubFileSelect(file);
+                      }}
+                    />
+
+                    {subFileName ? (
+                      <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-900 border border-emerald-300 dark:border-emerald-700 shadow-xs">
+                        <div className="flex items-center gap-3 min-w-0 pr-2">
+                          <div className="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center flex-shrink-0">
+                            {isUploading ? (
+                              <Loader2 className="w-5 h-5 animate-spin" />
+                            ) : (
+                              <FileText className="w-5 h-5" />
+                            )}
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">
+                              {subFileName}
+                            </p>
+                            <p className="text-[10px] text-slate-400 flex items-center gap-1.5 mt-0.5">
+                              <span>{subFileSize || "Berkas terpilih"}</span>
+                              {isUploading ? (
+                                <span className="text-indigo-600 font-semibold animate-pulse">
+                                  Mengunggah...
+                                </span>
+                              ) : (
+                                <span className="text-emerald-600 font-semibold flex items-center gap-0.5">
+                                  <CheckCircle2 className="w-3 h-3 inline" /> Siap
+                                </span>
+                              )}
+                            </p>
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => subFileInputRef.current?.click()}
+                          className="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition-colors flex-shrink-0"
+                        >
+                          Ganti
+                        </button>
+                      </div>
+                    ) : (
+                      <div
+                        onDragOver={(e) => {
+                          e.preventDefault();
+                          setIsDragging(true);
+                        }}
+                        onDragLeave={() => setIsDragging(false)}
+                        onDrop={(e) => {
+                          e.preventDefault();
+                          setIsDragging(false);
+                          const file = e.dataTransfer.files?.[0];
+                          if (file) handleSubFileSelect(file);
+                        }}
+                        onClick={() => subFileInputRef.current?.click()}
+                        className={`border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition-all ${
+                          isDragging
+                            ? "border-emerald-500 bg-emerald-100/50 dark:bg-emerald-900/30"
+                            : "border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/50 hover:border-emerald-500 hover:bg-emerald-50/30"
+                        }`}
+                      >
+                        <UploadCloud className="w-7 h-7 mx-auto text-emerald-600 mb-1.5" />
+                        <p className="text-xs font-bold text-slate-700 dark:text-slate-200">
+                          Klik untuk memilih berkas tugas atau seret ke sini
+                        </p>
+                        <p className="text-[10px] text-slate-400 mt-1">
+                          PDF, DOCX, ZIP, PPTX, JPG hingga 50 MB
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
                   <div>
                     <label htmlFor="sub-file-name" className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                      Nama Berkas Jawaban *
+                      Label / Nama Berkas *
                     </label>
                     <input
                       id="sub-file-name"
@@ -456,9 +591,17 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
 
                   <button
                     type="submit"
-                    className="w-full py-2 rounded-xl bg-[#065F46] text-white text-xs font-semibold hover:bg-emerald-800 transition-colors shadow-xs"
+                    disabled={isUploading || !subFileName}
+                    className="w-full py-2.5 rounded-xl bg-[#065F46] disabled:opacity-50 text-white text-xs font-semibold hover:bg-emerald-800 transition-colors shadow-xs flex items-center justify-center gap-2"
                   >
-                    Simpan Riwayat Versi v{assignmentSubmissions.length + 1}
+                    {isUploading ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Sedang Mengunggah Berkas...</span>
+                      </>
+                    ) : (
+                      <span>Simpan Riwayat Versi v{assignmentSubmissions.length + 1}</span>
+                    )}
                   </button>
                 </form>
               )}
@@ -503,6 +646,19 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                       </div>
 
                       <div className="flex items-center gap-2 flex-shrink-0">
+                        {sub.fileUrl && (
+                          <a
+                            href={sub.fileUrl}
+                            download={sub.fileName}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center gap-1 text-[11px] font-semibold text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 transition-colors shadow-2xs"
+                            title="Unduh / Buka Berkas Tugas"
+                          >
+                            <Download className="w-3.5 h-3.5" />
+                            <span>Unduh Berkas</span>
+                          </a>
+                        )}
                         {sub.submissionLink && (
                           <a
                             href={sub.submissionLink}
