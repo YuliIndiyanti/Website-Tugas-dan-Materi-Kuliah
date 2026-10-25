@@ -61,7 +61,7 @@ export default function MaterialWorkspacePage({
           href="/materials"
           className="text-xs font-semibold text-indigo-600 hover:underline mt-2 inline-block"
         >
-          Kembali ke Vault Materi
+          Kembali ke Materi
         </Link>
       </div>
     );

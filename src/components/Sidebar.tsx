@@ -41,13 +41,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenNewCourse }) => {
       activeColor: "bg-[#DBEAFE] text-[#1E3A8A] dark:bg-[#1E3A8A]/40 dark:text-[#DBEAFE]",
     },
     {
-      label: "Tugas & Kanban",
+      label: "Tugas & Status",
       href: "/assignments",
       icon: CheckSquare,
       activeColor: "bg-[#D1FAE5] text-[#065F46] dark:bg-[#064E3B] dark:text-[#D1FAE5]",
     },
     {
-      label: "Vault Materi",
+      label: "Materi",
       href: "/materials",
       icon: FolderArchive,
       activeColor: "bg-[#F3E8FF] text-[#6B21A8] dark:bg-[#6B21A8]/40 dark:text-[#F3E8FF]",
