@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposal Perancangan Website - Yuli's Vault (Yuli's Second Brain)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --primary: #3730A3;
+      --primary-bg: #E0E7FF;
+      --mint: #065F46;
+      --mint-bg: #D1FAE5;
+      --rose: #9F1239;
+      --rose-bg: #FFE4E6;
+      --peach: #92400E;
+      --peach-bg: #FEF3C7;
+      --slate-dark: #0F172A;
+      --slate-text: #1E293B;
+      --slate-muted: #64748B;
+      --border-color: #E2E8F0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: var(--slate-text);
+      background-color: #F8FAFC;
+      line-height: 1.65;
+      font-size: 11pt;
+      padding: 40px 20px;
+    }
+
+    .toolbar-container {
+      max-width: 850px;
+      margin: 0 auto 24px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #FFFFFF;
+      padding: 16px 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px -2px rgba(0,0,0,0.06);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #FFFFFF;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(55, 48, 163, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background: #2E2882;
+      transform: translateY(-1px);
+    }
+
+    .paper-doc {
+      max-width: 850px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      padding: 60px 70px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+      border: 1px solid var(--border-color);
+    }
+
+    /* Academic Typography */
+    h1.doc-title {
+      font-size: 20pt;
+      font-weight: 800;
+      color: #1E293B;
+      line-height: 1.25;
+      text-align: center;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+
+    h2.doc-subtitle {
+      font-size: 14pt;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    p.doc-tagline {
+      font-size: 11pt;
+      font-style: italic;
+      color: var(--slate-muted);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    hr.section-divider {
+      border: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #CBD5E1, transparent);
+      margin: 30px 0;
+    }
+
+    .meta-box {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 35px;
+    }
+
+    h1, h2, h3, h4 {
+      color: #0F172A;
+      font-weight: 700;
+    }
+
+    h1.chapter-title {
+      font-size: 14pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #1E293B;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 6px;
+      margin-top: 40px;
+      margin-bottom: 18px;
+    }
+
+    h2.subchapter-title {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #1E293B;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      margin-bottom: 12px;
+      text-align: justify;
+      color: #334155;
+    }
+
+    ul, ol {
+      margin-left: 24px;
+      margin-bottom: 14px;
+      color: #334155;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0 24px 0;
+      font-size: 10pt;
+    }
+
+    th, td {
+      border: 1px solid #CBD5E1;
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #F1F5F9;
+      color: #0F172A;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 9pt;
+      letter-spacing: 0.03em;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #F8FAFC;
+    }
+
+    /* Pastel Badges */
+    .badge-pastel {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 8.5pt;
+      font-weight: 700;
+      margin-right: 4px;
+    }
+
+    .badge-primary { background: #E0E7FF; color: #3730A3; border: 1px solid #C7D2FE; }
+    .badge-mint { background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
+    .badge-rose { background: #FFE4E6; color: #9F1239; border: 1px solid #FECDD3; }
+    .badge-peach { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+    .badge-sakura { background: #FCE7F3; color: #9D174D; border: 1px solid #FBCFE8; }
+
+    /* Code Blocks */
+    pre {
+      background-color: #0F172A;
+      color: #F8FAFC;
+      padding: 16px;
+      border-radius: 12px;
+      font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+      font-size: 9pt;
+      overflow-x: auto;
+      margin: 16px 0;
+      line-height: 1.5;
+    }
+
+    .signature-area {
+      margin-top: 50px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .signature-box {
+      text-align: left;
+      width: 320px;
+    }
+
+    @media print {
+      body {
+        background: #FFFFFF;
+        padding: 0;
+      }
+      .toolbar-container {
+        display: none !important;
+      }
+      .paper-doc {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      h1.chapter-title {
+        page-break-before: always;
+      }
+      h1.chapter-title:first-of-type {
+        page-break-before: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Toolbar -->
+  <div class="toolbar-container">
+    <div>
+      <h3 style="font-size: 13pt; margin-bottom: 2px;">📄 Proposal Siap Impor ke Google Docs</h3>
+      <p style="font-size: 10pt; color: #64748B; margin: 0;">Klik tombol di kanan untuk menyalin seluruh format atau cetak langsung ke PDF.</p>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <button class="btn-action" onclick="copyDocumentToClipboard()">
+        <span>📋 Salin ke Google Docs</span>
+      </button>
+      <button class="btn-action" style="background: #0F172A;" onclick="window.print()">
+        <span>🖨️ Cetak / Simpan PDF</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Document Container -->
+  <div class="paper-doc" id="proposal-content">
+    
+    <!-- Title & Cover Header -->
+    <div style="text-align: center; margin-bottom: 25px;">
+      <p style="font-size: 10pt; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">
+        PROPOSAL PERANCANGAN SISTEM INFORMASI AKADEMIK
+      </p>
+      <h1 class="doc-title">PROPOSAL PERANCANGAN DAN PENGEMBANGAN SISTEM INFORMASI AKADEMIK PRIBADI<br>"YULI'S VAULT (YULI'S SECOND BRAIN)"</h1>
+      <h2 class="doc-subtitle">Personal Academic Vault & Assignment Management Web Application Berbasis Next.js dan SQLite</h2>
+      <p class="doc-tagline">"Streamline your study workflow. Track tasks and manage materials effortlessly."</p>
+    </div>
+
+    <!-- Metadata Pengusul -->
+    <div class="meta-box">
+      <table style="margin: 0; border: none; font-size: 10.5pt;">
+        <tr style="background: transparent;"><td style="border: none; width: 220px; font-weight: 700; color: #475569; padding: 4px 8px;">Mata Kuliah</td><td style="border: none; font-weight: 700; color: #0F172A; padding: 4px 8px;">: Analisis dan Perancangan Perangkat Lunak (APPL / ADPL)</td></tr>
+        <tr style="background: transparent;"><td style="border: none; font-weight: 700; color: #475569; padding: 4px 8px;">Nama Pengusul</td><td style="border: none; font-weight: 700; color: #0F172A; padding: 4px 8px;">: Yuli Indiyanti</td></tr>
+        <tr style="background: transparent;"><td style="border: none; font-weight: 700; color: #475569; padding: 4px 8px;">NIM</td><td style="border: none; font-weight: 700; color: #0F172A; padding: 4px 8px;">: 240511130</td></tr>
+        <tr style="background: transparent;"><td style="border: none; font-weight: 700; color: #475569; padding: 4px 8px;">Kelas / Program Studi</td><td style="border: none; font-weight: 700; color: #0F172A; padding: 4px 8px;">: TI24D / Teknik Informatika</td></tr>
+        <tr style="background: transparent;"><td style="border: none; font-weight: 700; color: #475569; padding: 4px 8px;">Durasi Pengerjaan</td><td style="border: none; font-weight: 700; color: #0F172A; padding: 4px 8px;">: 1 Minggu (7 Hari Kalender / Agile Sprint)</td></tr>
+        <tr style="background: transparent;"><td style="border: none; font-weight: 700; color: #475569; padding: 4px 8px;">Tautan Repositori GitHub</td><td style="border: none; font-weight: 700; color: #3730A3; padding: 4px 8px;">: <a href="https://github.com/YuliIndiyanti/Website-Tugas-dan-Materi-Kuliah.git" target="_blank" style="color: #3730A3;">https://github.com/YuliIndiyanti/Website-Tugas-dan-Materi-Kuliah.git</a></td></tr>
+      </table>
+    </div>
+
+    <!-- Ringkasan Eksekutif -->
+    <div style="background: #FDFBF7; border-left: 4px solid var(--primary); padding: 14px 18px; border-radius: 0 12px 12px 0; margin-bottom: 25px;">
+      <p style="margin: 0; font-size: 10pt; color: #334155;">
+        <strong>Ringkasan Eksekutif:</strong> Dokumen proposal ini menguraikan perancangan dan implementasi aplikasi web <strong>Yuli's Vault (Yuli's Second Brain)</strong>, sebuah sistem penyimpanan akademik dan pelacak tugas berbasis <em>Next.js 15, Prisma ORM,</em> dan <em>SQLite</em>. Dirancang dengan pendekatan <em>Soft Pastel Design System</em> yang menenangkan mata, sistem berhasil diselesaikan dalam rentang waktu pengerjaan <strong>1 minggu</strong>, siap pakai secara persisten, dan 100% bebas biaya operasional.
+      </p>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- BAB I -->
+    <h1 class="chapter-title">BAB I: PENDAHULUAN</h1>
+
+    <h2 class="subchapter-title">1.1 Latar Belakang Masalah</h2>
+    <p>
+      Dalam menempuh pendidikan tinggi pada program studi Teknik Informatika, mahasiswa dihadapkan pada volume dan keragaman artefak akademik yang sangat tinggi. Setiap semester, mahasiswa mengambil berbagai mata kuliah teknis yang mewajibkan pengelolaan slide presentasi dosen, modul praktikum, e-book acuan, repositori kode sumber, rekaman perkuliahan daring, hingga tugas mingguan dan proyek akhir semester.
+    </p>
+    <p>
+      Kendala utama yang sering dialami mahasiswa adalah <em>artefak pembelajaran yang terserak</em> di berbagai media penyimpanan tak terpusat (grup WhatsApp, Google Drive yang bercampur baur, folder unduhan lokal komputer, dan portal LMS kampus). Kondisi tersebut menimbulkan masalah nyata:
+    </p>
+    <ul>
+      <li><strong>Inefisiensi Waktu Temu-Kembali Materi</strong>: Mahasiswa menghabiskan waktu rata-rata 10-15 menit hanya untuk mencari kembali modul perkuliahan saat menjelang Ujian Tengah Semester (UTS) atau Ujian Akhir Semester (UAS).</li>
+      <li><strong>Risiko Keterlambatan Pengumpulan Tugas (<em>Missed Deadlines</em>)</strong>: Tidak adanya sistem peringatan dini yang adaptif membuat prioritas tugas harian tidak terpantau secara jelas.</li>
+      <li><strong>Ketidakteraturan Riwayat Versi Berkas (<em>Submission Versioning</em>)</strong>: Sering terjadi kesalahan pengunggahan draf mentah yang belum direvisi ke portal dosen karena penamaan berkas di komputer lokal tidak tertata rapi.</li>
+      <li><strong>Kelelahan Visual (<em>Visual Fatigue</em>)</strong>: Antarmuka aplikasi manajemen tugas konvensional sering menggunakan warna terlalu tajam atau membosankan, menimbulkan kejenuhan visual saat digunakan belajar berjam-jam.</li>
+    </ul>
+
+    <h2 class="subchapter-title">1.2 Rumusan Masalah</h2>
+    <ol>
+      <li>Bagaimana merancang arsitektur sistem informasi akademik personal yang mampu mengonsolidasikan repositori materi, pelacak tugas, catatan Markdown, dan rekapitulasi nilai dalam satu platform terpusat?</li>
+      <li>Bagaimana mengimplementasikan pelacakan tugas (<em>Task & Deadline Tracker</em>) dengan indikator urgensi waktu nyata dan kontrol versi berkas pengumpulan (v1, v2, v3)?</li>
+      <li>Bagaimana menerapkan estetika <em>Soft Pastel Design System</em> yang memenuhi kriteria aksesibilitas kontras tinggi (WCAG AA/AAA)?</li>
+      <li>Bagaimana menyelesaikan seluruh siklus analisis, perancangan, implementasi, dan pengujian sistem dalam batas waktu 1 minggu (7 hari)?</li>
+    </ol>
+
+    <h2 class="subchapter-title">1.3 Tujuan Pengembangan</h2>
+    <ul>
+      <li><strong>Tujuan Teknis</strong>: Membangun aplikasi web fullstack berbasis Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS, serta basis data relasional SQLite melalui Prisma ORM dengan arsitektur <em>zero-cost</em> (Rp 0/bulan).</li>
+      <li><strong>Tujuan Fungsional</strong>: Menghasilkan 6 modul utama: Dashboard Ringkasan, Manajemen Mata Kuliah & Silabus 16 Pertemuan, Repositori Materi & Multi-File Upload, Task & Deadline Tracker (Kanban & Tabel dengan fitur Edit Rincian Lengkap), Rekap Nilai & IPK, serta Pengaturan & Backup JSON.</li>
+      <li><strong>Tujuan Pengguna</strong>: Menyediakan <em>Personal Second Brain</em> bagi mahasiswa (Yuli Indiyanti / TI24D) untuk mengefisiensikan waktu pencarian materi hingga &lt; 5 detik dan memastikan 0 tugas terlewat sepanjang semester.</li>
+    </ul>
+
+    <h2 class="subchapter-title">1.4 Manfaat Produk</h2>
+    <ul>
+      <li><strong>Bagi Mahasiswa</strong>: Menyederhanakan alur kerja studi harian, menekan stres akademis, dan mengarsipkan dokumen kuliah secara berkelanjutan.</li>
+      <li><strong>Bagi Penilaian Akademik</strong>: Memenuhi standar implementasi nyata mata kuliah Analisis dan Perancangan Perangkat Lunak (APPL) dengan kualitas kode produksi (<em>production-grade</em>).</li>
+    </ul>
+
+    <h2 class="subchapter-title">1.5 Ruang Lingkup dan Batasan Sistem</h2>
+    <ul>
+      <li><strong>Pengguna Tunggal (Single-User)</strong>: Dikhususkan untuk kebutuhan personal mahasiswa (Yuli Indiyanti / TI24D).</li>
+      <li><strong>Penyimpanan Berkas</strong>: Pengunggahan berkas lokal terpusat (PDF, DOCX, ZIP, Gambar) melalui endpoint <code>/api/upload</code>.</li>
+      <li><strong>Basis Data</strong>: Menggunakan SQLite persisten lokal terintegrasi yang mudah diekspor dan dicadangkan.</li>
+      <li><strong>Waktu Pengerjaan</strong>: Tepat 1 minggu (7 hari kerja) mulai dari analisis kebutuhan hingga peluncuran produksi.</li>
+    </ul>
+
+    <hr class="section-divider">
+
+    <!-- BAB II -->
+    <h1 class="chapter-title">BAB II: ANALISIS KEBUTUHAN SISTEM (SYSTEM REQUIREMENTS)</h1>
+
+    <h2 class="subchapter-title">2.1 Profil Pengguna</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%;">Kategori</th>
+          <th>Karakteristik & Spesifikasi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Pengguna Utama</strong></td>
+          <td>Yuli Indiyanti (NIM: 240511130 | Kelas: TI24D | Teknik Informatika)</td>
+        </tr>
+        <tr>
+          <td><strong>Perangkat Akses</strong></td>
+          <td>Komputer/Laptop (saat belajar & mengerjakan tugas) dan Smartphone (akses jadwal & status deadline)</td>
+        </tr>
+        <tr>
+          <td><strong>Kebutuhan Kritis</strong></td>
+          <td>Upload berkas instan, pembagian silabus per minggu, indikator visual deadline, dan kontrol versi draf</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="subchapter-title">2.2 Kebutuhan Fungsional (Functional Requirements - MoSCoW)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 10%;">ID</th>
+          <th style="width: 30%;">Modul / Fitur</th>
+          <th>Deskripsi Spesifikasi Kebutuhan</th>
+          <th style="width: 15%;">Prioritas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>FR-01</strong></td>
+          <td><strong>Manajemen Semester</strong></td>
+          <td>Pembuatan data semester aktif sebagai acuan filter data global seluruh aplikasi.</td>
+          <td><span class="badge-pastel badge-rose">🌷 P0 (Must)</span></td>
+        </tr>
+        <tr>
+          <td><strong>FR-02</strong></td>
+          <td><strong>Manajemen Mata Kuliah</strong></td>
+          <td>Pencatatan Kode MK, Nama MK, SKS, Dosen, Jadwal, dan <em>Theme Color Pastel Picker</em>.</td>
+          <td><span class="badge-pastel badge-rose">🌷 P0 (Must)</span></td>
+        </tr>
+        <tr>
+          <td><strong>FR-03</strong></td>
+          <td><strong>Silabus 16 Pertemuan</strong></td>
+          <td>Struktur hirarkis berkas materi dan tugas berdasarkan minggu pertemuan perkuliahan (Minggu 1-16).</td>
+          <td><span class="badge-pastel badge-peach">🍑 P1 (Should)</span></td>
+        </tr>
+        <tr>
+          <td><strong>FR-04</strong></td>
+          <td><strong>Multi-File Upload Materi</strong></td>
+          <td>Pengunggahan berkas materi (PDF, DOCX, ZIP, PPTX) ke direktori lokal server secara cepat.</td>
+          <td><span class="badge-pastel badge-rose">🌷 P0 (Must)</span></td>
+        </tr>
+        <tr>
+          <td><strong>FR-05</strong></td>
+          <td><strong>In-App Document Previewer</strong></td>
+          <td>Pratinjau langsung file PDF dan gambar di dalam aplikasi web tanpa perlu mengunduh file.</td>
+          <td><span class="badge-pastel badge-rose">🌷 P0 (Must)</span></td>
+        </tr>
+        <tr>
+          <td><strong>FR-06</strong></td>
+          <td><strong>Task & Deadline Tracker</strong></td>
+          <td>Pelacakan tugas dalam tampilan Papan Kanban (4 status) dan Tabel dengan detektor sisa waktu.</td>
+          <td><span class="badge-pastel badge-rose">🌷 P0 (Must)</span></td>
+        </tr>
+        <tr>
+          <td><strong>FR-07</strong></td>
+          <td><strong>Modal Edit Lengkap Tugas</strong></td>
+          <td>Fitur penyuntingan judul, deadline (datetime-local), instruksi, bobot, prioritas, dan lampiran soal.</td>
+          <td><span class="badge-pastel badge-rose">🌷 P0 (Must)</span></td>
+        </tr>
+        <tr>
+          <td><strong>FR-08</strong></td>
+          <td><strong>Versioning Pengumpulan Berkas</strong></td>
+          <td>Pengarsipan versi berkas tugas (v1 - Draf, v2 - Revisi, v3 - Final) beserta bukti kumpul LMS.</td>
+          <td><span class="badge-pastel badge-rose">🌷 P0 (Must)</span></td>
+        </tr>
+        <tr>
+          <td><strong>FR-09</strong></td>
+          <td><strong>Pencatatan Nilai & IPK</strong></td>
+          <td>Perekaman skor nilai angka/huruf, feedback dosen, serta kalkulasi IPK berjalan semester.</td>
+          <td><span class="badge-pastel badge-peach">🍑 P1 (Should)</span></td>
+        </tr>
+        <tr>
+          <td><strong>FR-10</strong></td>
+          <td><strong>Workspace Catatan Markdown</strong></td>
+          <td>Layar terpisah (split-view) antara dokumen materi perkuliahan dan editor catatan interaktif.</td>
+          <td><span class="badge-pastel badge-peach">🍑 P1 (Should)</span></td>
+        </tr>
+        <tr>
+          <td><strong>FR-11</strong></td>
+          <td><strong>Pencadangan & Ekspor JSON</strong></td>
+          <td>Pencadangan seluruh basis data perkuliahan ke dalam berkas JSON mandiri.</td>
+          <td><span class="badge-pastel badge-rose">🌷 P0 (Must)</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="subchapter-title">2.3 Identitas Visual (Soft Pastel Design System)</h2>
+    <p>
+      Sistem menerapkan tema <strong>Soft Pastel</strong> yang mengedepankan rasio kontras keterbacaan tinggi (WCAG AA/AAA):
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Token Warna Pastel</th>
+          <th>Kode Latar (Light / Dark)</th>
+          <th>Kode Teks Kontras</th>
+          <th>Penerapan Antarmuka</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>🪻 Primary Lavender</strong></td>
+          <td>#E0E7FF / #312E81</td>
+          <td>#3730A3 / #E0E7FF</td>
+          <td>Tombol aksi utama, tab aktif, dan highlight navigasi</td>
+        </tr>
+        <tr>
+          <td><strong>🌱 Mint Sage</strong></td>
+          <td>#D1FAE5 / #064E3B</td>
+          <td>#065F46 / #D1FAE5</td>
+          <td>Tugas selesai (Submitted), nilai A/AB, indikator sukses</td>
+        </tr>
+        <tr>
+          <td><strong>🍑 Apricot Peach</strong></td>
+          <td>#FEF3C7 / #92400E</td>
+          <td>#92400E / #FEF3C7</td>
+          <td>Peringatan deadline sedang (tersisa 1 s.d. 3 hari)</td>
+        </tr>
+        <tr>
+          <td><strong>🌷 Rose Coral</strong></td>
+          <td>#FFE4E6 / #831843</td>
+          <td>#9F1239 / #FFE4E6</td>
+          <td>Deadline darurat (&lt; 24 jam), tugas terlambat, prioritas tinggi</td>
+        </tr>
+        <tr>
+          <td><strong>🍦 Warm Cream</strong></td>
+          <td>#FDFBF7 / #0F172A</td>
+          <td>#1E293B / #F8FAFC</td>
+          <td>Latar belakang halaman utama agar mata tidak cepat lelah</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr class="section-divider">
+
+    <!-- BAB III -->
+    <h1 class="chapter-title">BAB III: PERANCANGAN ARSITEKTUR & DESAIN PERANGKAT LUNAK</h1>
+
+    <h2 class="subchapter-title">3.1 Arsitektur Sistem</h2>
+    <p>
+      Sistem mengadopsi pola <em>Next.js 15 Fullstack Architecture</em> dengan pemanfaatan <strong>Server Actions</strong> untuk interaksi basis data tanpa perantara REST API konvensional:
+    </p>
+    <pre>
+[ Browser / Klien ] 
+       │
+       ▼  (Server Actions / HTTP Upload)
+[ Next.js 15 Server Layer ]
+   ├── vaultActions.ts  ───► [ Prisma ORM Client ] ───► [ SQLite Database: dev.db ]
+   └── /api/upload      ───► [ Local Storage Engine ] ───► [ /public/uploads/ ]
+    </pre>
+
+    <h2 class="subchapter-title">3.2 Skema Basis Data Relasional (Prisma Model)</h2>
+    <p>
+      Basis data dibangun secara relasional dengan 6 entitas utama: <code>Semester</code>, <code>Course</code>, <code>Material</code>, <code>Assignment</code>, <code>Submission</code>, dan <code>NoteComment</code>. Setiap tabel saling terhubung dengan aturan integritas referensial <em>Cascade Delete</em> untuk menjamin kebersihan data.
+    </p>
+
+    <h2 class="subchapter-title">3.3 Hasil Implementasi Antarmuka Pengguna</h2>
+    <p>Antarmuka yang telah rampung dibangun mencakup:</p>
+    <ol>
+      <li><strong>Header Identitas Resmi</strong>: Menampilkan nama <strong>Yuli's Vault</strong>, hero title <strong>Yuli's Second Brain</strong>, dan kartu profil pemilik: <em>Yuli Indiyanti NIM 240511130 KELAS TI24D</em>.</li>
+      <li><strong>Sidebar Navigasi</strong>: Menu utama terdiri dari <em>Dashboard</em>, <em>Mata Kuliah</em>, <em>Tugas & Status</em>, <em>Materi</em>, <em>Rekap Nilai & IPK</em>, dan <em>Pengaturan & Backup</em>.</li>
+      <li><strong>Halaman Task & Deadline Tracker</strong>: Menampilkan papan Kanban dinamis dan tabel tugas, filter multi-kriteria, serta modal edit tugas interaktif (mengubah deadline, deskripsi, bobot %, prioritas, dan mengganti lampiran soal).</li>
+      <li><strong>Halaman Repositori Materi</strong>: Repositori dokumen kuliah dengan upload dropzone, filter format materi, dan pembersihan materi contoh (clean seed data).</li>
+    </ol>
+
+    <hr class="section-divider">
+
+    <!-- BAB IV -->
+    <h1 class="chapter-title">BAB IV: RENCANA KERJA & JADWAL IMPLEMENTASI (1-WEEK SPRINT TIMELINE)</h1>
+
+    <h2 class="subchapter-title">4.1 Metodologi Agile Rapid Prototyping</h2>
+    <p>
+      Seluruh siklus rekayasa perangkat lunak dilaksanakan secara terstruktur dan intensif selama <strong>1 minggu (7 hari kerja)</strong> dengan pembagian fokus kerja harian sebagai berikut:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 12%;">Hari</th>
+          <th style="width: 38%;">Aktivitas Rekayasa Perangkat Lunak</th>
+          <th>Deliverables / Hasil Kerja Nyata</th>
+          <th style="width: 15%;">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hari 1</strong></td>
+          <td>Analisis Kebutuhan, PRD Refinement, Inisialisasi Next.js 15, Setup Prisma & SQLite</td>
+          <td>PRD Dokumen v1.2, Repository GitHub, Basis Data Inisial</td>
+          <td><span class="badge-pastel badge-mint">✅ Tuntas</span></td>
+        </tr>
+        <tr>
+          <td><strong>Hari 2</strong></td>
+          <td>Perancangan Desain Sistem Soft Pastel, Layout Shell, Sidebar, dan Dark/Light Mode</td>
+          <td>CSS Variables Pastel Tokens, Navigasi Utama, Desain Responsif</td>
+          <td><span class="badge-pastel badge-mint">✅ Tuntas</span></td>
+        </tr>
+        <tr>
+          <td><strong>Hari 3</strong></td>
+          <td>Pengembangan Modul Semester & Mata Kuliah (CRUD, SKS, Silabus 16 Pertemuan)</td>
+          <td>Halaman Daftar MK, Kartu Warna Pastel, Detail Halaman Pertemuan</td>
+          <td><span class="badge-pastel badge-mint">✅ Tuntas</span></td>
+        </tr>
+        <tr>
+          <td><strong>Hari 4</strong></td>
+          <td>Pembangunan Repositori Materi & Mesin Upload Lokal (In-App PDF Previewer)</td>
+          <td>API Upload Berkas, Tagging Materi, Integrasi Catatan Markdown</td>
+          <td><span class="badge-pastel badge-mint">✅ Tuntas</span></td>
+        </tr>
+        <tr>
+          <td><strong>Hari 5</strong></td>
+          <td>Pengembangan Task & Deadline Tracker (Kanban Board, Tabel, Versioning v1-v3)</td>
+          <td>Papan Kanban 4 Status, Detektor Urgensi Jam/Hari, Form Pengumpulan</td>
+          <td><span class="badge-pastel badge-mint">✅ Tuntas</span></td>
+        </tr>
+        <tr>
+          <td><strong>Hari 6</strong></td>
+          <td>Penyempurnaan Fitur Edit Lengkap Tugas, Analitika Nilai, dan Rebranding Identitas</td>
+          <td>Modal Edit Rincian Tugas (✏️), Kalkulator IPK, Rebranding Yuli's Vault</td>
+          <td><span class="badge-pastel badge-mint">✅ Tuntas</span></td>
+        </tr>
+        <tr>
+          <td><strong>Hari 7</strong></td>
+          <td>Quality Assurance, Testing Produksi (npm run build), Sinkronisasi GitHub & Proposal</td>
+          <td>Build Exit Code 0, Git Push Main Terverifikasi, Dokumen Proposal Lengkap</td>
+          <td><span class="badge-pastel badge-mint">✅ Tuntas</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr class="section-divider">
+
+    <!-- BAB V -->
+    <h1 class="chapter-title">BAB V: ANALISIS ANGGARAN BIAYA & SUMBER DAYA</h1>
+
+    <h2 class="subchapter-title">5.1 Estimasi Biaya Operasional (100% Free-Tier Architecture)</h2>
+    <p>
+      Sistem dirancang secara khusus untuk memaksimalkan efisiensi tanpa menimbulkan beban biaya langganan bulanan bagi mahasiswa:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Komponen Infrastruktur</th>
+          <th>Teknologi Terpilih</th>
+          <th>Kapasitas Bebas Biaya (Free-Tier)</th>
+          <th>Biaya Bulanan</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Framework Fullstack</td>
+          <td>Next.js 15 App Router & React 19</td>
+          <td>Lisensi Terbuka (Open Source MIT)</td>
+          <td><strong>Rp 0,-</strong></td>
+        </tr>
+        <tr>
+          <td>Basis Data Relasional</td>
+          <td>SQLite terintegrasi via Prisma ORM</td>
+          <td>Penyimpanan Lokal Persisten</td>
+          <td><strong>Rp 0,-</strong></td>
+        </tr>
+        <tr>
+          <td>Penyimpanan Berkas</td>
+          <td>Mesin Pengunggah Lokal (/public/uploads)</td>
+          <td>Kapasitas Harddisk Komputer Lokal</td>
+          <td><strong>Rp 0,-</strong></td>
+        </tr>
+        <tr>
+          <td>Server Hosting & Domain</td>
+          <td>Vercel Hobby Plan & GitHub</td>
+          <td>100 GB Bandwidth/Bulan + SSL Otomatis</td>
+          <td><strong>Rp 0,-</strong></td>
+        </tr>
+        <tr style="background: #F1F5F9; font-weight: 700;">
+          <td colspan="3" style="text-align: right; text-transform: uppercase;">Total Biaya Operasional</td>
+          <td><strong style="color: var(--mint);">Rp 0,- / Bulan</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr class="section-divider">
+
+    <!-- BAB VI -->
+    <h1 class="chapter-title">BAB VI: KESIMPULAN & PENUTUP</h1>
+
+    <h2 class="subchapter-title">6.1 Kesimpulan</h2>
+    <p>
+      Perancangan dan pengembangan aplikasi web <strong>"Yuli's Vault (Yuli's Second Brain)"</strong> telah berhasil diselesaikan secara menyeluruh dalam kurun waktu 1 minggu (7 hari kerja). Sistem mampu menjawab kebutuhan akademik mahasiswa Teknik Informatika dengan menyediakan platform terintegrasi yang andal, estetis, dan sangat mudah digunakan.
+    </p>
+    <p>
+      Seluruh kebutuhan fungsional mulai dari manajemen mata kuliah, repositori materi kuliah, pelacakan tugas dengan fitur penyuntingan rincian lengkap, kontrol versi berkas jawaban, hingga rekapitulasi nilai telah teruji dengan baik dan siap digunakan untuk mendukung kegiatan perkuliahan sehari-hari.
+    </p>
+
+    <!-- Tanda Tangan Pengusul -->
+    <div class="signature-area">
+      <div class="signature-box">
+        <p style="margin-bottom: 4px;">Cirebon, 25 Oktober 2026</p>
+        <p style="margin-bottom: 60px; font-weight: 600;">Pengusul & Pengembang Sistem,</p>
+        <p style="font-weight: 800; font-size: 11pt; text-decoration: underline; margin-bottom: 2px;">YULI INDIYANTI</p>
+        <p style="font-size: 10pt; color: #475569; margin-bottom: 2px;">NIM. 240511130</p>
+        <p style="font-size: 10pt; color: #475569;">Kelas TI24D — Teknik Informatika</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function copyDocumentToClipboard() {
+      const doc = document.getElementById('proposal-content');
+      const range = document.createRange();
+      range.selectNode(doc);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+          alert('✅ Seluruh dokumen berhasil disalin dengan format lengkap!\n\nLangkah selanjutnya:\n1. Buka Google Docs (docs.new)\n2. Tekan tombol Ctrl + V (Paste)\n3. Dokumen langsung rapi lengkap dengan tabel, warna pastel, dan heading resmi!');
+        } else {
+          alert('Gagal menyalin otomatis. Silakan blok seluruh isi dokumen lalu tekan Ctrl + C.');
+        }
+      } catch (err) {
+        alert('Terjadi kesalahan saat menyalin. Silakan gunakan Ctrl + A lalu Ctrl + C.');
+      }
+      window.getSelection().removeAllRanges();
+    }
+  </script>
+</body>
+</html>
