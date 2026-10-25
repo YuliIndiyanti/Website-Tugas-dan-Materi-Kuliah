@@ -14,6 +14,7 @@ import {
   Columns,
   Share2,
   Check,
+  Trash2,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -26,7 +27,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
   materialId,
   onClose,
 }) => {
-  const { materials, courses } = useVault();
+  const { materials, courses, deleteMaterial } = useVault();
   const [copied, setCopied] = useState(false);
 
   if (!materialId) return null;
@@ -119,6 +120,21 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
               ) : (
                 <Share2 className="w-4 h-4" />
               )}
+            </button>
+
+            <button
+              onClick={() => {
+                if (confirm(`Apakah Anda yakin ingin menghapus materi "${material.title}"?`)) {
+                  deleteMaterial(material.id);
+                  toast.success(`Materi "${material.title}" berhasil dihapus! 🗑️`);
+                  onClose();
+                }
+              }}
+              className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-rose-50 hover:text-rose-600 text-slate-500 transition-colors"
+              title="Hapus Materi Ini"
+              aria-label="Hapus Materi Ini"
+            >
+              <Trash2 className="w-4 h-4" />
             </button>
 
             <button

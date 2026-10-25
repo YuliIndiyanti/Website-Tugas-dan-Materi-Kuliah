@@ -451,6 +451,18 @@ export async function createMaterialAction(material: Material) {
   }
 }
 
+export async function deleteMaterialAction(id: string) {
+  try {
+    await prisma.material.delete({
+      where: { id },
+    });
+    return { success: true };
+  } catch (error) {
+    console.error("deleteMaterialAction error:", error);
+    return { success: false, error };
+  }
+}
+
 // Submission Actions
 export async function createSubmissionAction(submission: Submission) {
   try {

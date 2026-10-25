@@ -17,11 +17,13 @@ import {
   ExternalLink,
   Columns,
   Sparkles,
+  Trash2,
 } from "lucide-react";
 import { MaterialCategory } from "@/types";
+import { toast } from "sonner";
 
 export default function MaterialsPage() {
-  const { activeMaterials, courses } = useVault();
+  const { activeMaterials, courses, deleteMaterial, deleteSeedMaterials } = useVault();
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<string>("ALL");
   const [tagFilter, setTagFilter] = useState<string>("ALL");
@@ -60,13 +62,43 @@ export default function MaterialsPage() {
           </p>
         </div>
 
-        <button
-          onClick={() => setIsNewMaterialOpen(true)}
-          className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-[#3730A3] text-white text-xs font-semibold hover:bg-indigo-800 transition-colors shadow-sm self-start sm:self-auto btn-tactile"
-        >
-          <Plus className="w-4 h-4" />
-          <span>+ Upload Materi Baru</span>
-        </button>
+        <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
+          {activeMaterials.some((m) =>
+            [
+              "mat-adpl-w6",
+              "mat-adpl-w7",
+              "mat-db-w5",
+              "mat-ai-w6",
+              "mat-uiux-w5",
+            ].includes(m.id)
+          ) && (
+            <button
+              onClick={() => {
+                if (
+                  confirm(
+                    "Hapus seluruh materi bawaan/contoh (seed data)?\n\nHanya berkas yang Anda upload sendiri yang akan tetap tersimpan di vault."
+                  )
+                ) {
+                  deleteSeedMaterials();
+                  toast.success("Seluruh materi bawaan contoh berhasil dihapus! 🧹");
+                }
+              }}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-rose-50 hover:bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300 text-xs font-semibold border border-rose-200 dark:border-rose-900/60 transition-colors shadow-2xs btn-tactile"
+              title="Bersihkan semua materi bawaan contoh"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>Bersihkan Materi Bawaan</span>
+            </button>
+          )}
+
+          <button
+            onClick={() => setIsNewMaterialOpen(true)}
+            className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-[#3730A3] text-white text-xs font-semibold hover:bg-indigo-800 transition-colors shadow-sm btn-tactile"
+          >
+            <Plus className="w-4 h-4" />
+            <span>+ Upload Materi Baru</span>
+          </button>
+        </div>
       </div>
 
       {/* Filter Bar & Search */}
@@ -208,6 +240,19 @@ export default function MaterialsPage() {
                     <Columns className="w-3.5 h-3.5" />
                     <span>Workspace</span>
                   </Link>
+                  <button
+                    onClick={() => {
+                      if (confirm(`Apakah Anda yakin ingin menghapus materi "${mat.title}"?`)) {
+                        deleteMaterial(mat.id);
+                        toast.success(`Materi "${mat.title}" berhasil dihapus! 🗑️`);
+                      }
+                    }}
+                    className="p-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-rose-50 hover:text-rose-600 text-slate-400 dark:text-slate-400 border border-slate-200 dark:border-slate-700 shadow-xs transition-colors btn-tactile flex-shrink-0"
+                    title="Hapus Materi"
+                    aria-label={`Hapus materi ${mat.title}`}
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
             );

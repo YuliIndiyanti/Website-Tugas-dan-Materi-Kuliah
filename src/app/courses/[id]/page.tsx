@@ -24,6 +24,7 @@ import {
   Edit,
   Save,
   Check,
+  Trash2,
 } from "lucide-react";
 import {
   formatDate,
@@ -49,6 +50,7 @@ export default function CourseDetailPage({
     notes,
     addNoteComment,
     updateNoteComment,
+    deleteMaterial,
   } = useVault();
 
   const [activeTab, setActiveTab] = useState<
@@ -330,6 +332,20 @@ export default function CourseDetailPage({
                               <span>Workspace</span>
                               <ExternalLink className="w-3 h-3" />
                             </Link>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (confirm(`Apakah Anda yakin ingin menghapus materi "${mat.title}"?`)) {
+                                  deleteMaterial(mat.id);
+                                  toast.success(`Materi "${mat.title}" berhasil dihapus! 🗑️`);
+                                }
+                              }}
+                              className="p-1.5 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                              title="Hapus Materi"
+                              aria-label={`Hapus materi ${mat.title}`}
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
                           </div>
                         </div>
                       ))

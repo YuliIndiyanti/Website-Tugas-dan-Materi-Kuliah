@@ -36,6 +36,7 @@ import {
   updateAssignmentStatusAction,
   updateAssignmentGradeAction,
   createMaterialAction,
+  deleteMaterialAction,
   createSubmissionAction,
   saveNoteCommentAction,
   toggleShareNoteAction,
@@ -71,6 +72,7 @@ interface VaultContextType {
   addMaterial: (mat: Omit<Material, "id" | "createdAt">) => Material;
   updateMaterial: (id: string, mat: Partial<Material>) => void;
   deleteMaterial: (id: string) => void;
+  deleteSeedMaterials: () => void;
   // Assignment CRUD
   addAssignment: (assign: Omit<Assignment, "id" | "createdAt">) => Assignment;
   updateAssignment: (id: string, assign: Partial<Assignment>) => void;
@@ -323,6 +325,27 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const deleteMaterial = (id: string) => {
     setMaterials((prev) => prev.filter((m) => m.id !== id));
+    setNotes((prev) => prev.filter((n) => n.materialId !== id));
+    deleteMaterialAction(id).catch((err) =>
+      console.error("Failed to delete material in SQLite:", err)
+    );
+  };
+
+  const deleteSeedMaterials = () => {
+    const seedIds = [
+      "mat-adpl-w6",
+      "mat-adpl-w7",
+      "mat-db-w5",
+      "mat-ai-w6",
+      "mat-uiux-w5",
+    ];
+    setMaterials((prev) => prev.filter((m) => !seedIds.includes(m.id)));
+    setNotes((prev) =>
+      prev.filter((n) => !n.materialId || !seedIds.includes(n.materialId))
+    );
+    Promise.all(seedIds.map((id) => deleteMaterialAction(id))).catch((err) =>
+      console.error("Failed to delete seed materials:", err)
+    );
   };
 
   // Assignment actions
@@ -611,6 +634,7 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
         addMaterial,
         updateMaterial,
         deleteMaterial,
+        deleteSeedMaterials,
         addAssignment,
         updateAssignment,
         deleteAssignment,
