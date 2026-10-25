@@ -140,11 +140,11 @@ export default function AssignmentsPage() {
           <div className="flex items-center gap-2">
             <span className="text-xl">📝</span>
             <h1 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100">
-              Pelacakan Tugas & Alur Kerja Kanban
+              Task & Deadline Tracker
             </h1>
           </div>
           <p className="text-xs text-slate-500 mt-1">
-            Kelola deadline, draf pengerjaan v1-v3, status kumpul LMS, dan nilai tugas
+            Prioritize tasks, monitor your progress, and never miss a deadline.
           </p>
         </div>
 
