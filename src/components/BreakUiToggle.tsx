@@ -12,7 +12,7 @@ export const BreakUiToggle: React.FC = () => {
       mode: "DEMO",
       label: "Demo Data",
       icon: <Sparkles className="w-3.5 h-3.5" />,
-      color: "bg-[#E0E7FF] text-[#3730A3] dark:bg-[#312E81] dark:text-[#E0E7FF]",
+      color: "bg-[#EDE3D6] text-[#453120] dark:bg-[#382314] dark:text-[#EAE0D5]",
     },
     {
       mode: "WORST_CASE",

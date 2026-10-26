@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" suppressHydrationWarning>
-      <body className="antialiased selection:bg-[#E0E7FF] selection:text-[#3730A3]">
+      <body className="antialiased selection:bg-[#EDE3D6] selection:text-[#453120]">
         <VaultProvider>
           <AppShell>{children}</AppShell>
         </VaultProvider>

@@ -308,7 +308,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
         <div
           className="p-6 border-b border-slate-100 dark:border-slate-800 flex items-start justify-between relative"
           style={{
-            background: `linear-gradient(135deg, ${course?.pastelColorHex || "#DBEAFE"} 0%, transparent 60%)`,
+            background: `linear-gradient(135deg, ${course?.pastelColorHex || "#EFE6DD"} 0%, transparent 60%)`,
           }}
         >
           <div className="min-w-0 pr-4">
@@ -316,8 +316,8 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
               <span
                 className="text-xs px-2.5 py-0.5 rounded-md font-bold flex-shrink-0"
                 style={{
-                  backgroundColor: course?.pastelColorHex || "#DBEAFE",
-                  color: course?.pastelTextHex || "#1E3A8A",
+                  backgroundColor: course?.pastelColorHex || "#EFE6DD",
+                  color: course?.pastelTextHex || "#3D271D",
                 }}
               >
                 {course?.code}
@@ -451,7 +451,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
             onClick={() => setActiveTab("DETAILS")}
             className={`py-3 border-b-2 transition-all ${
               activeTab === "DETAILS"
-                ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
+                ? "border-[#4A2E1B] text-[#4A2E1B] dark:border-[#D9C7B6] dark:text-[#EFE6DD]"
                 : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
             }`}
           >
@@ -461,7 +461,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
             onClick={() => setActiveTab("SUBMISSIONS")}
             className={`py-3 border-b-2 transition-all flex items-center gap-1.5 ${
               activeTab === "SUBMISSIONS"
-                ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
+                ? "border-[#4A2E1B] text-[#4A2E1B] dark:border-[#D9C7B6] dark:text-[#EFE6DD]"
                 : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
             }`}
           >
@@ -474,13 +474,13 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
             onClick={() => setActiveTab("GRADE")}
             className={`py-3 border-b-2 transition-all flex items-center gap-1.5 ${
               activeTab === "GRADE"
-                ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
+                ? "border-[#4A2E1B] text-[#4A2E1B] dark:border-[#D9C7B6] dark:text-[#EFE6DD]"
                 : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
             }`}
           >
             <span>Nilai & Evaluasi Dosen</span>
             {assignment.score !== undefined && (
-              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-[#D1FAE5] text-[#065F46] font-bold">
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-[#EDE3D6] text-[#453120] font-bold">
                 {assignment.score} ({assignment.gradeLetter})
               </span>
             )}
@@ -489,7 +489,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
             onClick={() => setActiveTab("NOTES")}
             className={`py-3 border-b-2 transition-all flex items-center gap-1.5 ${
               activeTab === "NOTES"
-                ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
+                ? "border-[#4A2E1B] text-[#4A2E1B] dark:border-[#D9C7B6] dark:text-[#EFE6DD]"
                 : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
             }`}
           >
@@ -505,7 +505,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
               <form onSubmit={handleSaveEdit} className="space-y-4 animate-in fade-in-50 duration-200">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-200/70 dark:border-slate-800">
                   <div className="flex items-center gap-2">
-                    <span className="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
+                    <span className="p-1.5 rounded-lg bg-[#F3EADF] dark:bg-[#281F19] text-[#4A2E1B] dark:text-[#D9C7B6]">
                       <Edit className="w-4 h-4" />
                     </span>
                     <div>
@@ -537,7 +537,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                     value={editTitle}
                     onChange={(e) => setEditTitle(e.target.value)}
                     placeholder="Contoh: TUGAS INSTALLING, CONNECTING DAN PEMBUATAN WEBSITE"
-                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-xs"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-white dark:bg-[#281F19] text-[#2A1D15] dark:text-[#F5EFEB] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/30 focus:border-[#8B5A2B] transition-all shadow-xs"
                   />
                 </div>
 
@@ -545,7 +545,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-indigo-500" />
+                      <Calendar className="w-3.5 h-3.5 text-[#6B5543] dark:text-[#D9C7B6]" />
                       <span>Tenggat Waktu (Deadline) <span className="text-rose-500">*</span></span>
                     </label>
                     <input
@@ -553,7 +553,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                       required
                       value={editDueDate}
                       onChange={(e) => setEditDueDate(e.target.value)}
-                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-xs"
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-white dark:bg-[#281F19] text-[#2A1D15] dark:text-[#F5EFEB] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/30 focus:border-[#8B5A2B] transition-all shadow-xs"
                     />
                   </div>
 
@@ -564,7 +564,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                     <select
                       value={editType}
                       onChange={(e) => setEditType(e.target.value as AssignmentType)}
-                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-xs"
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-white dark:bg-[#281F19] text-[#2A1D15] dark:text-[#F5EFEB] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/30 focus:border-[#8B5A2B] transition-all shadow-xs"
                     >
                       <option value="TASK">Tugas Mandiri / Kelompok</option>
                       <option value="PROJECT">Proyek / Tugas Besar</option>
@@ -587,7 +587,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                       max={16}
                       value={editWeekNumber}
                       onChange={(e) => setEditWeekNumber(Number(e.target.value) || 1)}
-                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-xs"
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-white dark:bg-[#281F19] text-[#2A1D15] dark:text-[#F5EFEB] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/30 focus:border-[#8B5A2B] transition-all shadow-xs"
                     />
                   </div>
 
@@ -601,7 +601,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                       max={100}
                       value={editWeightPercentage}
                       onChange={(e) => setEditWeightPercentage(Number(e.target.value) || 0)}
-                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-xs"
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-white dark:bg-[#281F19] text-[#2A1D15] dark:text-[#F5EFEB] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/30 focus:border-[#8B5A2B] transition-all shadow-xs"
                     />
                   </div>
                 </div>
@@ -613,9 +613,9 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                   </label>
                   <div className="grid grid-cols-3 gap-2">
                     {[
-                      { value: "LOW", label: "🌱 Rendah", bg: "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-700" },
-                      { value: "MEDIUM", label: "🍑 Sedang", bg: "bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-700" },
-                      { value: "HIGH", label: "🌷 Tinggi", bg: "bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-700" },
+                      { value: "LOW", label: "🌱 Rendah", bg: "bg-[#F6F0E8] dark:bg-[#281F19] text-[#6B5543] dark:text-[#D9C7B6] border-[#EAE0D5] dark:border-[#3D2F26]" },
+                      { value: "MEDIUM", label: "🍑 Sedang", bg: "bg-[#F8ECD9] dark:bg-[#332214] text-[#734311] dark:text-[#F3EADF] border-[#E8D1B5] dark:border-[#523A2A]" },
+                      { value: "HIGH", label: "🌷 Tinggi", bg: "bg-[#F7E2DD] dark:bg-[#3B1E19] text-[#7A271A] dark:text-[#F8D2CA] border-[#EDBCB2] dark:border-[#5A2B23]" },
                     ].map((item) => (
                       <button
                         key={item.value}
@@ -623,7 +623,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                         onClick={() => setEditPriority(item.value as Priority)}
                         className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all text-center flex items-center justify-center gap-1.5 ${
                           editPriority === item.value
-                            ? `${item.bg} ring-2 ring-indigo-500/40 shadow-xs font-extrabold`
+                            ? `${item.bg} ring-2 ring-[#8B5A2B]/40 shadow-xs font-extrabold`
                             : "bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 opacity-70 hover:opacity-100"
                         }`}
                       >
@@ -643,15 +643,15 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                     value={editInstructions}
                     onChange={(e) => setEditInstructions(e.target.value)}
                     placeholder="Tuliskan petunjuk pengerjaan, format berkas yang diminta dosen, kriteria penilaian, dll."
-                    className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-xs leading-relaxed"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-white dark:bg-[#281F19] text-[#2A1D15] dark:text-[#F5EFEB] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/30 focus:border-[#8B5A2B] transition-all shadow-xs leading-relaxed"
                   />
                 </div>
 
                 {/* Lampiran Dokumen / Soal */}
-                <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700">
+                <div className="p-3.5 rounded-2xl bg-[#FAF7F2] dark:bg-[#1C1512] border border-[#EAE0D5] dark:border-[#3D2F26]">
                   <div className="flex items-center justify-between mb-2">
                     <label className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                      <Paperclip className="w-3.5 h-3.5 text-indigo-500" />
+                      <Paperclip className="w-3.5 h-3.5 text-[#6B5543] dark:text-[#D9C7B6]" />
                       <span>Lampiran Soal / Dokumen Acuan (Opsional)</span>
                     </label>
                     {editAttachmentUrl && (
@@ -680,11 +680,11 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                   />
 
                   {editAttachmentName || editAttachmentUrl ? (
-                    <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-indigo-200 dark:border-indigo-800 flex items-center justify-between gap-3">
+                    <div className="p-3 rounded-xl bg-white dark:bg-[#281F19] border border-[#EAE0D5] dark:border-[#3D2F26] flex items-center justify-between gap-3">
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 flex items-center justify-center flex-shrink-0">
+                        <div className="w-8 h-8 rounded-lg bg-[#F3EADF] dark:bg-[#382314] text-[#4A2E1B] dark:text-[#F3EADF] flex items-center justify-center flex-shrink-0">
                           {isUploadingEditAttachment ? (
-                            <Loader2 className="w-4 h-4 animate-spin" />
+                            <Loader2 className="w-4 h-4 animate-spin text-[#4A2E1B]" />
                           ) : (
                             <FileText className="w-4 h-4" />
                           )}
@@ -693,7 +693,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                           <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
                             {editAttachmentName || "Berkas Terlampir"}
                           </p>
-                          <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
+                          <p className="text-[10px] text-[#54371C] dark:text-[#D9C7B6] font-medium">
                             ✓ Berkas siap disimpan
                           </p>
                         </div>
@@ -702,7 +702,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                         type="button"
                         disabled={isUploadingEditAttachment}
                         onClick={() => editFileInputRef.current?.click()}
-                        className="text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors flex-shrink-0"
+                        className="text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-[#F3EADF] dark:bg-[#382314] text-[#4A2E1B] dark:text-[#F3EADF] hover:bg-[#EAE0D5] transition-colors flex-shrink-0"
                       >
                         Ganti File
                       </button>
@@ -710,11 +710,11 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                   ) : (
                     <div
                       onClick={() => editFileInputRef.current?.click()}
-                      className="p-4 rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-indigo-400 dark:hover:border-indigo-500 bg-white/70 dark:bg-slate-900/50 cursor-pointer text-center transition-all group"
+                      className="p-4 rounded-xl border-2 border-dashed border-[#EAE0D5] dark:border-[#3D2F26] hover:border-[#8B5A2B] dark:hover:border-[#8B5A2B] bg-white/70 dark:bg-[#281F19]/50 cursor-pointer text-center transition-all group"
                     >
-                      <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950 text-slate-500 group-hover:text-indigo-600 flex items-center justify-center mx-auto mb-1.5 transition-colors">
+                      <div className="w-8 h-8 rounded-full bg-[#FAF7F2] dark:bg-[#1C1512] group-hover:bg-[#F3EADF] dark:group-hover:bg-[#382314] text-[#6B5543] group-hover:text-[#4A2E1B] dark:group-hover:text-[#F3EADF] flex items-center justify-center mx-auto mb-1.5 transition-colors">
                         {isUploadingEditAttachment ? (
-                          <Loader2 className="w-4 h-4 animate-spin text-indigo-600" />
+                          <Loader2 className="w-4 h-4 animate-spin text-[#4A2E1B]" />
                         ) : (
                           <UploadCloud className="w-4 h-4" />
                         )}
@@ -741,7 +741,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                   <button
                     type="submit"
                     disabled={isUploadingEditAttachment}
-                    className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-500/20 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
+                    className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[#4A2E1B] hover:bg-[#382314] text-white text-xs font-bold shadow-md shadow-[#4A2E1B]/20 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
                   >
                     <Save className="w-3.5 h-3.5" />
                     <span>Simpan Perubahan</span>
@@ -757,7 +757,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                   <button
                     type="button"
                     onClick={startEditing}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 dark:hover:bg-indigo-900 border border-indigo-200/80 dark:border-indigo-800 transition-colors shadow-2xs"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#F3EADF] hover:bg-[#EAE0D5] text-[#4A2E1B] dark:bg-[#281F19] dark:text-[#D9C7B6] dark:hover:bg-[#33251E] border border-[#EAE0D5] dark:border-[#3D2F26] transition-colors shadow-2xs"
                   >
                     <Edit className="w-3.5 h-3.5" />
                     <span>Edit Rincian Tugas</span>
@@ -772,9 +772,9 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
 
                 {/* Lampiran Berkas / Soal Tugas */}
                 {assignment.attachmentUrl && (
-                  <div className="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-800/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+                  <div className="p-4 rounded-2xl bg-[#F3EADF]/60 dark:bg-[#281F19]/60 border border-[#EAE0D5] dark:border-[#3D2F26] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
                     <div className="flex items-center gap-3 min-w-0 pr-2">
-                      <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/60 text-[#3730A3] dark:text-indigo-300 flex items-center justify-center flex-shrink-0">
+                      <div className="w-10 h-10 rounded-xl bg-[#EAE0D5] dark:bg-[#382314] text-[#4A2E1B] dark:text-[#F3EADF] flex items-center justify-center flex-shrink-0">
                         <FileText className="w-5 h-5" />
                       </div>
                       <div className="min-w-0">
@@ -792,7 +792,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                       download={assignment.attachmentName || "Lampiran_Tugas.pdf"}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#3730A3] text-white hover:bg-indigo-800 text-xs font-bold shadow-xs transition-colors self-start sm:self-auto"
+                      className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#4A2E1B] text-white hover:bg-[#382314] text-xs font-bold shadow-xs transition-colors self-start sm:self-auto"
                     >
                       <Download className="w-3.5 h-3.5" />
                       <span>Unduh Berkas Soal</span>
@@ -860,7 +860,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                 {!isSubmittingNewVer && (
                   <button
                     onClick={() => setIsSubmittingNewVer(true)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#D1FAE5] text-[#065F46] hover:bg-[#A7F3D0] border border-[#A7F3D0] shadow-xs"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#EDE3D6] text-[#453120] hover:bg-[#E4D4C3] border border-[#D9C7B6] shadow-xs"
                   >
                     <Upload className="w-3.5 h-3.5" />
                     <span>+ Unggah Versi Baru</span>
@@ -872,10 +872,10 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
               {isSubmittingNewVer && (
                 <form
                   onSubmit={handleCreateSubmission}
-                  className="p-5 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/80 dark:border-emerald-800/50 space-y-4"
+                  className="p-5 rounded-2xl bg-[#F6EDE0]/60 dark:bg-[#281F19]/60 border border-[#EAE0D5] dark:border-[#3D2F26] space-y-4"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300">
+                    <span className="text-xs font-bold text-[#4A2E1B] dark:text-[#D9C7B6]">
                       Unggah Draf / Final v{assignmentSubmissions.length + 1}
                     </span>
                     <button
@@ -903,9 +903,9 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                     />
 
                     {subFileName ? (
-                      <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-900 border border-emerald-300 dark:border-emerald-700 shadow-xs">
+                      <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-900 border border-[#EAE0D5] dark:border-[#3D2F26] shadow-xs">
                         <div className="flex items-center gap-3 min-w-0 pr-2">
-                          <div className="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center flex-shrink-0">
+                          <div className="w-9 h-9 rounded-xl bg-[#EDE3D6] dark:bg-[#382314] text-[#453120] dark:text-[#EAE0D5] flex items-center justify-center flex-shrink-0">
                             {isUploading ? (
                               <Loader2 className="w-5 h-5 animate-spin" />
                             ) : (
@@ -919,11 +919,11 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                             <p className="text-[10px] text-slate-400 flex items-center gap-1.5 mt-0.5">
                               <span>{subFileSize || "Berkas terpilih"}</span>
                               {isUploading ? (
-                                <span className="text-indigo-600 font-semibold animate-pulse">
+                                <span className="text-[#4A2E1B] dark:text-[#D9C7B6] font-semibold animate-pulse">
                                   Mengunggah...
                                 </span>
                               ) : (
-                                <span className="text-emerald-600 font-semibold flex items-center gap-0.5">
+                                <span className="text-[#54371C] dark:text-[#D9C7B6] font-semibold flex items-center gap-0.5">
                                   <CheckCircle2 className="w-3 h-3 inline" /> Siap
                                 </span>
                               )}
@@ -955,11 +955,11 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                         onClick={() => subFileInputRef.current?.click()}
                         className={`border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition-all ${
                           isDragging
-                            ? "border-emerald-500 bg-emerald-100/50 dark:bg-emerald-900/30"
-                            : "border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/50 hover:border-emerald-500 hover:bg-emerald-50/30"
+                            ? "border-[#8B5A2B] bg-[#F6EDE0]/50 dark:bg-[#281F19]/50"
+                            : "border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/50 hover:border-[#8B5A2B] hover:bg-[#F3EADF]/30"
                         }`}
                       >
-                        <UploadCloud className="w-7 h-7 mx-auto text-emerald-600 mb-1.5" />
+                        <UploadCloud className="w-7 h-7 mx-auto text-[#6B5543] dark:text-[#D9C7B6] mb-1.5" />
                         <p className="text-xs font-bold text-slate-700 dark:text-slate-200">
                           Klik untuk memilih berkas tugas atau seret ke sini
                         </p>
@@ -1031,7 +1031,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                   <button
                     type="submit"
                     disabled={isUploading || !subFileName}
-                    className="w-full py-2.5 rounded-xl bg-[#065F46] disabled:opacity-50 text-white text-xs font-semibold hover:bg-emerald-800 transition-colors shadow-xs flex items-center justify-center gap-2"
+                    className="w-full py-2.5 rounded-xl bg-[#4A2E1B] disabled:opacity-50 text-white text-xs font-semibold hover:bg-[#382314] transition-colors shadow-xs flex items-center justify-center gap-2"
                   >
                     {isUploading ? (
                       <>
@@ -1058,7 +1058,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                       className="p-4 rounded-2xl bg-[#FDFBF7] dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                     >
                       <div className="flex items-start gap-3 min-w-0">
-                        <div className="w-10 h-10 rounded-2xl bg-[#E0E7FF] text-[#3730A3] dark:bg-indigo-950 dark:text-indigo-300 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                        <div className="w-10 h-10 rounded-2xl bg-[#EDE3D6] text-[#453120] dark:bg-[#382314] dark:text-[#EAE0D5] flex items-center justify-center font-bold text-xs flex-shrink-0">
                           v{sub.versionNumber}
                         </div>
                         <div className="min-w-0">
@@ -1067,7 +1067,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                               {sub.fileName}
                             </span>
                             {idx === 0 && (
-                              <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-[#D1FAE5] text-[#065F46]">
+                              <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-[#EAE0D5] text-[#382314]">
                                 Terbaru
                               </span>
                             )}
@@ -1091,7 +1091,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                             download={sub.fileName}
                             target="_blank"
                             rel="noreferrer"
-                            className="flex items-center gap-1 text-[11px] font-semibold text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 transition-colors shadow-2xs"
+                            className="flex items-center gap-1 text-[11px] font-semibold text-slate-700 dark:text-slate-200 hover:text-[#4A2E1B] dark:hover:text-[#D9C7B6] px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 transition-colors shadow-2xs"
                             title="Unduh / Buka Berkas Tugas"
                           >
                             <Download className="w-3.5 h-3.5" />
@@ -1103,7 +1103,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                             href={sub.submissionLink}
                             target="_blank"
                             rel="noreferrer"
-                            className="flex items-center gap-1 text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 hover:underline px-2.5 py-1 rounded-xl bg-indigo-50 dark:bg-indigo-950/60"
+                            className="flex items-center gap-1 text-[11px] font-semibold text-[#4A2E1B] dark:text-[#D9C7B6] hover:underline px-2.5 py-1 rounded-xl bg-[#F3EADF] dark:bg-[#281F19]"
                           >
                             <LinkIcon className="w-3.5 h-3.5" />
                             <span>Link LMS</span>
@@ -1114,7 +1114,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                             href={sub.proofUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 hover:underline px-2.5 py-1 rounded-xl bg-emerald-50 dark:bg-emerald-950/60"
+                            className="flex items-center gap-1 text-[11px] font-semibold text-[#54371C] dark:text-[#E4D4C3] hover:underline px-2.5 py-1 rounded-xl bg-[#EDE0D2] dark:bg-[#281F19]"
                           >
                             <ShieldCheck className="w-3.5 h-3.5" />
                             <span>Bukti Kumpul</span>
@@ -1142,10 +1142,10 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                       style={{
                         backgroundColor:
                           GRADE_CONFIG[assignment.gradeLetter || "A"]?.bgHex ||
-                          "#D1FAE5",
+                          "#EDE3D6",
                         color:
                           GRADE_CONFIG[assignment.gradeLetter || "A"]?.textHex ||
-                          "#065F46",
+                          "#453120",
                       }}
                     >
                       Nilai: {assignment.score} ({assignment.gradeLetter})
@@ -1217,7 +1217,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                   </div>
                   <button
                     type="submit"
-                    className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700 transition-colors shadow-xs"
+                    className="px-4 py-2 rounded-xl bg-[#4A2E1B] text-white text-xs font-semibold hover:bg-[#382314] transition-colors shadow-xs"
                   >
                     Simpan Nilai & Prediksi Huruf
                   </button>
@@ -1267,7 +1267,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700 shadow-xs"
+                  className="px-4 py-2 rounded-xl bg-[#4A2E1B] text-white text-xs font-semibold hover:bg-[#382314] shadow-xs"
                 >
                   Kirim
                 </button>

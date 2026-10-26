@@ -227,11 +227,11 @@ export const CourseModal: React.FC<CourseModalProps> = ({
             </div>
           </div>
 
-          {/* Soft Pastel Theme Picker (PRD Section 3.3) */}
+          {/* Brown Theme Picker */}
           <div>
             <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-              <span>Identitas Tema Warna Soft Pastel</span>
+              <Sparkles className="w-3.5 h-3.5 text-[#6B5543] dark:text-[#D9C7B6]" />
+              <span>Identitas Palet Warna Brown Series</span>
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {PASTEL_THEMES.map((theme) => {
@@ -242,7 +242,7 @@ export const CourseModal: React.FC<CourseModalProps> = ({
                     onClick={() => setSelectedThemeId(theme.id)}
                     className={`p-2.5 rounded-2xl cursor-pointer border transition-all relative ${
                       isSelected
-                        ? "ring-2 ring-indigo-500 shadow-sm"
+                        ? "ring-2 ring-[#8B5A2B] shadow-sm"
                         : "opacity-80 hover:opacity-100"
                     }`}
                     style={{
@@ -280,7 +280,7 @@ export const CourseModal: React.FC<CourseModalProps> = ({
           <div className="pt-2">
             <button
               type="submit"
-              className="w-full py-2.5 rounded-2xl bg-[#3730A3] text-white text-xs font-bold hover:bg-indigo-800 transition-colors shadow-md btn-tactile"
+              className="w-full py-2.5 rounded-2xl bg-[#4A2E1B] text-white text-xs font-bold hover:bg-[#382314] transition-colors shadow-md btn-tactile"
             >
               {editCourse ? "Simpan Perubahan Mata Kuliah" : "Tambah Mata Kuliah"}
             </button>

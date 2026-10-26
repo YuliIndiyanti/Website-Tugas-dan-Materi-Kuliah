@@ -100,9 +100,9 @@ export const TelegramReminderModal: React.FC<TelegramReminderModalProps> = ({
 
         <div className="p-6 space-y-4 overflow-y-auto">
           {/* Information box */}
-          <div className="p-4 rounded-2xl bg-[#E0E7FF] text-[#3730A3] dark:bg-indigo-950/50 dark:text-indigo-200 border border-indigo-200/80 dark:border-indigo-800/50 text-xs leading-relaxed space-y-1.5">
+          <div className="p-4 rounded-2xl bg-[#EDE3D6] text-[#453120] dark:bg-[#382314] dark:text-[#EAE0D5] border border-[#D9C7B6] dark:border-[#523A2A] text-xs leading-relaxed space-y-1.5">
             <p className="font-bold flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4" /> 100% Gratis & Bebas Kuota
+              <Sparkles className="w-4 h-4 text-[#8B5A2B]" /> 100% Gratis & Bebas Kuota
             </p>
             <p>
               Dengan Telegram Bot API, Anda dapat menerima pengingat instan tanpa biaya SMS atau batasan email. Cukup buat bot di @BotFather dan masukkan chat ID Anda.
@@ -175,7 +175,7 @@ export const TelegramReminderModal: React.FC<TelegramReminderModalProps> = ({
 
           {/* Test Status feedback */}
           {statusMsg && (
-            <div className="p-3.5 rounded-2xl bg-[#D1FAE5] text-[#065F46] border border-emerald-200 text-xs font-medium animate-in fade-in">
+            <div className="p-3.5 rounded-2xl bg-[#EDE3D6] text-[#453120] border border-[#D9C7B6] text-xs font-medium animate-in fade-in">
               {statusMsg}
             </div>
           )}
@@ -185,7 +185,7 @@ export const TelegramReminderModal: React.FC<TelegramReminderModalProps> = ({
             <button
               onClick={handleTestNotification}
               disabled={isTesting}
-              className="w-full py-2.5 rounded-2xl bg-[#075985] text-white text-xs font-bold hover:bg-sky-800 transition-colors shadow-md flex items-center justify-center gap-2 btn-tactile"
+              className="w-full py-2.5 rounded-2xl bg-[#4A2E1B] text-white text-xs font-bold hover:bg-[#382314] transition-colors shadow-md flex items-center justify-center gap-2 btn-tactile"
             >
               <Send className="w-4 h-4" />
               <span>

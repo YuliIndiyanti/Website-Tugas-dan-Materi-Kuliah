@@ -48,7 +48,7 @@ export default function CoursesPage() {
             setEditingCourse(null);
             setIsModalOpen(true);
           }}
-          className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-[#3730A3] text-white text-xs font-semibold hover:bg-indigo-800 transition-colors shadow-sm self-start sm:self-auto btn-tactile"
+          className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-[#4A2E1B] text-white text-xs font-semibold hover:bg-[#382314] transition-colors shadow-sm self-start sm:self-auto btn-tactile"
         >
           <Plus className="w-4 h-4" />
           <span>+ Tambah Mata Kuliah</span>
@@ -58,7 +58,7 @@ export default function CoursesPage() {
       {/* Course Cards Grid */}
       {activeCourses.length === 0 ? (
         <div className="py-16 text-center text-slate-400 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8">
-          <BookOpen className="w-12 h-12 mx-auto mb-3 opacity-40 text-indigo-400" />
+          <BookOpen className="w-12 h-12 mx-auto mb-3 opacity-40 text-[#8B5A2B]" />
           <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200">
             Belum Ada Mata Kuliah
           </h3>
@@ -70,7 +70,7 @@ export default function CoursesPage() {
               setEditingCourse(null);
               setIsModalOpen(true);
             }}
-            className="mt-4 px-4 py-2 rounded-2xl bg-[#E0E7FF] text-[#3730A3] text-xs font-bold hover:bg-indigo-200 btn-tactile"
+            className="mt-4 px-4 py-2 rounded-2xl bg-[#4A2E1B] text-white text-xs font-bold hover:bg-[#382314] btn-tactile"
           >
             + Tambah Mata Kuliah Pertama
           </button>
@@ -176,7 +176,7 @@ export default function CoursesPage() {
                     <span className="text-[10px] text-slate-400 font-semibold block">
                       Materi
                     </span>
-                    <span className="text-xs font-bold text-purple-600 dark:text-purple-400">
+                    <span className="text-xs font-bold text-[#54371C] dark:text-[#D9C7B6]">
                       {courseMaterials.length} file
                     </span>
                   </div>
@@ -184,7 +184,7 @@ export default function CoursesPage() {
                     <span className="text-[10px] text-slate-400 font-semibold block">
                       Tugas
                     </span>
-                    <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                    <span className="text-xs font-bold text-[#4A2E1B] dark:text-[#D9C7B6]">
                       {courseAssignments.length} item
                     </span>
                   </div>

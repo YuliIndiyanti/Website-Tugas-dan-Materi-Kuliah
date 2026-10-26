@@ -193,7 +193,7 @@ export const NewMaterialModal: React.FC<NewMaterialModalProps> = ({
               }}
               className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all btn-tactile ${
                 !isExternalUrlMode
-                  ? "bg-white dark:bg-slate-900 text-indigo-700 dark:text-indigo-300 shadow-xs"
+                  ? "bg-white dark:bg-slate-900 text-[#4A2E1B] dark:text-[#EFE6DD] shadow-xs"
                   : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
               }`}
             >
@@ -208,7 +208,7 @@ export const NewMaterialModal: React.FC<NewMaterialModalProps> = ({
               }}
               className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all btn-tactile ${
                 isExternalUrlMode
-                  ? "bg-white dark:bg-slate-900 text-indigo-700 dark:text-indigo-300 shadow-xs"
+                  ? "bg-white dark:bg-slate-900 text-[#4A2E1B] dark:text-[#EFE6DD] shadow-xs"
                   : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
               }`}
             >
@@ -253,11 +253,11 @@ export const NewMaterialModal: React.FC<NewMaterialModalProps> = ({
                   onClick={() => fileInputRef.current?.click()}
                   className={`border-2 border-dashed rounded-2xl p-5 text-center cursor-pointer transition-all ${
                     isDragging
-                      ? "border-indigo-500 bg-indigo-50/70 dark:bg-indigo-950/40 ring-2 ring-indigo-200"
-                      : "border-indigo-200/80 hover:border-indigo-400 bg-slate-50/60 dark:bg-slate-800/40 hover:bg-indigo-50/30"
+                      ? "border-[#8B5A2B] bg-[#F6EDE0]/70 dark:bg-[#281F19]/40 ring-2 ring-[#8B5A2B]/30"
+                      : "border-[#EAE0D5] hover:border-[#8B5A2B] bg-slate-50/60 dark:bg-slate-800/40 hover:bg-[#F3EADF]/30"
                   }`}
                 >
-                  <div className="w-11 h-11 mx-auto mb-2 rounded-2xl bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 flex items-center justify-center shadow-xs">
+                  <div className="w-11 h-11 mx-auto mb-2 rounded-2xl bg-[#EDE3D6] text-[#453120] dark:bg-[#382314] dark:text-[#EAE0D5] flex items-center justify-center shadow-xs">
                     <UploadCloud className="w-5 h-5 animate-pulse" />
                   </div>
                   <p className="text-xs font-bold text-slate-800 dark:text-slate-100">
@@ -268,9 +268,9 @@ export const NewMaterialModal: React.FC<NewMaterialModalProps> = ({
                   </p>
                 </div>
               ) : (
-                <div className="p-3.5 rounded-2xl border border-indigo-200/80 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-950/40 flex items-center justify-between gap-3 shadow-xs">
+                <div className="p-3.5 rounded-2xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-[#F3EADF]/50 dark:bg-[#281F19]/40 flex items-center justify-between gap-3 shadow-xs">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-300 flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-xs border border-indigo-100 dark:border-indigo-900">
+                    <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 text-[#4A2E1B] dark:text-[#D9C7B6] flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-xs border border-[#EAE0D5] dark:border-[#3D2F26]">
                       {fileName.endsWith(".pdf")
                         ? "📕 PDF"
                         : fileName.match(/\.(ppt|pptx)$/)
@@ -294,7 +294,7 @@ export const NewMaterialModal: React.FC<NewMaterialModalProps> = ({
                             <span>Mengunggah berkas...</span>
                           </span>
                         ) : (
-                          <span className="flex items-center gap-1 text-emerald-600 font-semibold">
+                          <span className="flex items-center gap-1 text-[#54371C] dark:text-[#D9C7B6] font-semibold">
                             <CheckCircle2 className="w-3 h-3" />
                             <span>Tersimpan & Siap</span>
                           </span>
@@ -307,7 +307,7 @@ export const NewMaterialModal: React.FC<NewMaterialModalProps> = ({
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
-                      className="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 text-[11px] font-semibold text-indigo-600 hover:bg-indigo-50 border border-slate-200 dark:border-slate-700 shadow-xs btn-tactile"
+                      className="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 text-[11px] font-semibold text-[#4A2E1B] hover:bg-[#F3EADF] border border-slate-200 dark:border-slate-700 shadow-xs btn-tactile"
                     >
                       Ganti
                     </button>
@@ -421,7 +421,7 @@ export const NewMaterialModal: React.FC<NewMaterialModalProps> = ({
                     onClick={() => setCategory(c.id as MaterialCategory)}
                     className={`py-2 rounded-xl text-xs font-semibold border transition-all text-center btn-tactile ${
                       category === c.id
-                        ? "bg-[#E0E7FF] text-[#3730A3] border-indigo-300 dark:bg-indigo-950 dark:text-indigo-200 shadow-xs"
+                        ? "bg-[#EDE3D6] text-[#453120] border-[#D9C7B6] dark:bg-[#382314] dark:text-[#EAE0D5] shadow-xs"
                         : "bg-slate-50 dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700"
                     }`}
                   >
@@ -448,11 +448,11 @@ export const NewMaterialModal: React.FC<NewMaterialModalProps> = ({
             />
           </div>
 
-          {/* Pastel Tags Selector */}
+          {/* Brown Tags Selector */}
           <div>
             <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center gap-1.5">
               <Tag className="w-3.5 h-3.5" />
-              <span>Pilih Tag Kategori Pastel</span>
+              <span>Pilih Tag Kategori Brown Series</span>
             </label>
             <div className="flex flex-wrap gap-1.5">
               {DEFAULT_TAGS.map((t) => {
@@ -464,7 +464,7 @@ export const NewMaterialModal: React.FC<NewMaterialModalProps> = ({
                     onClick={() => toggleTag(t)}
                     className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all btn-tactile ${
                       isSelected
-                        ? "ring-2 ring-indigo-400 shadow-xs"
+                        ? "ring-2 ring-[#8B5A2B] shadow-xs"
                         : "opacity-60 hover:opacity-100"
                     }`}
                     style={{
@@ -485,7 +485,7 @@ export const NewMaterialModal: React.FC<NewMaterialModalProps> = ({
             <button
               type="submit"
               disabled={isUploading}
-              className="w-full py-2.5 rounded-2xl bg-[#3730A3] text-white text-xs font-bold hover:bg-indigo-800 transition-colors shadow-md flex items-center justify-center gap-2 btn-tactile disabled:opacity-50"
+              className="w-full py-2.5 rounded-2xl bg-[#4A2E1B] text-white text-xs font-bold hover:bg-[#382314] transition-colors shadow-md flex items-center justify-center gap-2 btn-tactile disabled:opacity-50"
             >
               {isUploading ? (
                 <>

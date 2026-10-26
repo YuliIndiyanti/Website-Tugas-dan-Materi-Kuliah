@@ -93,7 +93,7 @@ export default function MaterialsPage() {
 
           <button
             onClick={() => setIsNewMaterialOpen(true)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-[#3730A3] text-white text-xs font-semibold hover:bg-indigo-800 transition-colors shadow-sm btn-tactile"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-[#4A2E1B] text-white text-xs font-semibold hover:bg-[#382314] transition-colors shadow-sm btn-tactile"
           >
             <Plus className="w-4 h-4" />
             <span>+ Upload Materi Baru</span>
@@ -121,7 +121,7 @@ export default function MaterialsPage() {
             onClick={() => setCategoryFilter("ALL")}
             className={`px-3 py-1.5 rounded-xl font-semibold transition-all ${
               categoryFilter === "ALL"
-                ? "bg-[#E0E7FF] text-[#3730A3] dark:bg-[#312E81] dark:text-[#E0E7FF]"
+                ? "bg-[#EFE6DD] text-[#3D271D] dark:bg-[#3D271D] dark:text-[#EFE6DD]"
                 : "text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
@@ -131,7 +131,7 @@ export default function MaterialsPage() {
             onClick={() => setCategoryFilter("SLIDE")}
             className={`px-3 py-1.5 rounded-xl font-semibold transition-all ${
               categoryFilter === "SLIDE"
-                ? "bg-[#DBEAFE] text-[#1E3A8A] dark:bg-[#1E3A8A]/40 dark:text-[#DBEAFE]"
+                ? "bg-[#F3EADF] text-[#4C331E] dark:bg-[#432C19] dark:text-[#F3EADF]"
                 : "text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
@@ -141,7 +141,7 @@ export default function MaterialsPage() {
             onClick={() => setCategoryFilter("BOOK")}
             className={`px-3 py-1.5 rounded-xl font-semibold transition-all ${
               categoryFilter === "BOOK"
-                ? "bg-[#D1FAE5] text-[#065F46] dark:bg-[#064E3B] dark:text-[#D1FAE5]"
+                ? "bg-[#F6EDE0] text-[#5B3B18] dark:bg-[#4E3113] dark:text-[#F6EDE0]"
                 : "text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
@@ -151,7 +151,7 @@ export default function MaterialsPage() {
             onClick={() => setCategoryFilter("RECORDING")}
             className={`px-3 py-1.5 rounded-xl font-semibold transition-all ${
               categoryFilter === "RECORDING"
-                ? "bg-[#F3E8FF] text-[#6B21A8] dark:bg-[#6B21A8]/40 dark:text-[#F3E8FF]"
+                ? "bg-[#EDE3D6] text-[#453120] dark:bg-[#382618] dark:text-[#EDE3D6]"
                 : "text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
@@ -161,7 +161,7 @@ export default function MaterialsPage() {
             onClick={() => setCategoryFilter("LINK")}
             className={`px-3 py-1.5 rounded-xl font-semibold transition-all ${
               categoryFilter === "LINK"
-                ? "bg-[#FCE7F3] text-[#9D174D] dark:bg-[#831843] dark:text-[#FCE7F3]"
+                ? "bg-[#EAE0D5] text-[#382314] dark:bg-[#362112] dark:text-[#EAE0D5]"
                 : "text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
@@ -203,7 +203,7 @@ export default function MaterialsPage() {
                     </span>
                   </div>
 
-                  <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 line-clamp-2 group-hover:text-indigo-600 transition-colors">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 line-clamp-2 group-hover:text-[#4A2E1B] dark:group-hover:text-[#D9C7B6] transition-colors">
                     {mat.title}
                   </h3>
 
@@ -235,7 +235,7 @@ export default function MaterialsPage() {
                   </button>
                   <Link
                     href={`/materials/${mat.id}`}
-                    className="flex-1 py-2 rounded-xl bg-[#E0E7FF] text-[#3730A3] hover:bg-indigo-200 text-xs font-semibold flex items-center justify-center gap-1 shadow-xs btn-tactile"
+                    className="flex-1 py-2 rounded-xl bg-[#F3EADF] text-[#4A2E1B] hover:bg-[#EAE0D5] border border-[#EAE0D5] dark:bg-[#382314] dark:text-[#EFE6DD] dark:border-[#3D2F26] text-xs font-semibold flex items-center justify-center gap-1 shadow-xs btn-tactile"
                   >
                     <Columns className="w-3.5 h-3.5" />
                     <span>Workspace</span>

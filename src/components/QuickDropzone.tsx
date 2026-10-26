@@ -68,8 +68,8 @@ export const QuickDropzone: React.FC<QuickDropzoneProps> = ({
               fileUrl: `/sample-files/${fileName}`,
               mimeType: isPdf ? "application/pdf" : "application/octet-stream",
               tags: [
-                { id: "baru", name: "#baru", bgHex: "#D1FAE5", textHex: "#065F46" },
-                { id: "bahan-uts", name: "#bahan-uts", bgHex: "#FCE7F3", textHex: "#9D174D" },
+                { id: "baru", name: "#baru", bgHex: "#EDE3D6", textHex: "#453120" },
+                { id: "bahan-uts", name: "#bahan-uts", bgHex: "#F6EDE0", textHex: "#5B3B18" },
               ],
             });
             setUploadProgress(null);
@@ -113,10 +113,10 @@ export const QuickDropzone: React.FC<QuickDropzoneProps> = ({
       <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200/80 dark:border-slate-800 shadow-soft">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
-            <Sparkles className="w-4 h-4 text-purple-500" />
+            <Sparkles className="w-4 h-4 text-[#8B5A2B]" />
             <span>Quick Upload Materi Vault</span>
           </h3>
-          <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-[#F3E8FF] text-[#6B21A8] dark:bg-purple-950 dark:text-purple-300">
+          <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-[#EDE3D6] text-[#453120] dark:bg-[#382314] dark:text-[#EAE0D5]">
             Drag & Drop
           </span>
         </div>
@@ -169,8 +169,8 @@ export const QuickDropzone: React.FC<QuickDropzoneProps> = ({
           onClick={() => fileInputRef.current?.click()}
           className={`relative border-2 border-dashed rounded-2xl p-6 text-center cursor-pointer transition-all ${
             isDragging
-              ? "border-purple-400 bg-purple-50/50 dark:bg-purple-950/20 scale-[1.01]"
-              : "border-indigo-200 dark:border-slate-700 bg-[#FDFBF7] dark:bg-slate-800/40 hover:bg-indigo-50/30 dark:hover:bg-slate-800"
+              ? "border-[#8B5A2B] bg-[#F6EDE0]/60 dark:bg-[#281F19]/40 scale-[1.01]"
+              : "border-[#EAE0D5] dark:border-[#3D2F26] bg-[#FDFBF7] dark:bg-[#1C1512]/60 hover:bg-[#F3EADF]/30 dark:hover:bg-[#281F19]"
           }`}
         >
           <input
@@ -180,7 +180,7 @@ export const QuickDropzone: React.FC<QuickDropzoneProps> = ({
             className="hidden"
             onChange={handleFileInputChange}
           />
-          <div className="w-10 h-10 rounded-2xl mx-auto flex items-center justify-center bg-[#E0E7FF] text-[#3730A3] dark:bg-indigo-950 dark:text-indigo-300 shadow-xs mb-2">
+          <div className="w-10 h-10 rounded-2xl mx-auto flex items-center justify-center bg-[#EDE3D6] text-[#453120] dark:bg-[#382314] dark:text-[#EAE0D5] shadow-xs mb-2">
             <UploadCloud className="w-5 h-5" />
           </div>
           <p className="text-xs font-semibold text-slate-700 dark:text-slate-200">
@@ -193,13 +193,13 @@ export const QuickDropzone: React.FC<QuickDropzoneProps> = ({
           {/* Progress bar pastel indicator */}
           {uploadProgress !== null && (
             <div className="mt-3 pt-2">
-              <div className="flex items-center justify-between text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 mb-1">
+              <div className="flex items-center justify-between text-[11px] font-semibold text-[#4A2E1B] dark:text-[#D9C7B6] mb-1">
                 <span>Mengunggah file ke Vault...</span>
                 <span>{uploadProgress}%</span>
               </div>
-              <div className="w-full h-2 rounded-full bg-indigo-100 dark:bg-slate-700 overflow-hidden">
+              <div className="w-full h-2 rounded-full bg-[#EAE0D5] dark:bg-[#3D2F26] overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-indigo-400 to-purple-400 transition-all duration-200 rounded-full"
+                  className="h-full bg-gradient-to-r from-[#8B5A2B] to-[#4A2E1B] transition-all duration-200 rounded-full"
                   style={{ width: `${uploadProgress}%` }}
                 />
               </div>
@@ -214,7 +214,7 @@ export const QuickDropzone: React.FC<QuickDropzoneProps> = ({
           <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Materi Terakhir Dibuka
           </h3>
-          <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold cursor-pointer hover:underline">
+          <span className="text-[10px] text-[#4A2E1B] dark:text-[#D9C7B6] font-semibold cursor-pointer hover:underline">
             Lihat Semua
           </span>
         </div>
@@ -231,10 +231,10 @@ export const QuickDropzone: React.FC<QuickDropzoneProps> = ({
                 <div
                   key={mat.id}
                   onClick={() => onOpenMaterialPreview(mat.id)}
-                  className="group flex items-center justify-between p-2.5 rounded-2xl bg-slate-50/70 dark:bg-slate-800/60 hover:bg-purple-50/50 dark:hover:bg-slate-800 border border-slate-100 dark:border-slate-700/60 cursor-pointer transition-all"
+                  className="group flex items-center justify-between p-2.5 rounded-2xl bg-slate-50/70 dark:bg-slate-800/60 hover:bg-[#F3EADF]/40 dark:hover:bg-[#281F19] border border-slate-100 dark:border-slate-700/60 cursor-pointer transition-all"
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="w-7 h-7 rounded-xl flex items-center justify-center bg-[#F3E8FF] text-[#6B21A8] dark:bg-purple-950 dark:text-purple-300 flex-shrink-0 text-xs font-bold">
+                    <div className="w-7 h-7 rounded-xl flex items-center justify-center bg-[#EDE3D6] text-[#453120] dark:bg-[#382314] dark:text-[#EAE0D5] flex-shrink-0 text-xs font-bold">
                       {mat.category === "SLIDE" ? (
                         <FileText className="w-3.5 h-3.5" />
                       ) : mat.category === "RECORDING" ? (
@@ -244,7 +244,7 @@ export const QuickDropzone: React.FC<QuickDropzoneProps> = ({
                       )}
                     </div>
                     <div className="min-w-0">
-                      <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate group-hover:text-purple-600 dark:group-hover:text-purple-400 break-anywhere">
+                      <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate group-hover:text-[#4A2E1B] dark:group-hover:text-[#D9C7B6] break-anywhere">
                         {mat.title}
                       </p>
                       <p className="text-[10px] text-slate-400 truncate">
@@ -252,7 +252,7 @@ export const QuickDropzone: React.FC<QuickDropzoneProps> = ({
                       </p>
                     </div>
                   </div>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-purple-500 flex-shrink-0" />
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#4A2E1B] dark:group-hover:text-[#D9C7B6] flex-shrink-0" />
                 </div>
               );
             })

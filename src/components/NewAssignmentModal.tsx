@@ -243,7 +243,7 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
           <div>
             <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center justify-between">
               <span className="flex items-center gap-1.5">
-                <Paperclip className="w-3.5 h-3.5 text-indigo-500" />
+                <Paperclip className="w-3.5 h-3.5 text-[#6B5543] dark:text-[#D9C7B6]" />
                 <span>Unggah Berkas / Soal Tugas (PDF, DOCX, ZIP, dll)</span>
               </span>
               <span className="text-[10px] text-slate-400 font-normal">Opsional</span>
@@ -260,9 +260,9 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
             />
 
             {attachmentName ? (
-              <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-emerald-300 dark:border-emerald-700 shadow-xs">
+              <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-[#EAE0D5] dark:border-[#3D2F26] shadow-xs">
                 <div className="flex items-center gap-3 min-w-0 pr-2">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center flex-shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-[#EDE3D6] dark:bg-[#382314] text-[#453120] dark:text-[#EAE0D5] flex items-center justify-center flex-shrink-0">
                     {isUploading ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
                     ) : (
@@ -276,11 +276,11 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
                     <p className="text-[10px] text-slate-400 flex items-center gap-1.5 mt-0.5">
                       <span>{attachmentSize || "Berkas terpilih"}</span>
                       {isUploading ? (
-                        <span className="text-indigo-600 font-semibold animate-pulse">
+                        <span className="text-[#4A2E1B] dark:text-[#D9C7B6] font-semibold animate-pulse">
                           Mengunggah ke server...
                         </span>
                       ) : (
-                        <span className="text-emerald-600 font-semibold flex items-center gap-0.5">
+                        <span className="text-[#54371C] dark:text-[#D9C7B6] font-semibold flex items-center gap-0.5">
                           <CheckCircle2 className="w-3 h-3 inline" /> Berkas Siap
                         </span>
                       )}
@@ -323,11 +323,11 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
                 onClick={() => fileInputRef.current?.click()}
                 className={`border-2 border-dashed rounded-2xl p-4 text-center cursor-pointer transition-all ${
                   isDragging
-                    ? "border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/30"
-                    : "border-slate-300 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40 hover:border-emerald-500 hover:bg-emerald-50/20"
+                    ? "border-[#8B5A2B] bg-[#F6EDE0]/50 dark:bg-[#281F19]/50"
+                    : "border-slate-300 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40 hover:border-[#8B5A2B] hover:bg-[#F3EADF]/20"
                 }`}
               >
-                <UploadCloud className="w-6 h-6 mx-auto text-emerald-600 mb-1" />
+                <UploadCloud className="w-6 h-6 mx-auto text-[#6B5543] dark:text-[#D9C7B6] mb-1" />
                 <p className="text-xs font-bold text-slate-700 dark:text-slate-200">
                   Tarik file soal/tugas ke sini atau klik untuk browse
                 </p>
@@ -377,9 +377,9 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
               </legend>
               <div className="flex gap-1.5" role="radiogroup">
                 {[
-                  { id: "LOW", label: "🌱 Rendah", bg: "bg-[#D1FAE5] text-[#065F46]" },
-                  { id: "MEDIUM", label: "🍑 Sedang", bg: "bg-[#FEF3C7] text-[#92400E]" },
-                  { id: "HIGH", label: "🌷 Tinggi", bg: "bg-[#FFE4E6] text-[#9F1239]" },
+                  { id: "LOW", label: "🌱 Rendah", bg: "bg-[#F6F0E8] text-[#6B5543] dark:bg-[#281F19] dark:text-[#D9C7B6]" },
+                  { id: "MEDIUM", label: "🍑 Sedang", bg: "bg-[#F8ECD9] text-[#734311] dark:bg-[#332214] dark:text-[#F3EADF]" },
+                  { id: "HIGH", label: "🌷 Tinggi", bg: "bg-[#F7E2DD] text-[#7A271A] dark:bg-[#3B1E19] dark:text-[#F8D2CA]" },
                 ].map((p) => (
                   <button
                     key={p.id}
@@ -423,7 +423,7 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
             <button
               type="submit"
               disabled={isUploading}
-              className="w-full py-2.5 rounded-2xl bg-[#065F46] disabled:opacity-50 text-white text-xs font-bold hover:bg-emerald-800 transition-colors shadow-md flex items-center justify-center gap-1.5 btn-tactile"
+              className="w-full py-2.5 rounded-2xl bg-[#4A2E1B] disabled:opacity-50 text-white text-xs font-bold hover:bg-[#382314] transition-colors shadow-md flex items-center justify-center gap-1.5 btn-tactile"
             >
               {isUploading ? (
                 <>

@@ -107,28 +107,28 @@ export default function AssignmentsPage() {
       label: "Belum Dimulai",
       icon: "🕊️",
       bg: "bg-[#F1F5F9]/60 dark:bg-slate-800/40",
-      border: "border-slate-200 dark:border-slate-700",
+      border: "border-[#E4D6C6] dark:border-[#3D2F26]",
     },
     {
       id: "IN_PROGRESS",
       label: "Sedang Dikerjakan",
-      icon: "☁️",
-      bg: "bg-[#E0F2FE]/40 dark:bg-sky-950/20",
-      border: "border-sky-200 dark:border-sky-900/40",
+      icon: "☕",
+      bg: "bg-[#EDE0D2]/60 dark:bg-[#2B2019]/40",
+      border: "border-[#D8C3AE] dark:border-[#4A382A]",
     },
     {
       id: "READY",
       label: "Siap Dikumpulkan",
-      icon: "🪻",
-      bg: "bg-[#F3E8FF]/40 dark:bg-purple-950/20",
-      border: "border-purple-200 dark:border-purple-900/40",
+      icon: "📦",
+      bg: "bg-[#E4D4C3]/60 dark:bg-[#32241C]/40",
+      border: "border-[#CEB9A3] dark:border-[#543D2E]",
     },
     {
       id: "SUBMITTED",
       label: "Sudah Dikumpulkan",
-      icon: "🌱",
-      bg: "bg-[#D1FAE5]/40 dark:bg-emerald-950/20",
-      border: "border-emerald-200 dark:border-emerald-900/40",
+      icon: "✓",
+      bg: "bg-[#D8C4AF]/60 dark:bg-[#3B2B20]/40",
+      border: "border-[#BD9F84] dark:border-[#5E4331]",
     },
   ];
 
@@ -155,7 +155,7 @@ export default function AssignmentsPage() {
               onClick={() => setViewMode("KANBAN")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 viewMode === "KANBAN"
-                  ? "bg-[#E0E7FF] text-[#3730A3] dark:bg-[#312E81] dark:text-[#E0E7FF]"
+                  ? "bg-[#EFE6DD] text-[#3D271D] dark:bg-[#3D271D] dark:text-[#EFE6DD]"
                   : "text-slate-500 hover:text-slate-800"
               }`}
             >
@@ -166,7 +166,7 @@ export default function AssignmentsPage() {
               onClick={() => setViewMode("TABLE")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 viewMode === "TABLE"
-                  ? "bg-[#E0E7FF] text-[#3730A3] dark:bg-[#312E81] dark:text-[#E0E7FF]"
+                  ? "bg-[#EFE6DD] text-[#3D271D] dark:bg-[#3D271D] dark:text-[#EFE6DD]"
                   : "text-slate-500 hover:text-slate-800"
               }`}
             >
@@ -178,7 +178,7 @@ export default function AssignmentsPage() {
           {/* + Tugas Baru */}
           <button
             onClick={() => setIsNewAssignmentOpen(true)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-[#065F46] text-white text-xs font-bold hover:bg-emerald-800 transition-colors shadow-sm"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-[#4A2E1B] text-white text-xs font-bold hover:bg-[#382314] transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             <span>+ Tugas Baru</span>
@@ -247,7 +247,7 @@ export default function AssignmentsPage() {
                 }}
                 className={`rounded-3xl p-4 border transition-all duration-150 flex flex-col min-h-[500px] shadow-xs ${
                   isDropActive
-                    ? "border-2 border-dashed border-indigo-400 bg-indigo-50/70 dark:bg-indigo-950/40 ring-2 ring-indigo-200"
+                    ? "border-2 border-dashed border-[#8B5A2B] bg-[#F6EDE0]/70 dark:bg-[#281F19]/40 ring-2 ring-[#8B5A2B]/30"
                     : `${col.border} ${col.bg}`
                 }`}
               >
@@ -322,7 +322,7 @@ export default function AssignmentsPage() {
                                     handleAdvanceStatus(assignment);
                                   }}
                                   title="Pindah ke kolom berikutnya"
-                                  className="p-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-indigo-100 hover:text-indigo-700 text-slate-400 opacity-70 group-hover:opacity-100 transition-all btn-tactile"
+                                  className="p-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-[#F3EADF] hover:text-[#4A2E1B] text-slate-400 opacity-70 group-hover:opacity-100 transition-all btn-tactile"
                                   aria-label={`Pindahkan ${assignment.title} ke tahap berikutnya`}
                                 >
                                   <ArrowRight className="w-3.5 h-3.5" />
@@ -347,7 +347,7 @@ export default function AssignmentsPage() {
                             </div>
                           </div>
 
-                          <h4 className="text-xs font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 line-clamp-2 break-anywhere break-words">
+                          <h4 className="text-xs font-bold text-slate-800 dark:text-slate-100 group-hover:text-[#4A2E1B] dark:group-hover:text-[#D9C7B6] line-clamp-2 break-anywhere break-words">
                             {assignment.title}
                           </h4>
 
@@ -356,7 +356,7 @@ export default function AssignmentsPage() {
                           </p>
 
                           {assignment.attachmentUrl && (
-                            <div className="mt-2 flex items-center gap-1 text-[10px] text-indigo-700 dark:text-indigo-300 bg-indigo-50/80 dark:bg-indigo-950/40 px-2 py-0.5 rounded-lg border border-indigo-100 dark:border-indigo-900/60 truncate">
+                            <div className="mt-2 flex items-center gap-1 text-[10px] text-[#4A2E1B] dark:text-[#D9C7B6] bg-[#F3EADF]/80 dark:bg-[#281F19]/40 px-2 py-0.5 rounded-lg border border-[#EAE0D5] dark:border-[#3D2F26] truncate">
                               <Paperclip className="w-3 h-3 flex-shrink-0" />
                               <span className="truncate">{assignment.attachmentName || "Lampiran Soal"}</span>
                             </div>
@@ -377,7 +377,7 @@ export default function AssignmentsPage() {
                             </span>
 
                             {assignment.score !== undefined && (
-                              <span className="font-bold text-emerald-600 dark:text-emerald-400 flex-shrink-0">
+                              <span className="font-bold text-[#4A2E1B] dark:text-[#D9C7B6] flex-shrink-0">
                                 Skor: {assignment.score}
                               </span>
                             )}

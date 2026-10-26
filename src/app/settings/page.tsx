@@ -125,7 +125,7 @@ export default function SettingsPage() {
       {/* Backup & Export Section (PRD Section 9.3) */}
       <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft space-y-4">
         <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-          <Download className="w-4 h-4 text-indigo-500" />
+          <Download className="w-4 h-4 text-[#8B5A2B]" />
           <span>Ekspor Cadangan Data Lokal (JSON & CSV)</span>
         </h3>
         <p className="text-xs text-slate-500 leading-relaxed">
@@ -135,7 +135,7 @@ export default function SettingsPage() {
         <div className="flex items-center gap-3 flex-wrap pt-2">
           <button
             onClick={handleDownloadJSON}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#E0E7FF] text-[#3730A3] dark:bg-[#312E81] dark:text-[#E0E7FF] text-xs font-bold hover:bg-indigo-200 transition-colors shadow-xs"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#EDE3D6] text-[#453120] dark:bg-[#382314] dark:text-[#EAE0D5] text-xs font-bold hover:bg-[#E4D4C3] transition-colors shadow-xs"
           >
             <Download className="w-4 h-4" />
             <span>Unduh Cadangan Lengkap (JSON)</span>
@@ -143,7 +143,7 @@ export default function SettingsPage() {
 
           <button
             onClick={handleDownloadCSV}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#D1FAE5] text-[#065F46] dark:bg-[#064E3B] dark:text-[#D1FAE5] text-xs font-bold hover:bg-emerald-200 transition-colors shadow-xs"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#F6EDE0] text-[#5B3B18] dark:bg-[#281F19] dark:text-[#F6EDE0] text-xs font-bold hover:bg-[#EAE0D5] transition-colors shadow-xs"
           >
             <FileSpreadsheet className="w-4 h-4" />
             <span>Ekspor Rekap Tugas (CSV / Excel)</span>
@@ -154,7 +154,7 @@ export default function SettingsPage() {
       {/* Restore Data Section */}
       <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft space-y-4">
         <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-          <Upload className="w-4 h-4 text-indigo-500" />
+          <Upload className="w-4 h-4 text-[#8B5A2B]" />
           <span>Pulihkan Cadangan (Restore JSON)</span>
         </h3>
         <p className="text-xs text-slate-500 leading-relaxed">
@@ -171,7 +171,7 @@ export default function SettingsPage() {
 
         <button
           onClick={handleImport}
-          className="px-4 py-2 rounded-2xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition-colors shadow-xs"
+          className="px-4 py-2 rounded-2xl bg-[#4A2E1B] text-white text-xs font-bold hover:bg-[#382314] transition-colors shadow-xs"
         >
           Terapkan Pemulihan Data
         </button>
@@ -181,12 +181,12 @@ export default function SettingsPage() {
       <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-emerald-500" />
+            <Shield className="w-4 h-4 text-[#8B5A2B]" />
             <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">
               Profil Pemilik Vault & Spesifikasi Akun
             </h3>
           </div>
-          <span className="text-[10px] px-2.5 py-0.5 rounded-full font-bold bg-[#D1FAE5] text-[#065F46] border border-[#A7F3D0]">
+          <span className="text-[10px] px-2.5 py-0.5 rounded-full font-bold bg-[#EDE3D6] text-[#453120] border border-[#D9C7B6]">
             Single-User Active
           </span>
         </div>
@@ -202,7 +202,7 @@ export default function SettingsPage() {
             <p className="font-bold text-slate-800 dark:text-slate-100 mt-1">
               👩‍🎓 Yuli Indiyanti
             </p>
-            <p className="text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold mt-0.5">
+            <p className="text-[11px] text-[#4A2E1B] dark:text-[#D9C7B6] font-semibold mt-0.5">
               NIM: 240511130
             </p>
           </div>
@@ -221,8 +221,8 @@ export default function SettingsPage() {
             <span className="text-[10px] uppercase font-bold text-slate-400">
               Status Sistem
             </span>
-            <p className="font-bold text-emerald-600 dark:text-emerald-400 mt-1">
-              🌱 Yuli&apos;s Second Brain
+            <p className="font-bold text-[#54371C] dark:text-[#D9C7B6] mt-1">
+              ☕ Yuli&apos;s Second Brain
             </p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
               100% Free-Tier Offline

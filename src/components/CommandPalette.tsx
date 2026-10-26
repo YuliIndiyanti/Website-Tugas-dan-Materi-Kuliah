@@ -97,7 +97,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       >
         {/* Search Input Bar */}
         <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-100 dark:border-slate-800 bg-[#FDFBF7] dark:bg-slate-900">
-          <Search className="w-5 h-5 text-indigo-500 flex-shrink-0" aria-hidden="true" />
+          <Search className="w-5 h-5 text-[#6B5543] dark:text-[#D9C7B6] flex-shrink-0" aria-hidden="true" />
           <input
             ref={inputRef}
             type="text"
@@ -128,7 +128,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             onClick={() => setFilterType("ALL")}
             className={`px-3 py-1 rounded-full font-medium transition-all ${
               filterType === "ALL"
-                ? "bg-[#E0E7FF] text-[#3730A3] dark:bg-[#312E81] dark:text-[#E0E7FF]"
+                ? "bg-[#4A2E1B] text-white dark:bg-[#D9C7B6] dark:text-[#1C1512]"
                 : "text-slate-600 dark:text-slate-400 hover:bg-slate-200/50"
             }`}
           >
@@ -138,7 +138,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             onClick={() => setFilterType("MATERIAL")}
             className={`px-3 py-1 rounded-full font-medium transition-all ${
               filterType === "MATERIAL"
-                ? "bg-[#F3E8FF] text-[#6B21A8] dark:bg-[#6B21A8]/40 dark:text-[#F3E8FF]"
+                ? "bg-[#EDE3D6] text-[#453120] dark:bg-[#382314] dark:text-[#EAE0D5]"
                 : "text-slate-600 dark:text-slate-400 hover:bg-slate-200/50"
             }`}
           >
@@ -148,7 +148,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             onClick={() => setFilterType("ASSIGNMENT")}
             className={`px-3 py-1 rounded-full font-medium transition-all ${
               filterType === "ASSIGNMENT"
-                ? "bg-[#D1FAE5] text-[#065F46] dark:bg-[#064E3B] dark:text-[#D1FAE5]"
+                ? "bg-[#F6EDE0] text-[#5B3B18] dark:bg-[#281F19] dark:text-[#F6EDE0]"
                 : "text-slate-600 dark:text-slate-400 hover:bg-slate-200/50"
             }`}
           >
@@ -158,7 +158,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             onClick={() => setFilterType("COURSE")}
             className={`px-3 py-1 rounded-full font-medium transition-all ${
               filterType === "COURSE"
-                ? "bg-[#DBEAFE] text-[#1E3A8A] dark:bg-[#1E3A8A]/40 dark:text-[#DBEAFE]"
+                ? "bg-[#EAE0D5] text-[#382314] dark:bg-[#382314] dark:text-[#EAE0D5]"
                 : "text-slate-600 dark:text-slate-400 hover:bg-slate-200/50"
             }`}
           >
@@ -185,14 +185,14 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                           onClose();
                           onOpenMaterialPreview(m.id);
                         }}
-                        className="group flex items-center justify-between p-3 rounded-2xl bg-slate-50/80 dark:bg-slate-800/60 hover:bg-[#F3E8FF]/40 dark:hover:bg-slate-800 border border-slate-200/50 dark:border-slate-700/50 cursor-pointer transition-all"
+                        className="group flex items-center justify-between p-3 rounded-2xl bg-slate-50/80 dark:bg-slate-800/60 hover:bg-[#F3EADF]/40 dark:hover:bg-slate-800 border border-slate-200/50 dark:border-slate-700/50 cursor-pointer transition-all"
                       >
                         <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-[#F3E8FF] text-[#6B21A8] dark:bg-purple-950 dark:text-purple-300 flex-shrink-0">
+                          <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-[#EDE3D6] text-[#453120] dark:bg-[#382314] dark:text-[#EAE0D5] flex-shrink-0">
                             <FileText className="w-4 h-4" />
                           </div>
                           <div className="min-w-0">
-                            <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate group-hover:text-purple-600 dark:group-hover:text-purple-400">
+                            <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate group-hover:text-[#4A2E1B] dark:group-hover:text-[#D9C7B6]">
                               {m.title}
                             </p>
                             <div className="flex items-center gap-2 text-[11px] text-slate-500 mt-0.5">
@@ -240,14 +240,14 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                           onClose();
                           onOpenAssignmentDetail(a.id);
                         }}
-                        className="group flex items-center justify-between p-3 rounded-2xl bg-slate-50/80 dark:bg-slate-800/60 hover:bg-[#D1FAE5]/40 dark:hover:bg-slate-800 border border-slate-200/50 dark:border-slate-700/50 cursor-pointer transition-all"
+                        className="group flex items-center justify-between p-3 rounded-2xl bg-slate-50/80 dark:bg-slate-800/60 hover:bg-[#EDE3D6]/40 dark:hover:bg-slate-800 border border-slate-200/50 dark:border-slate-700/50 cursor-pointer transition-all"
                       >
                         <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-[#D1FAE5] text-[#065F46] dark:bg-emerald-950 dark:text-emerald-300 flex-shrink-0">
+                          <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-[#F6EDE0] text-[#5B3B18] dark:bg-[#382314] dark:text-[#EAE0D5] flex-shrink-0">
                             <CheckSquare className="w-4 h-4" />
                           </div>
                           <div className="min-w-0">
-                            <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400">
+                            <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate group-hover:text-[#4A2E1B] dark:group-hover:text-[#D9C7B6]">
                               {a.title}
                             </p>
                             <div className="flex items-center gap-2 text-[11px] text-slate-500 mt-0.5">
@@ -292,7 +292,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                         onClose();
                         router.push(`/courses/${c.id}`);
                       }}
-                      className="group flex items-center justify-between p-3 rounded-2xl bg-slate-50/80 dark:bg-slate-800/60 hover:bg-[#DBEAFE]/40 dark:hover:bg-slate-800 border border-slate-200/50 dark:border-slate-700/50 cursor-pointer transition-all"
+                      className="group flex items-center justify-between p-3 rounded-2xl bg-slate-50/80 dark:bg-slate-800/60 hover:bg-[#F3EADF]/40 dark:hover:bg-slate-800 border border-slate-200/50 dark:border-slate-700/50 cursor-pointer transition-all"
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <div

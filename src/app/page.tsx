@@ -29,23 +29,23 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      {/* Welcome Banner with Soft Pastel Gradient */}
-      <div className="relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-[#DBEAFE]/80 via-[#EDE9FE]/70 to-[#FCE7F3]/80 dark:from-indigo-950/40 dark:via-purple-950/40 dark:to-pink-950/40 border border-indigo-100 dark:border-indigo-900/50 shadow-soft">
+      {/* Welcome Banner with Warm Brown / Coffee Gradient */}
+      <div className="relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-[#EFE6DD] via-[#F3EADF] to-[#EAE0D5] dark:from-[#2B2019] dark:via-[#35271F] dark:to-[#221812] border border-[#DECFC0] dark:border-[#423126] shadow-soft">
         <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-white/90 dark:bg-slate-800/90 text-[#3730A3] dark:text-indigo-300 shadow-xs mb-3 border border-indigo-200/60 dark:border-indigo-700/60">
-            <span>🌸</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-white/90 dark:bg-[#281F19]/90 text-[#3D271D] dark:text-[#EFE6DD] shadow-xs mb-3 border border-[#D9C7B6] dark:border-[#523A2A]">
+            <span>☕</span>
             <span>Yuli&apos;s Vault • {activeSemester?.name || "Semester Aktif"}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-800 dark:text-slate-100 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2A1D15] dark:text-[#F5EFEB] tracking-tight">
             Yuli&apos;s Second Brain
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#756353] dark:text-[#B0A092] mt-2 leading-relaxed">
             Streamline your study workflow. Track tasks and manage materials effortlessly.
           </p>
         </div>
 
-        {/* Decorative pastel circles */}
-        <div className="absolute -right-8 -bottom-8 w-48 h-48 rounded-full bg-gradient-to-br from-pink-200/50 to-purple-200/50 dark:from-pink-900/20 dark:to-purple-900/20 blur-2xl pointer-events-none" />
+        {/* Decorative warm brown circles */}
+        <div className="absolute -right-8 -bottom-8 w-48 h-48 rounded-full bg-gradient-to-br from-[#D9C7B6]/40 to-[#967252]/20 dark:from-[#523A2A]/40 dark:to-[#3D271D]/20 blur-2xl pointer-events-none" />
       </div>
 
       {/* Row of 4 Metric Cards */}
@@ -64,12 +64,12 @@ export default function DashboardPage() {
           <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200/80 dark:border-slate-800 shadow-soft">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-indigo-500" />
+                <Calendar className="w-4 h-4 text-[#967252]" />
                 <span>Jadwal Perkuliahan Terdekat</span>
               </h3>
               <Link
                 href="/courses"
-                className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+                className="text-xs font-semibold text-[#5B3B18] dark:text-[#D4C2B0] hover:underline"
               >
                 Lihat Semua MK
               </Link>
@@ -106,7 +106,7 @@ export default function DashboardPage() {
                         <span className="whitespace-nowrap">{c.scheduleTime}</span>
                       </span>
                     </div>
-                    <h4 className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate group-hover:text-indigo-600 break-anywhere">
+                    <h4 className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate group-hover:text-[#4A2E1B] dark:group-hover:text-[#D9C7B6] break-anywhere">
                       {c.name}
                     </h4>
                     <div className="flex items-center gap-1.5 text-[11px] text-slate-500 mt-2 truncate">

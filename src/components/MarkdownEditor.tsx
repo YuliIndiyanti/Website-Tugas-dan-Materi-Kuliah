@@ -55,7 +55,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
             return (
               <div
                 key={i}
-                className="p-3 rounded-xl bg-[#E0E7FF] text-[#3730A3] border border-indigo-200 dark:bg-indigo-950/60 dark:text-indigo-200 my-2 font-medium"
+                className="p-3 rounded-xl bg-[#F3EADF] text-[#4A2E1B] border border-[#EAE0D5] dark:bg-[#382314]/60 dark:text-[#EFE6DD] my-2 font-medium"
               >
                 <span className="font-bold flex items-center gap-1 mb-1">
                   <Info className="w-3.5 h-3.5" /> CATATAN PENTING:
@@ -68,7 +68,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
             return (
               <div
                 key={i}
-                className="p-3 rounded-xl bg-[#D1FAE5] text-[#065F46] border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-200 my-2 font-medium"
+                className="p-3 rounded-xl bg-[#EDE3D6] text-[#453120] border border-[#D9C7B6] dark:bg-[#281F19]/60 dark:text-[#EAE0D5] my-2 font-medium"
               >
                 <span className="font-bold flex items-center gap-1 mb-1">
                   <CheckCircle2 className="w-3.5 h-3.5" /> TIPS & TRIK:
@@ -81,7 +81,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
             return (
               <div
                 key={i}
-                className="p-3 rounded-xl bg-[#FFE4E6] text-[#9F1239] border border-rose-200 dark:bg-rose-950/60 dark:text-rose-200 my-2 font-medium"
+                className="p-3 rounded-xl bg-[#F7E2DD] text-[#7A271A] border border-[#EDBCB2] dark:bg-[#3B1E19]/60 dark:text-[#F8D2CA] my-2 font-medium"
               >
                 <span className="font-bold flex items-center gap-1 mb-1">
                   <AlertTriangle className="w-3.5 h-3.5" /> PERHATIAN:
@@ -95,7 +95,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
           }
           if (line.startsWith("### ")) {
             return (
-              <h3 key={i} className="text-sm font-bold text-indigo-700 dark:text-indigo-400 mt-2">
+              <h3 key={i} className="text-sm font-bold text-[#4A2E1B] dark:text-[#D9C7B6] mt-2">
                 {line.replace("### ", "")}
               </h3>
             );
@@ -177,28 +177,28 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
 
           <span className="w-px h-4 bg-slate-200 dark:bg-slate-700 mx-1" />
 
-          {/* Pastel Callout Buttons */}
+          {/* Brown Callout Buttons */}
           <button
             type="button"
             onClick={() => insertCallout("NOTE")}
-            className="px-2 py-0.5 rounded-md font-semibold text-[10px] bg-[#E0E7FF] text-[#3730A3] hover:bg-indigo-200"
-            title="Sisipkan Callout Pastel Lavender"
+            className="px-2 py-0.5 rounded-md font-semibold text-[10px] bg-[#F3EADF] text-[#4A2E1B] hover:bg-[#EAE0D5]"
+            title="Sisipkan Callout Cream Mocha"
           >
             + [!NOTE]
           </button>
           <button
             type="button"
             onClick={() => insertCallout("TIP")}
-            className="px-2 py-0.5 rounded-md font-semibold text-[10px] bg-[#D1FAE5] text-[#065F46] hover:bg-emerald-200"
-            title="Sisipkan Callout Pastel Mint"
+            className="px-2 py-0.5 rounded-md font-semibold text-[10px] bg-[#EDE3D6] text-[#453120] hover:bg-[#E4D4C3]"
+            title="Sisipkan Callout Hazelnut"
           >
             + [!TIP]
           </button>
           <button
             type="button"
             onClick={() => insertCallout("WARNING")}
-            className="px-2 py-0.5 rounded-md font-semibold text-[10px] bg-[#FFE4E6] text-[#9F1239] hover:bg-rose-200"
-            title="Sisipkan Callout Pastel Rose"
+            className="px-2 py-0.5 rounded-md font-semibold text-[10px] bg-[#F7E2DD] text-[#7A271A] hover:bg-[#EDBCB2]"
+            title="Sisipkan Callout Terracotta Brown"
           >
             + [!WARNING]
           </button>

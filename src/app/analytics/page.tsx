@@ -99,12 +99,12 @@ export default function AnalyticsPage() {
       {/* Overview Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Estimated GPA Card */}
-        <div className="p-6 rounded-3xl bg-[#D1FAE5] text-[#065F46] dark:bg-[#064E3B]/40 dark:text-[#D1FAE5] border border-[#A7F3D0] shadow-soft card-tactile">
+        <div className="p-6 rounded-3xl bg-[#EFE6DD] text-[#3D271D] dark:bg-[#3D271D]/40 dark:text-[#EFE6DD] border border-[#D9C7B6] shadow-soft card-tactile">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider">
               Prediksi Indeks Prestasi (IP)
             </span>
-            <Award className="w-5 h-5 text-[#065F46] dark:text-[#D1FAE5]" />
+            <Award className="w-5 h-5 text-[#3D271D] dark:text-[#EFE6DD]" />
           </div>
           <div className="mt-3 flex items-baseline gap-2">
             <span className="text-4xl font-extrabold">{estimatedGPA}</span>
@@ -118,12 +118,12 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Total SKS Card */}
-        <div className="p-6 rounded-3xl bg-[#DBEAFE] text-[#1E3A8A] dark:bg-[#1E3A8A]/30 dark:text-[#DBEAFE] border border-blue-200 shadow-soft card-tactile">
+        <div className="p-6 rounded-3xl bg-[#F6EDE0] text-[#5B3B18] dark:bg-[#5B3B18]/40 dark:text-[#F6EDE0] border border-[#E8D1B5] shadow-soft card-tactile">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider">
               Beban SKS Ditempuh
             </span>
-            <BookOpen className="w-5 h-5 text-[#1E3A8A] dark:text-[#DBEAFE]" />
+            <BookOpen className="w-5 h-5 text-[#5B3B18] dark:text-[#F6EDE0]" />
           </div>
           <div className="mt-3 flex items-baseline gap-2">
             <span className="text-4xl font-extrabold">{totalCredits}</span>
@@ -137,12 +137,12 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Grading Status Card */}
-        <div className="p-6 rounded-3xl bg-[#F3E8FF] text-[#6B21A8] dark:bg-[#6B21A8]/30 dark:text-[#F3E8FF] border border-purple-200 shadow-soft card-tactile">
+        <div className="p-6 rounded-3xl bg-[#EAE0D5] text-[#382314] dark:bg-[#382314]/40 dark:text-[#EAE0D5] border border-[#D0BFB0] shadow-soft card-tactile">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider">
               Tugas Telah Dinilai
             </span>
-            <CheckCircle2 className="w-5 h-5 text-[#6B21A8] dark:text-[#F3E8FF]" />
+            <CheckCircle2 className="w-5 h-5 text-[#382314] dark:text-[#EAE0D5]" />
           </div>
           <div className="mt-3 flex items-baseline gap-2">
             <span className="text-4xl font-extrabold">
@@ -159,9 +159,9 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Target Grade Calculator Simulator (FR-15) */}
-      <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-soft space-y-4">
+      <div className="rounded-3xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-white dark:bg-[#281F19] p-6 shadow-soft space-y-4">
         <div className="flex items-center gap-2">
-          <Calculator className="w-5 h-5 text-indigo-500" />
+          <Calculator className="w-5 h-5 text-[#6B5543] dark:text-[#D9C7B6]" />
           <h3 className="text-base font-bold text-slate-800 dark:text-slate-100">
             Kalkulator Target Nilai Akhir (UAS / Proyek Final)
           </h3>
@@ -224,7 +224,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Calculation Result Box */}
-        <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-slate-800 dark:to-indigo-950/40 border border-indigo-100 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="p-4 rounded-2xl bg-gradient-to-r from-[#F3EADF] to-[#EAE0D5] dark:from-[#281F19] dark:to-[#382314]/40 border border-[#EAE0D5] dark:border-[#3D2F26] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <p className="text-xs text-slate-500">
               Rata-rata Berjalan Saat Ini: <b>{currentAvg}</b> (Bobot tercakup:{" "}
@@ -239,8 +239,8 @@ export default function AnalyticsPage() {
             <span
               className={`text-2xl font-black px-4 py-1.5 rounded-2xl border shadow-xs ${
                 neededScore <= 100
-                  ? "bg-[#D1FAE5] text-[#065F46] border-[#A7F3D0]"
-                  : "bg-[#FFE4E6] text-[#9F1239] border-[#FECDD3]"
+                  ? "bg-[#EDE3D6] text-[#453120] border-[#D9C7B6]"
+                  : "bg-[#F7E2DD] text-[#7A271A] border-[#EDBCB2]"
               }`}
             >
               {neededScore <= 100 ? `${neededScore} / 100` : "> 100 (Sulit)"}
@@ -306,10 +306,10 @@ export default function AnalyticsPage() {
                       style={{
                         backgroundColor:
                           GRADE_CONFIG[cs.letter === "-" ? "A" : cs.letter]?.bgHex ||
-                          "#D1FAE5",
+                          "#EDE3D6",
                         color:
                           GRADE_CONFIG[cs.letter === "-" ? "A" : cs.letter]?.textHex ||
-                          "#065F46",
+                          "#453120",
                       }}
                     >
                       {cs.letter === "-" ? "A" : cs.letter}
@@ -318,7 +318,7 @@ export default function AnalyticsPage() {
                   <td className="p-4 font-bold text-slate-700 dark:text-slate-200">
                     {cs.gpaPoint > 0 ? (cs.gpaPoint * cs.course.credits).toFixed(1) : (4.0 * cs.course.credits).toFixed(1)}
                   </td>
-                  <td className="p-4 pr-6 text-emerald-600 font-semibold flex items-center gap-1 mt-3">
+                  <td className="p-4 pr-6 text-[#54371C] dark:text-[#D9C7B6] font-semibold flex items-center gap-1 mt-3">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     <span>Sangat Memuaskan</span>
                   </td>

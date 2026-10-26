@@ -32,42 +32,42 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenNewCourse }) => {
       label: "Dashboard",
       href: "/",
       icon: LayoutDashboard,
-      activeColor: "bg-[#E0E7FF] text-[#3730A3] dark:bg-[#312E81] dark:text-[#E0E7FF]",
+      activeColor: "bg-[#EFE6DD] text-[#3D271D] dark:bg-[#3D271D] dark:text-[#EFE6DD]",
     },
     {
       label: "Mata Kuliah",
       href: "/courses",
       icon: BookOpen,
-      activeColor: "bg-[#DBEAFE] text-[#1E3A8A] dark:bg-[#1E3A8A]/40 dark:text-[#DBEAFE]",
+      activeColor: "bg-[#F3EADF] text-[#4C331E] dark:bg-[#432C19] dark:text-[#F3EADF]",
     },
     {
       label: "Tugas & Status",
       href: "/assignments",
       icon: CheckSquare,
-      activeColor: "bg-[#D1FAE5] text-[#065F46] dark:bg-[#064E3B] dark:text-[#D1FAE5]",
+      activeColor: "bg-[#EDE3D6] text-[#453120] dark:bg-[#382618] dark:text-[#EDE3D6]",
     },
     {
       label: "Materi",
       href: "/materials",
       icon: FolderArchive,
-      activeColor: "bg-[#F3E8FF] text-[#6B21A8] dark:bg-[#6B21A8]/40 dark:text-[#F3E8FF]",
+      activeColor: "bg-[#F6EDE0] text-[#5B3B18] dark:bg-[#4E3113] dark:text-[#F6EDE0]",
     },
     {
       label: "Rekap Nilai & IPK",
       href: "/analytics",
       icon: BarChart3,
-      activeColor: "bg-[#FEF3C7] text-[#92400E] dark:bg-[#92400E]/40 dark:text-[#FEF3C7]",
+      activeColor: "bg-[#EAE0D5] text-[#382314] dark:bg-[#362112] dark:text-[#EAE0D5]",
     },
     {
       label: "Pengaturan & Backup",
       href: "/settings",
       icon: Settings,
-      activeColor: "bg-[#FCE7F3] text-[#9D174D] dark:bg-[#831843] dark:text-[#FCE7F3]",
+      activeColor: "bg-[#F8F2E8] text-[#563F28] dark:bg-[#48331E] dark:text-[#F8F2E8]",
     },
   ];
 
   return (
-    <aside className="w-64 flex-shrink-0 hidden md:flex flex-col border-r border-slate-200/80 bg-[#FDFBF7] dark:border-slate-800 dark:bg-[#0F172A] p-4 min-h-[calc(100vh-4rem)] select-none">
+    <aside className="w-64 flex-shrink-0 hidden md:flex flex-col border-r border-[#EAE0D5] bg-[#FAF7F2] dark:border-[#3D2F26] dark:bg-[#1C1512] p-4 min-h-[calc(100vh-4rem)] select-none">
       {/* Primary Navigation */}
       <div className="space-y-1 mb-6">
         <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
@@ -156,31 +156,31 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenNewCourse }) => {
       </div>
 
       {/* Footer Info Box */}
-      <div className="mt-4 pt-3 border-t border-slate-200/80 dark:border-slate-800 space-y-2">
-        <div className="p-3 rounded-2xl bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-slate-800/80 dark:via-indigo-950/40 dark:to-slate-800/80 border border-indigo-100/80 dark:border-indigo-900/40">
-          <div className="flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-200">
+      <div className="mt-4 pt-3 border-t border-[#EAE0D5] dark:border-[#3D2F26] space-y-2">
+        <div className="p-3 rounded-2xl bg-[#F3EADF]/70 dark:bg-[#281F19] border border-[#E0CFBE] dark:border-[#3D2F26]">
+          <div className="flex items-center justify-between text-xs font-semibold text-[#3D271D] dark:text-[#EFE6DD]">
             <span className="flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-500" /> Beban Studi
+              <Sparkles className="w-3.5 h-3.5 text-[#967252]" /> Beban Studi
             </span>
-            <span className="text-indigo-600 dark:text-indigo-400">
+            <span className="text-[#5B3B18] dark:text-[#D4C2B0] font-bold">
               {totalSKS} SKS
             </span>
           </div>
-          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 truncate">
+          <p className="text-[11px] text-[#756353] dark:text-[#B0A092] mt-1 truncate">
             {activeSemester?.name || "Semester Aktif"}
           </p>
         </div>
 
         {/* Pemilik Vault Pill */}
-        <div className="flex items-center gap-2.5 p-2 rounded-xl bg-white dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 shadow-2xs">
-          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-200 via-pink-200 to-amber-200 flex items-center justify-center text-[10px] font-bold text-slate-700 flex-shrink-0">
+        <div className="flex items-center gap-2.5 p-2 rounded-xl bg-white dark:bg-[#281F19] border border-[#EAE0D5] dark:border-[#3D2F26] shadow-2xs">
+          <div className="w-7 h-7 rounded-full bg-[#EAE0D5] text-[#3D271D] dark:bg-[#3D271D] dark:text-[#EFE6DD] flex items-center justify-center text-[10px] font-bold flex-shrink-0">
             YI
           </div>
           <div className="min-w-0">
-            <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
+            <p className="text-xs font-bold text-[#2A1D15] dark:text-[#F5EFEB] truncate">
               Yuli Indiyanti
             </p>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
+            <p className="text-[10px] text-[#756353] dark:text-[#B0A092] truncate">
               240511130 • TI24D
             </p>
           </div>

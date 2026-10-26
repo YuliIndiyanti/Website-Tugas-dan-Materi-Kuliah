@@ -39,12 +39,12 @@ export const DeadlineList: React.FC<DeadlineListProps> = ({
             <span>⏰</span> Tenggat Waktu & Prioritas Pengerjaan
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Diurutkan berdasarkan deadline terdekat dengan penanda warna pastel
+            Diurutkan berdasarkan deadline terdekat dengan penanda palet warna brown
           </p>
         </div>
         <button
           onClick={onOpenNewAssignment}
-          className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline btn-tactile"
+          className="text-xs font-semibold text-[#4A2E1B] dark:text-[#D9C7B6] hover:underline btn-tactile"
         >
           + Tambah
         </button>
@@ -65,10 +65,10 @@ export const DeadlineList: React.FC<DeadlineListProps> = ({
               <div
                 key={assignment.id}
                 onClick={() => onSelectAssignment(assignment.id)}
-                className="group relative flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl bg-[#FDFBF7] dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700/60 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all cursor-pointer shadow-xs hover:shadow-soft card-tactile"
+                className="group relative flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl bg-[#FDFBF7] dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700/60 hover:border-[#8B5A2B] dark:hover:border-[#8B5A2B] transition-all cursor-pointer shadow-xs hover:shadow-soft card-tactile"
                 style={{
                   borderLeftWidth: "5px",
-                  borderLeftColor: course?.pastelTextHex || "#3730A3",
+                  borderLeftColor: course?.pastelTextHex || "#4A2E1B",
                 }}
               >
                 <div className="min-w-0 flex-1 pr-2">
@@ -76,8 +76,8 @@ export const DeadlineList: React.FC<DeadlineListProps> = ({
                     <span
                       className="text-[10px] px-2 py-0.5 rounded-md font-bold tracking-tight"
                       style={{
-                        backgroundColor: course?.pastelColorHex || "#DBEAFE",
-                        color: course?.pastelTextHex || "#1E3A8A",
+                        backgroundColor: course?.pastelColorHex || "#EFE6DD",
+                        color: course?.pastelTextHex || "#3D271D",
                       }}
                     >
                       {course?.code || "MK"}
@@ -90,7 +90,7 @@ export const DeadlineList: React.FC<DeadlineListProps> = ({
                     </span>
                   </div>
 
-                  <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 break-anywhere break-words">
+                  <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-100 group-hover:text-[#4A2E1B] dark:group-hover:text-[#D9C7B6] transition-colors line-clamp-2 break-anywhere break-words">
                     {assignment.title}
                   </h4>
 

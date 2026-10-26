@@ -66,8 +66,8 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
             <div
               className="w-10 h-10 rounded-2xl flex items-center justify-center font-bold text-xs flex-shrink-0"
               style={{
-                backgroundColor: course?.pastelColorHex || "#DBEAFE",
-                color: course?.pastelTextHex || "#1E3A8A",
+                backgroundColor: course?.pastelColorHex || "#EFE6DD",
+                color: course?.pastelTextHex || "#3D271D",
               }}
             >
               {course?.code || "MK"}
@@ -91,7 +91,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
                 download={material.fileName || material.title}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#D1FAE5] text-[#065F46] hover:bg-emerald-200 border border-emerald-200 shadow-xs transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#EDE3D6] text-[#453120] hover:bg-[#E4D4C3] border border-[#D9C7B6] shadow-xs transition-colors"
                 title="Unduh Berkas Materi"
               >
                 <Download className="w-3.5 h-3.5" />
@@ -103,7 +103,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
             <Link
               href={`/materials/${material.id}`}
               onClick={onClose}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#E0E7FF] text-[#3730A3] hover:bg-indigo-200 border border-indigo-200 shadow-xs"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#F3EADF] text-[#4A2E1B] hover:bg-[#EAE0D5] border border-[#EAE0D5] shadow-xs"
             >
               <Columns className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Workspace Catatan</span>
@@ -116,7 +116,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
               aria-label="Salin Tautan Materi"
             >
               {copied ? (
-                <Check className="w-4 h-4 text-emerald-600" />
+                <Check className="w-4 h-4 text-[#4A2E1B] dark:text-[#D9C7B6]" />
               ) : (
                 <Share2 className="w-4 h-4" />
               )}
@@ -164,7 +164,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
               href={material.externalUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 ml-auto"
+              className="text-[11px] text-[#4A2E1B] dark:text-[#D9C7B6] hover:underline flex items-center gap-1 ml-auto"
             >
               <ExternalLink className="w-3 h-3" />
               <span>Kunjungi Tautan Asli</span>
@@ -187,7 +187,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
                     download={material.fileName || material.title}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:underline flex items-center gap-1"
+                    className="text-xs font-semibold text-[#54371C] dark:text-[#D9C7B6] hover:underline flex items-center gap-1"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>Unduh</span>
@@ -197,7 +197,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
                     href={material.fileUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+                    className="text-xs font-semibold text-[#4A2E1B] dark:text-[#D9C7B6] hover:underline flex items-center gap-1"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>Tab Baru</span>
@@ -231,7 +231,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
                 />
               ) : (
                 <>
-                  <Film className="w-12 h-12 text-purple-400 mb-3" />
+                  <Film className="w-12 h-12 text-[#D9C7B6] mb-3" />
                   <p className="text-sm font-semibold text-center">
                     {material.fileName || material.title}
                   </p>
@@ -243,7 +243,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
                       href={material.externalUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-4 px-4 py-2 rounded-xl bg-purple-600 text-white text-xs font-semibold hover:bg-purple-700 flex items-center gap-2"
+                      className="mt-4 px-4 py-2 rounded-xl bg-[#4A2E1B] text-white text-xs font-semibold hover:bg-[#382314] flex items-center gap-2"
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
                       <span>Buka Video di Tab Baru</span>
@@ -254,7 +254,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
             </div>
           ) : material.category === "LINK" ? (
             <div className="w-full max-w-lg p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center shadow-lg">
-              <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center bg-[#FCE7F3] text-[#9D174D] mb-4">
+              <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center bg-[#F3EADF] text-[#4A2E1B] dark:bg-[#382314] dark:text-[#F3EADF] mb-4">
                 <ExternalLink className="w-6 h-6" />
               </div>
               <h4 className="text-base font-bold text-slate-800 dark:text-slate-100">
@@ -267,7 +267,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
                 href={material.externalUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#3730A3] text-white text-xs font-semibold hover:bg-indigo-800 shadow-md"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#4A2E1B] text-white text-xs font-semibold hover:bg-[#382314] shadow-md"
               >
                 <span>Buka Referensi Sekarang</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -275,7 +275,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
             </div>
           ) : material.fileUrl ? (
             <div className="w-full max-w-lg p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center shadow-lg space-y-4">
-              <div className="w-14 h-14 rounded-2xl mx-auto flex items-center justify-center bg-emerald-100 text-[#065F46] dark:bg-emerald-950 dark:text-emerald-300">
+              <div className="w-14 h-14 rounded-2xl mx-auto flex items-center justify-center bg-[#EDE3D6] text-[#453120] dark:bg-[#382314] dark:text-[#EAE0D5]">
                 <FileText className="w-7 h-7" />
               </div>
               <div>
@@ -295,7 +295,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
                   download={material.fileName || material.title}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#065F46] text-white text-xs font-semibold hover:bg-emerald-800 shadow-md transition-colors"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#4A2E1B] text-white text-xs font-semibold hover:bg-[#382314] shadow-md transition-colors"
                 >
                   <Download className="w-4 h-4" />
                   <span>Unduh Berkas Sekarang</span>
@@ -303,7 +303,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
                 <Link
                   href={`/materials/${material.id}`}
                   onClick={onClose}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-indigo-50 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 text-xs font-semibold hover:bg-indigo-100 border border-indigo-200 dark:border-slate-700"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#F3EADF] dark:bg-[#281F19] text-[#4A2E1B] dark:text-[#D9C7B6] text-xs font-semibold hover:bg-[#EAE0D5] border border-[#EAE0D5] dark:border-[#3D2F26]"
                 >
                   <Columns className="w-4 h-4" />
                   <span>Buka di Catatan</span>
@@ -315,7 +315,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
             <div className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md p-8 text-left space-y-4">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-300">
-                  <FileText className="w-4 h-4 text-indigo-500" />
+                  <FileText className="w-4 h-4 text-[#6B5543] dark:text-[#D9C7B6]" />
                   <span>Dokumen PDF: Halaman 1 dari 18</span>
                 </div>
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
@@ -332,8 +332,8 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#FDFBF7] dark:bg-slate-800/60 border border-indigo-100/70 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
-                <p className="font-semibold text-indigo-700 dark:text-indigo-400">
+              <div className="p-4 rounded-xl bg-[#FDFBF7] dark:bg-slate-800/60 border border-[#EAE0D5] dark:border-[#3D2F26] text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
+                <p className="font-semibold text-[#4A2E1B] dark:text-[#D9C7B6]">
                   Ringkasan Eksekutif & Capaian Pembelajaran:
                 </p>
                 <p>{material.description}</p>
@@ -349,7 +349,7 @@ export const MaterialPreviewModal: React.FC<MaterialPreviewModalProps> = ({
                 <Link
                   href={`/materials/${material.id}`}
                   onClick={onClose}
-                  className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+                  className="text-xs font-semibold text-[#4A2E1B] dark:text-[#D9C7B6] hover:underline flex items-center gap-1"
                 >
                   <span>Buka Workspace Catatan Lengkap</span>
                   <Columns className="w-3.5 h-3.5" />

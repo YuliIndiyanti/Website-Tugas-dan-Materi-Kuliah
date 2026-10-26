@@ -63,7 +63,7 @@ export const SemesterModal: React.FC<SemesterModalProps> = ({
 
         <div className="flex items-center justify-between p-5 border-b border-slate-100 dark:border-slate-800 bg-[#FDFBF7] dark:bg-slate-900">
           <div className="flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-indigo-500" aria-hidden="true" />
+            <Calendar className="w-5 h-5 text-[#8B5A2B]" aria-hidden="true" />
             <h3 id="semester-modal-title" className="text-base font-bold text-slate-800 dark:text-slate-100">
               Kelola Semester Akademik
             </h3>
@@ -92,7 +92,7 @@ export const SemesterModal: React.FC<SemesterModalProps> = ({
                   onClick={() => setActiveSemesterId(sem.id)}
                   className={`flex items-center justify-between p-3.5 rounded-2xl border cursor-pointer transition-all ${
                     isActive
-                      ? "bg-[#E0E7FF] text-[#3730A3] border-indigo-300 dark:bg-[#312E81] dark:text-[#E0E7FF] font-semibold shadow-xs"
+                      ? "bg-[#EDE3D6] text-[#453120] border-[#D9C7B6] dark:bg-[#382314] dark:text-[#EAE0D5] font-semibold shadow-xs"
                       : "bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 hover:bg-slate-100 text-slate-700 dark:text-slate-300"
                   }`}
                 >
@@ -100,7 +100,7 @@ export const SemesterModal: React.FC<SemesterModalProps> = ({
                     <div
                       className={`w-5 h-5 rounded-full flex items-center justify-center text-xs flex-shrink-0 ${
                         isActive
-                          ? "bg-[#3730A3] text-white dark:bg-[#E0E7FF] dark:text-[#312E81]"
+                          ? "bg-[#4A2E1B] text-white dark:bg-[#EDE3D6] dark:text-[#453120]"
                           : "border border-slate-300"
                       }`}
                     >
@@ -136,7 +136,7 @@ export const SemesterModal: React.FC<SemesterModalProps> = ({
           {!isAdding ? (
             <button
               onClick={() => setIsAdding(true)}
-              className="w-full py-2.5 rounded-2xl border border-dashed border-indigo-300 text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-slate-800 flex items-center justify-center gap-1.5 transition-all"
+              className="w-full py-2.5 rounded-2xl border border-dashed border-[#8B5A2B]/40 text-xs font-semibold text-[#4A2E1B] dark:text-[#D9C7B6] hover:bg-[#F3EADF]/40 dark:hover:bg-slate-800 flex items-center justify-center gap-1.5 transition-all"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>+ Buat Semester Baru</span>
@@ -144,10 +144,10 @@ export const SemesterModal: React.FC<SemesterModalProps> = ({
           ) : (
             <form
               onSubmit={handleAdd}
-              className="p-4 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-200 dark:border-indigo-800/50 space-y-3"
+              className="p-4 rounded-2xl bg-[#F6EDE0]/50 dark:bg-[#281F19]/40 border border-[#EAE0D5] dark:border-[#3D2F26] space-y-3"
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-indigo-900 dark:text-indigo-200">
+                <span className="text-xs font-bold text-[#4A2E1B] dark:text-[#D9C7B6]">
                   Semester Baru
                 </span>
                 <button
@@ -204,7 +204,7 @@ export const SemesterModal: React.FC<SemesterModalProps> = ({
 
               <button
                 type="submit"
-                className="w-full py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700 transition-colors shadow-xs"
+                className="w-full py-2 rounded-xl bg-[#4A2E1B] text-white text-xs font-semibold hover:bg-[#382314] transition-colors shadow-xs"
               >
                 Simpan & Aktifkan
               </button>
