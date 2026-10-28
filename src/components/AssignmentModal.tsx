@@ -48,29 +48,16 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
   const {
     assignments,
     courses,
-    submissions,
     notes,
     updateAssignmentStatus,
     updateAssignment,
     updateAssignmentGrade,
-    addSubmission,
     addNoteComment,
+    deleteNoteComment,
     deleteAssignment,
   } = useVault();
 
-  const [activeTab, setActiveTab] = useState<"DETAILS" | "SUBMISSIONS" | "NOTES" | "GRADE">("DETAILS");
-  
-  // Submission form state
-  const [subFileName, setSubFileName] = useState("");
-  const [subFileUrl, setSubFileUrl] = useState("");
-  const [subFileSize, setSubFileSize] = useState("");
-  const [subProofUrl, setSubProofUrl] = useState("");
-  const [subLmsLink, setSubLmsLink] = useState("");
-  const [subNotes, setSubNotes] = useState("");
-  const [isSubmittingNewVer, setIsSubmittingNewVer] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
-  const subFileInputRef = useRef<HTMLInputElement>(null);
+  const [activeTab, setActiveTab] = useState<"DETAILS" | "GRADE" | "NOTES">("DETAILS");
 
   // Grade form state
   const [scoreInput, setScoreInput] = useState<number | "">("");
@@ -99,9 +86,6 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
   if (!assignment) return null;
 
   const course = courses.find((c) => c.id === assignment.courseId);
-  const assignmentSubmissions = submissions
-    .filter((s) => s.assignmentId === assignment.id)
-    .sort((a, b) => b.versionNumber - a.versionNumber);
   const assignmentNotes = notes.filter((n) => n.assignmentId === assignment.id);
   const urg = getAssignmentUrgency(assignment);
   const statusMeta = STATUS_CONFIG[assignment.status];
@@ -196,79 +180,6 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
     }
   };
 
-  const handleSubFileSelect = async (file: File) => {
-    const sizeFormatted =
-      file.size >= 1024 * 1024
-        ? `${(file.size / (1024 * 1024)).toFixed(1)} MB`
-        : `${Math.round(file.size / 1024)} KB`;
-
-    setSubFileName(file.name);
-    setSubFileSize(sizeFormatted);
-
-    setIsUploading(true);
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        if (data.fileUrl) {
-          setSubFileUrl(data.fileUrl);
-          toast.success(`Berkas "${file.name}" berhasil diunggah! 📁`);
-        }
-      } else {
-        const localUrl = URL.createObjectURL(file);
-        setSubFileUrl(localUrl);
-        toast.info(`Berkas "${file.name}" siap disubmit.`);
-      }
-    } catch (err) {
-      console.warn("Upload fallback to local URL:", err);
-      const localUrl = URL.createObjectURL(file);
-      setSubFileUrl(localUrl);
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
-  const handleCreateSubmission = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!subFileName) {
-      toast.error("Harap pilih atau beri nama berkas tugas!");
-      return;
-    }
-
-    addSubmission({
-      assignmentId: assignment.id,
-      fileName: subFileName,
-      fileUrl: subFileUrl || `/sample-files/${subFileName}`,
-      fileSize: subFileSize || "1.5 MB",
-      proofUrl: subProofUrl || undefined,
-      submissionLink: subLmsLink || undefined,
-      notes: subNotes || undefined,
-    });
-
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 },
-    });
-
-    toast.success("Versi pengumpulan berhasil disimpan! 🚀");
-
-    setSubFileName("");
-    setSubFileUrl("");
-    setSubFileSize("");
-    setSubProofUrl("");
-    setSubLmsLink("");
-    setSubNotes("");
-    setIsSubmittingNewVer(false);
-  };
-
   const handleSaveGrade = (e: React.FormEvent) => {
     e.preventDefault();
     if (scoreInput === "") return;
@@ -285,7 +196,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
       contentMarkdown: newComment.trim(),
       type: "COMMENT_LOG",
     });
-    toast.success("Catatan tugas ditambahkan.");
+    toast.success("Pertanyaan / catatan berhasil ditambahkan! 💬");
     setNewComment("");
   };
 
@@ -456,19 +367,6 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
             }`}
           >
             Deskripsi & Instruksi
-          </button>
-          <button
-            onClick={() => setActiveTab("SUBMISSIONS")}
-            className={`py-3 border-b-2 transition-all flex items-center gap-1.5 ${
-              activeTab === "SUBMISSIONS"
-                ? "border-[#4A2E1B] text-[#4A2E1B] dark:border-[#D9C7B6] dark:text-[#EFE6DD]"
-                : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
-            }`}
-          >
-            <span>Riwayat Pengumpulan (Versioning)</span>
-            <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {assignmentSubmissions.length}
-            </span>
           </button>
           <button
             onClick={() => setActiveTab("GRADE")}
@@ -832,12 +730,11 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                   </div>
                   <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
                     <span className="text-[10px] font-bold uppercase text-slate-400">
-                      Status Pengumpulan
+                      Status Pengerjaan
                     </span>
-                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">
-                      {assignmentSubmissions.length > 0
-                        ? `Tersimpan v${assignmentSubmissions[0].versionNumber}`
-                        : "Belum ada berkas draft"}
+                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1 flex items-center gap-1.5">
+                      <span>{statusMeta.icon}</span>
+                      <span>{statusMeta.label}</span>
                     </p>
                   </div>
                 </div>
@@ -845,290 +742,7 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
             )
           )}
 
-          {/* TAB 2: SUBMISSIONS & VERSIONING (FR-11) */}
-          {activeTab === "SUBMISSIONS" && (
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100">
-                    Riwayat Versi Berkas Tugas (v1, v2, v3...)
-                  </h4>
-                  <p className="text-xs text-slate-500">
-                    Pantau iterasi draf, revisi, hingga file final yang disubmit ke LMS
-                  </p>
-                </div>
-                {!isSubmittingNewVer && (
-                  <button
-                    onClick={() => setIsSubmittingNewVer(true)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#EDE3D6] text-[#453120] hover:bg-[#E4D4C3] border border-[#D9C7B6] shadow-xs"
-                  >
-                    <Upload className="w-3.5 h-3.5" />
-                    <span>+ Unggah Versi Baru</span>
-                  </button>
-                )}
-              </div>
-
-              {/* Upload New Version Form */}
-              {isSubmittingNewVer && (
-                <form
-                  onSubmit={handleCreateSubmission}
-                  className="p-5 rounded-2xl bg-[#F6EDE0]/60 dark:bg-[#281F19]/60 border border-[#EAE0D5] dark:border-[#3D2F26] space-y-4"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-[#4A2E1B] dark:text-[#D9C7B6]">
-                      Unggah Draf / Final v{assignmentSubmissions.length + 1}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setIsSubmittingNewVer(false)}
-                      className="text-xs text-slate-400 hover:text-slate-600"
-                    >
-                      Batal
-                    </button>
-                  </div>
-
-                  {/* Real File Upload Dropzone */}
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                      Unggah Berkas Tugas (PDF, DOCX, ZIP, dll) *
-                    </label>
-                    <input
-                      ref={subFileInputRef}
-                      type="file"
-                      className="hidden"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) handleSubFileSelect(file);
-                      }}
-                    />
-
-                    {subFileName ? (
-                      <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-900 border border-[#EAE0D5] dark:border-[#3D2F26] shadow-xs">
-                        <div className="flex items-center gap-3 min-w-0 pr-2">
-                          <div className="w-9 h-9 rounded-xl bg-[#EDE3D6] dark:bg-[#382314] text-[#453120] dark:text-[#EAE0D5] flex items-center justify-center flex-shrink-0">
-                            {isUploading ? (
-                              <Loader2 className="w-5 h-5 animate-spin" />
-                            ) : (
-                              <FileText className="w-5 h-5" />
-                            )}
-                          </div>
-                          <div className="min-w-0">
-                            <p className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">
-                              {subFileName}
-                            </p>
-                            <p className="text-[10px] text-slate-400 flex items-center gap-1.5 mt-0.5">
-                              <span>{subFileSize || "Berkas terpilih"}</span>
-                              {isUploading ? (
-                                <span className="text-[#4A2E1B] dark:text-[#D9C7B6] font-semibold animate-pulse">
-                                  Mengunggah...
-                                </span>
-                              ) : (
-                                <span className="text-[#54371C] dark:text-[#D9C7B6] font-semibold flex items-center gap-0.5">
-                                  <CheckCircle2 className="w-3 h-3 inline" /> Siap
-                                </span>
-                              )}
-                            </p>
-                          </div>
-                        </div>
-
-                        <button
-                          type="button"
-                          onClick={() => subFileInputRef.current?.click()}
-                          className="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition-colors flex-shrink-0"
-                        >
-                          Ganti
-                        </button>
-                      </div>
-                    ) : (
-                      <div
-                        onDragOver={(e) => {
-                          e.preventDefault();
-                          setIsDragging(true);
-                        }}
-                        onDragLeave={() => setIsDragging(false)}
-                        onDrop={(e) => {
-                          e.preventDefault();
-                          setIsDragging(false);
-                          const file = e.dataTransfer.files?.[0];
-                          if (file) handleSubFileSelect(file);
-                        }}
-                        onClick={() => subFileInputRef.current?.click()}
-                        className={`border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition-all ${
-                          isDragging
-                            ? "border-[#8B5A2B] bg-[#F6EDE0]/50 dark:bg-[#281F19]/50"
-                            : "border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/50 hover:border-[#8B5A2B] hover:bg-[#F3EADF]/30"
-                        }`}
-                      >
-                        <UploadCloud className="w-7 h-7 mx-auto text-[#6B5543] dark:text-[#D9C7B6] mb-1.5" />
-                        <p className="text-xs font-bold text-slate-700 dark:text-slate-200">
-                          Klik untuk memilih berkas tugas atau seret ke sini
-                        </p>
-                        <p className="text-[10px] text-slate-400 mt-1">
-                          PDF, DOCX, ZIP, PPTX, JPG hingga 50 MB
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
-                  <div>
-                    <label htmlFor="sub-file-name" className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                      Label / Nama Berkas *
-                    </label>
-                    <input
-                      id="sub-file-name"
-                      type="text"
-                      required
-                      placeholder="Contoh: Tugas_Analisis_ADPL_v2_Revisi.pdf"
-                      value={subFileName}
-                      onChange={(e) => setSubFileName(e.target.value)}
-                      className="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none break-anywhere"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <div>
-                      <label htmlFor="sub-lms-link" className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                        Link Pengumpulan LMS / GitHub (Opsional)
-                      </label>
-                      <input
-                        id="sub-lms-link"
-                        type="url"
-                        placeholder="https://lms.kampus.ac.id/..."
-                        value={subLmsLink}
-                        onChange={(e) => setSubLmsLink(e.target.value)}
-                        className="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="sub-proof-url" className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                        URL Bukti Screenshot Submit (Opsional)
-                      </label>
-                      <input
-                        id="sub-proof-url"
-                        type="url"
-                        placeholder="https://imgur.com/bukti.png"
-                        value={subProofUrl}
-                        onChange={(e) => setSubProofUrl(e.target.value)}
-                        className="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="sub-notes-input" className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                      Catatan Versi
-                    </label>
-                    <input
-                      id="sub-notes-input"
-                      type="text"
-                      placeholder="Apa saja perubahan atau catatan pada versi ini..."
-                      value={subNotes}
-                      onChange={(e) => setSubNotes(e.target.value)}
-                      className="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none break-anywhere"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isUploading || !subFileName}
-                    className="w-full py-2.5 rounded-xl bg-[#4A2E1B] disabled:opacity-50 text-white text-xs font-semibold hover:bg-[#382314] transition-colors shadow-xs flex items-center justify-center gap-2"
-                  >
-                    {isUploading ? (
-                      <>
-                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                        <span>Sedang Mengunggah Berkas...</span>
-                      </>
-                    ) : (
-                      <span>Simpan Riwayat Versi v{assignmentSubmissions.length + 1}</span>
-                    )}
-                  </button>
-                </form>
-              )}
-
-              {/* Version History List */}
-              <div className="space-y-3">
-                {assignmentSubmissions.length === 0 ? (
-                  <p className="text-xs text-slate-400 italic py-4 text-center">
-                    Belum ada riwayat pengumpulan tugas.
-                  </p>
-                ) : (
-                  assignmentSubmissions.map((sub, idx) => (
-                    <div
-                      key={sub.id}
-                      className="p-4 rounded-2xl bg-[#FDFBF7] dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-                    >
-                      <div className="flex items-start gap-3 min-w-0">
-                        <div className="w-10 h-10 rounded-2xl bg-[#EDE3D6] text-[#453120] dark:bg-[#382314] dark:text-[#EAE0D5] flex items-center justify-center font-bold text-xs flex-shrink-0">
-                          v{sub.versionNumber}
-                        </div>
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">
-                              {sub.fileName}
-                            </span>
-                            {idx === 0 && (
-                              <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-[#EAE0D5] text-[#382314]">
-                                Terbaru
-                              </span>
-                            )}
-                          </div>
-                          {sub.notes && (
-                            <p className="text-xs text-slate-500 mt-0.5">
-                              {sub.notes}
-                            </p>
-                          )}
-                          <p className="text-[10px] text-slate-400 mt-1">
-                            Diunggah: {formatDate(sub.uploadedAt)} •{" "}
-                            {sub.fileSize || "3 MB"}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        {sub.fileUrl && (
-                          <a
-                            href={sub.fileUrl}
-                            download={sub.fileName}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex items-center gap-1 text-[11px] font-semibold text-slate-700 dark:text-slate-200 hover:text-[#4A2E1B] dark:hover:text-[#D9C7B6] px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 transition-colors shadow-2xs"
-                            title="Unduh / Buka Berkas Tugas"
-                          >
-                            <Download className="w-3.5 h-3.5" />
-                            <span>Unduh Berkas</span>
-                          </a>
-                        )}
-                        {sub.submissionLink && (
-                          <a
-                            href={sub.submissionLink}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex items-center gap-1 text-[11px] font-semibold text-[#4A2E1B] dark:text-[#D9C7B6] hover:underline px-2.5 py-1 rounded-xl bg-[#F3EADF] dark:bg-[#281F19]"
-                          >
-                            <LinkIcon className="w-3.5 h-3.5" />
-                            <span>Link LMS</span>
-                          </a>
-                        )}
-                        {sub.proofUrl && (
-                          <a
-                            href={sub.proofUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex items-center gap-1 text-[11px] font-semibold text-[#54371C] dark:text-[#E4D4C3] hover:underline px-2.5 py-1 rounded-xl bg-[#EDE0D2] dark:bg-[#281F19]"
-                          >
-                            <ShieldCheck className="w-3.5 h-3.5" />
-                            <span>Bukti Kumpul</span>
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* TAB 3: GRADE & FEEDBACK (FR-13 & FR-14) */}
+          {/* TAB: GRADE & FEEDBACK (FR-13 & FR-14) */}
           {activeTab === "GRADE" && (
             <div className="space-y-4">
               <div className="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xs">
@@ -1226,24 +840,45 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
             </div>
           )}
 
-          {/* TAB 4: NOTES & DISCUSSION LOG (FR-17) */}
+          {/* TAB: NOTES & DISCUSSION LOG */}
           {activeTab === "NOTES" && (
             <div className="space-y-4">
               <div className="space-y-3">
                 {assignmentNotes.length === 0 ? (
-                  <p className="text-xs text-slate-400 italic text-center py-4">
-                    Belum ada catatan atau pertanyaan diskusi untuk tugas ini.
-                  </p>
+                  <div className="p-6 text-center rounded-2xl border border-dashed border-[#DFCFC1] dark:border-[#38261B] bg-[#FAF5EE]/50 dark:bg-[#1E140E]/50">
+                    <p className="text-xs text-[#7A5F4E] dark:text-[#CBB5A3] italic">
+                      Belum ada catatan atau pertanyaan diskusi untuk tugas ini.
+                    </p>
+                    <p className="text-[11px] text-[#A08878] mt-1">
+                      Ketik di bawah untuk mencatat progres atau pertanyaan Anda.
+                    </p>
+                  </div>
                 ) : (
                   assignmentNotes.map((note) => (
                     <div
                       key={note.id}
-                      className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200/70 dark:border-slate-700"
+                      className="p-3.5 rounded-2xl bg-[#FFFDFB] dark:bg-[#1E140E] border border-[#DFCFC1] dark:border-[#38261B] shadow-2xs transition-all group"
                     >
-                      <p className="text-xs text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-wrap break-anywhere">
-                        {note.contentMarkdown}
-                      </p>
-                      <p className="text-[10px] text-slate-400 mt-2">
+                      <div className="flex items-start justify-between gap-3">
+                        <p className="text-xs text-[#2A1810] dark:text-[#FAF5EE] leading-relaxed whitespace-pre-wrap break-anywhere flex-1">
+                          {note.contentMarkdown}
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (confirm("Apakah Anda yakin ingin menghapus pertanyaan / catatan ini?")) {
+                              deleteNoteComment(note.id);
+                              toast.success("Pertanyaan diskusi berhasil dihapus! 🗑️");
+                            }
+                          }}
+                          title="Hapus pertanyaan / catatan ini"
+                          aria-label="Hapus pertanyaan / catatan ini"
+                          className="p-1.5 rounded-xl text-stone-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors flex-shrink-0 cursor-pointer"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <p className="text-[10px] text-[#7A5F4E] dark:text-[#CBB5A3] mt-2 font-medium">
                         {formatDate(note.createdAt)}
                       </p>
                     </div>
@@ -1263,11 +898,11 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                   placeholder="Tulis pertanyaan ke dosen atau log progres tugas..."
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
-                  className="flex-1 text-xs px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none break-anywhere"
+                  className="flex-1 text-xs px-3.5 py-2.5 rounded-xl border border-[#DFCFC1] dark:border-[#38261B] bg-[#FFFDFB] dark:bg-[#1E140E] text-[#2A1810] dark:text-[#FAF5EE] placeholder-[#A08878] outline-none break-anywhere focus:border-[#8B5A2B] transition-colors"
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-[#4A2E1B] text-white text-xs font-semibold hover:bg-[#382314] shadow-xs"
+                  className="px-4 py-2.5 rounded-xl bg-[#3D2517] dark:bg-[#2B180F] text-[#FAF5EE] text-xs font-bold hover:bg-[#2A1810] dark:hover:bg-[#3D2316] shadow-xs transition-colors cursor-pointer"
                 >
                   Kirim
                 </button>

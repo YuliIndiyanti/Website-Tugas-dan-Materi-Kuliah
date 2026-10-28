@@ -17,6 +17,7 @@ import {
   BookOpen,
   Download,
   Film,
+  Trash2,
 } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { toast } from "sonner";
@@ -35,6 +36,7 @@ export default function MaterialWorkspacePage({
     notes,
     addNoteComment,
     updateNoteComment,
+    deleteNoteComment,
     toggleShareNote,
   } = useVault();
 
@@ -365,12 +367,28 @@ export default function MaterialWorkspacePage({
                     materialComments.map((com) => (
                       <div
                         key={com.id}
-                        className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-xs"
+                        className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-xs group"
                       >
-                        <p className="text-slate-800 dark:text-slate-200">
-                          {com.contentMarkdown}
-                        </p>
-                        <p className="text-[10px] text-slate-400 mt-1">
+                        <div className="flex items-start justify-between gap-2">
+                          <p className="text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap break-anywhere flex-1">
+                            {com.contentMarkdown}
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (confirm("Hapus catatan diskusi ini?")) {
+                                deleteNoteComment(com.id);
+                                toast.success("Catatan diskusi berhasil dihapus! 🗑️");
+                              }
+                            }}
+                            title="Hapus catatan diskusi"
+                            aria-label="Hapus catatan diskusi"
+                            className="p-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors flex-shrink-0 cursor-pointer"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </div>
+                        <p className="text-[10px] text-slate-400 mt-1.5">
                           {formatDate(com.createdAt)}
                         </p>
                       </div>

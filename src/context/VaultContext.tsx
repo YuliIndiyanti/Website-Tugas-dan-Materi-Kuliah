@@ -41,6 +41,7 @@ import {
   deleteMaterialAction,
   createSubmissionAction,
   saveNoteCommentAction,
+  deleteNoteCommentAction,
   toggleShareNoteAction,
   createSemesterAction,
   deleteSemesterAction,
@@ -504,6 +505,9 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const deleteNoteComment = (id: string) => {
     setNotes((prev) => prev.filter((n) => n.id !== id));
+    deleteNoteCommentAction(id).catch((err) =>
+      console.error("Failed to delete note comment in SQLite:", err)
+    );
   };
 
   const toggleShareNote = (id: string): string => {

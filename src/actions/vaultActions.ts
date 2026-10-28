@@ -573,6 +573,18 @@ export async function toggleShareNoteAction(id: string, isShared: boolean, share
   }
 }
 
+export async function deleteNoteCommentAction(id: string) {
+  try {
+    await prisma.noteComment.delete({
+      where: { id },
+    });
+    return { success: true };
+  } catch (error) {
+    console.error("deleteNoteCommentAction error:", error);
+    return { success: false, error };
+  }
+}
+
 // Semester Actions
 export async function createSemesterAction(semester: Semester) {
   try {
