@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { formatShortDate, getAssignmentUrgency } from "@/lib/utils";
 import { STATUS_CONFIG } from "@/lib/constants";
+import { SparkleStar } from "./GlitterEffects";
 
 interface DeadlineListProps {
   onSelectAssignment: (assignmentId: string) => void;
@@ -32,19 +33,21 @@ export const DeadlineList: React.FC<DeadlineListProps> = ({
   const getCourse = (id: string) => courses.find((c) => c.id === id);
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200/80 dark:border-slate-800 shadow-soft">
+    <div className="bg-[#FFFDFB] dark:bg-[#1E140E] rounded-3xl p-5 border border-[#E3D6C9] dark:border-[#38261B] shadow-xs">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-base font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-            <span>⏰</span> Tenggat Waktu & Prioritas Pengerjaan
+          <h3 className="text-base font-bold text-[#2A1810] dark:text-[#FAF5EE] flex items-center gap-2">
+            <span>⏰</span>
+            <span>Tenggat Waktu & Prioritas Pengerjaan</span>
+            <SparkleStar size={11} color="#D4A373" className="glitter-star" />
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Diurutkan berdasarkan deadline terdekat dengan penanda palet warna brown
+          <p className="text-xs text-[#7A5F4E] dark:text-[#CBB5A3] mt-0.5">
+            Diurutkan berdasarkan deadline terdekat dengan aksen warm coffee & dark brown
           </p>
         </div>
         <button
           onClick={onOpenNewAssignment}
-          className="text-xs font-semibold text-[#4A2E1B] dark:text-[#D9C7B6] hover:underline btn-tactile"
+          className="text-xs font-bold text-[#8B5A2B] dark:text-[#D4A373] hover:underline btn-tactile cursor-pointer"
         >
           + Tambah
         </button>

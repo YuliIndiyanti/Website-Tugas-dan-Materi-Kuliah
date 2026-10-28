@@ -37,12 +37,12 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F8F7F5] dark:bg-[#110F0E]">
+      <div className="min-h-screen flex items-center justify-center bg-[#F7F2EB] dark:bg-[#150E0A]">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-white dark:bg-[#1E1916] border border-[#EAE6E0] dark:border-[#2C241E] flex items-center justify-center text-xl shadow-xs animate-pulse">
+          <div className="w-12 h-12 rounded-2xl bg-[#FFFDFB] dark:bg-[#201610] border border-[#E3D6C9] dark:border-[#38261B] flex items-center justify-center text-xl shadow-xs animate-pulse">
             ☕
           </div>
-          <p className="text-xs font-semibold text-[#736B63] dark:text-[#A3998F] tracking-wide">
+          <p className="text-xs font-semibold text-[#6B5547] dark:text-[#B8A495] tracking-wide">
             Memuat Yuli&apos;s Vault...
           </p>
         </div>
@@ -72,7 +72,7 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8F7F5] dark:bg-[#110F0E] text-[#171310] dark:text-[#F5EFEB] transition-colors">
+    <div className="min-h-screen flex flex-col bg-[#F7F2EB] dark:bg-[#150E0A] text-[#2A1810] dark:text-[#FAF5F0] transition-colors">
       {/* Top Navbar */}
       <Navbar
         onOpenSearch={() => setIsSearchOpen(true)}

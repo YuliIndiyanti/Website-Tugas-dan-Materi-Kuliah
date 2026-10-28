@@ -8,6 +8,7 @@ import { QuickDropzone } from "@/components/QuickDropzone";
 import { AssignmentModal } from "@/components/AssignmentModal";
 import { MaterialPreviewModal } from "@/components/MaterialPreviewModal";
 import { NewAssignmentModal } from "@/components/NewAssignmentModal";
+import { SparkleStar, GlitterField } from "@/components/GlitterEffects";
 import {
   Calendar,
   Clock,
@@ -29,23 +30,27 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      {/* Welcome Banner: Sleek executive card with subtle luxury ambient glow */}
-      <div className="relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-white dark:bg-[#181513] border border-[#E8E4DD] dark:border-[#2A231E] shadow-xs">
+      {/* Welcome Banner: Rich Brown & Dark Brown Mix with Moving Glitters */}
+      <div className="relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-[#2B1810] via-[#3A2216] to-[#1C0F0A] text-[#FAF5EE] border border-[#523321] dark:border-[#3D2517] shadow-lg">
+        {/* Floating animated sparkles across banner */}
+        <GlitterField count={8} />
+
         <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#F8F7F5] dark:bg-[#221C18] text-[#544434] dark:text-[#D4C3B2] shadow-2xs mb-3 border border-[#E2DDD5] dark:border-[#352B24]">
-            <span>☕</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#3D2517] text-[#E8CBAE] shadow-2xs mb-3 border border-[#5E3A25]">
+            <SparkleStar size={11} color="#F7D89C" className="glitter-star" />
             <span>Yuli&apos;s Vault • {activeSemester?.name || "Semester Aktif"}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#171310] dark:text-[#F8F6F2] tracking-tight">
-            Yuli&apos;s Second Brain
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
+            <span>Yuli&apos;s Second Brain</span>
+            <SparkleStar size={18} color="#F7D89C" className="glitter-star inline-block" />
           </h1>
-          <p className="text-xs sm:text-sm text-[#736B63] dark:text-[#A3998F] mt-2 leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#DFC8B6] mt-2 leading-relaxed">
             Streamline your study workflow. Track tasks and manage materials effortlessly.
           </p>
         </div>
 
         {/* Decorative subtle ambient luxury glow */}
-        <div className="absolute -right-8 -bottom-8 w-64 h-64 rounded-full bg-gradient-to-br from-[#EAE0D5]/40 via-[#DFCEBC]/20 to-transparent dark:from-[#3D2C20]/30 dark:via-[#261B14]/10 blur-3xl pointer-events-none" />
+        <div className="absolute -right-8 -bottom-8 w-64 h-64 rounded-full bg-gradient-to-br from-[#8B5A2B]/40 via-[#633F1F]/20 to-transparent blur-3xl pointer-events-none ambient-glow" />
       </div>
 
       {/* Row of 4 Metric Cards */}
@@ -61,11 +66,12 @@ export default function DashboardPage() {
           />
 
           {/* Today's Schedule Card */}
-          <div className="bg-white dark:bg-[#181513] rounded-3xl p-5 border border-[#E8E4DD] dark:border-[#2A231E] shadow-xs">
+          <div className="bg-[#FFFDFB] dark:bg-[#1E140E] rounded-3xl p-5 border border-[#E3D6C9] dark:border-[#38261B] shadow-xs">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-bold text-[#171310] dark:text-[#F8F6F2] flex items-center gap-2">
+              <h3 className="text-sm font-bold text-[#2A1810] dark:text-[#FAF5EE] flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-[#8B5A2B] dark:text-[#D4A373]" />
                 <span>Jadwal Perkuliahan Terdekat</span>
+                <SparkleStar size={10} color="#D4A373" className="glitter-star" />
               </h3>
               <Link
                 href="/courses"

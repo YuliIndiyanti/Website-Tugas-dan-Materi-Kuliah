@@ -4,6 +4,7 @@ import React from "react";
 import { useVault } from "@/context/VaultContext";
 import { CheckSquare, AlertCircle, FolderArchive, Award, TrendingUp } from "lucide-react";
 import { getAssignmentUrgency } from "@/lib/utils";
+import { SparkleStar } from "./GlitterEffects";
 
 export const MetricCards: React.FC = () => {
   const { activeAssignments, activeMaterials } = useVault();
@@ -40,48 +41,50 @@ export const MetricCards: React.FC = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {/* Card 1: Active Tasks */}
-      <div className="relative overflow-hidden p-5 rounded-3xl bg-white dark:bg-[#181513] border border-[#E8E4DD] dark:border-[#2A231E] shadow-xs transition-all hover:shadow-md hover:border-[#D4CBBF] dark:hover:border-[#3D332A] card-tactile">
+      <div className="relative overflow-hidden p-5 rounded-3xl bg-[#FFFDFB] dark:bg-[#1E140E] border border-[#E3D6C9] dark:border-[#38261B] shadow-xs transition-all hover:shadow-md hover:border-[#D5C2B1] dark:hover:border-[#4D3323] card-tactile">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-[#736B63] dark:text-[#A3998F]">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#7A5F4E] dark:text-[#CBB5A3]">
             Tugas Aktif Minggu Ini
           </span>
-          <div className="w-8 h-8 rounded-xl bg-[#F8F7F5] dark:bg-[#221C18] border border-[#EAE6E0] dark:border-[#2E2620] flex items-center justify-center text-[#8B5A2B] dark:text-[#D4A373] shadow-2xs">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#3D2517] to-[#25150E] border border-[#523321] flex items-center justify-center text-[#E8CBAE] shadow-2xs relative">
             <CheckSquare className="w-4 h-4" />
+            <SparkleStar size={8} color="#F7D89C" className="absolute -top-0.5 -right-0.5 glitter-star" />
           </div>
         </div>
         <div className="mt-3 flex items-baseline gap-2">
-          <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#171310] dark:text-[#F8F6F2]">
+          <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#2B1810] dark:text-[#FAF5EE]">
             {activeTasks.length}
           </span>
-          <span className="text-xs font-medium text-[#8C8278] dark:text-[#786F66]">
+          <span className="text-xs font-medium text-[#8C7362] dark:text-[#A89484]">
             dari {activeAssignments.length} total tugas
           </span>
         </div>
-        <div className="mt-2.5 text-[11px] font-medium flex items-center gap-1.5 text-[#544C44] dark:text-[#B5AAA0]">
+        <div className="mt-2.5 text-[11px] font-medium flex items-center gap-1.5 text-[#5C4537] dark:text-[#CBB5A3]">
           <span className="inline-block w-2 h-2 rounded-full bg-[#8B5A2B] dark:bg-[#D4A373]" />
           <span>{submittedTasks.length} tugas telah dikumpulkan</span>
         </div>
       </div>
 
       {/* Card 2: Urgently Due < 48 Jam */}
-      <div className="relative overflow-hidden p-5 rounded-3xl bg-white dark:bg-[#181513] border border-[#E8E4DD] dark:border-[#2A231E] shadow-xs transition-all hover:shadow-md hover:border-[#D4CBBF] dark:hover:border-[#3D332A] card-tactile">
+      <div className="relative overflow-hidden p-5 rounded-3xl bg-[#FFFDFB] dark:bg-[#1E140E] border border-[#E3D6C9] dark:border-[#38261B] shadow-xs transition-all hover:shadow-md hover:border-[#D5C2B1] dark:hover:border-[#4D3323] card-tactile">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-[#736B63] dark:text-[#A3998F]">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#7A5F4E] dark:text-[#CBB5A3]">
             Deadline &lt; 48 Jam
           </span>
-          <div className="w-8 h-8 rounded-xl bg-[#FFF1F0] dark:bg-[#2D1616] border border-[#FED7D7] dark:border-[#4D2424] flex items-center justify-center text-[#E5484D] dark:text-[#F87171] shadow-2xs">
+          <div className="w-8 h-8 rounded-xl bg-[#3D1815] border border-[#5E2522] flex items-center justify-center text-[#FCA5A5] shadow-2xs relative">
             <AlertCircle className="w-4 h-4 animate-pulse" />
+            <SparkleStar size={8} color="#F87171" className="absolute -top-0.5 -right-0.5 glitter-star" />
           </div>
         </div>
         <div className="mt-3 flex items-baseline gap-2">
-          <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#171310] dark:text-[#F8F6F2]">
+          <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#2B1810] dark:text-[#FAF5EE]">
             {urgentTasks.length}
           </span>
-          <span className="text-xs font-medium text-[#8C8278] dark:text-[#786F66]">
+          <span className="text-xs font-medium text-[#8C7362] dark:text-[#A89484]">
             butuh atensi segera
           </span>
         </div>
-        <div className="mt-2.5 text-[11px] font-medium flex items-center gap-1.5 text-[#544C44] dark:text-[#B5AAA0]">
+        <div className="mt-2.5 text-[11px] font-medium flex items-center gap-1.5 text-[#5C4537] dark:text-[#CBB5A3]">
           <span className={`inline-block w-2 h-2 rounded-full ${urgentTasks.length > 0 ? "bg-[#E5484D]" : "bg-emerald-500"}`} />
           <span>
             {urgentTasks.length > 0
@@ -92,48 +95,50 @@ export const MetricCards: React.FC = () => {
       </div>
 
       {/* Card 3: Total Materials Saved */}
-      <div className="relative overflow-hidden p-5 rounded-3xl bg-white dark:bg-[#181513] border border-[#E8E4DD] dark:border-[#2A231E] shadow-xs transition-all hover:shadow-md hover:border-[#D4CBBF] dark:hover:border-[#3D332A] card-tactile">
+      <div className="relative overflow-hidden p-5 rounded-3xl bg-[#FFFDFB] dark:bg-[#1E140E] border border-[#E3D6C9] dark:border-[#38261B] shadow-xs transition-all hover:shadow-md hover:border-[#D5C2B1] dark:hover:border-[#4D3323] card-tactile">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-[#736B63] dark:text-[#A3998F]">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#7A5F4E] dark:text-[#CBB5A3]">
             Total Materi Vault
           </span>
-          <div className="w-8 h-8 rounded-xl bg-[#F8F7F5] dark:bg-[#221C18] border border-[#EAE6E0] dark:border-[#2E2620] flex items-center justify-center text-[#8B5A2B] dark:text-[#D4A373] shadow-2xs">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#3D2517] to-[#25150E] border border-[#523321] flex items-center justify-center text-[#E8CBAE] shadow-2xs relative">
             <FolderArchive className="w-4 h-4" />
+            <SparkleStar size={8} color="#F7D89C" className="absolute -top-0.5 -right-0.5 glitter-star" />
           </div>
         </div>
         <div className="mt-3 flex items-baseline gap-2">
-          <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#171310] dark:text-[#F8F6F2]">
+          <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#2B1810] dark:text-[#FAF5EE]">
             {activeMaterials.length}
           </span>
-          <span className="text-xs font-medium text-[#8C8278] dark:text-[#786F66]">
+          <span className="text-xs font-medium text-[#8C7362] dark:text-[#A89484]">
             file & tautan terorganisir
           </span>
         </div>
-        <div className="mt-2.5 text-[11px] font-medium flex items-center gap-1.5 text-[#544C44] dark:text-[#B5AAA0]">
+        <div className="mt-2.5 text-[11px] font-medium flex items-center gap-1.5 text-[#5C4537] dark:text-[#CBB5A3]">
           <span className="inline-block w-2 h-2 rounded-full bg-[#8B5A2B] dark:bg-[#D4A373]" />
           <span>PDF, Slide, Modul & Catatan</span>
         </div>
       </div>
 
       {/* Card 4: Average Score & Progress */}
-      <div className="relative overflow-hidden p-5 rounded-3xl bg-white dark:bg-[#181513] border border-[#E8E4DD] dark:border-[#2A231E] shadow-xs transition-all hover:shadow-md hover:border-[#D4CBBF] dark:hover:border-[#3D332A] card-tactile">
+      <div className="relative overflow-hidden p-5 rounded-3xl bg-[#FFFDFB] dark:bg-[#1E140E] border border-[#E3D6C9] dark:border-[#38261B] shadow-xs transition-all hover:shadow-md hover:border-[#D5C2B1] dark:hover:border-[#4D3323] card-tactile">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-[#736B63] dark:text-[#A3998F]">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#7A5F4E] dark:text-[#CBB5A3]">
             Rata-rata Nilai & Progres
           </span>
-          <div className="w-8 h-8 rounded-xl bg-[#F8F7F5] dark:bg-[#221C18] border border-[#EAE6E0] dark:border-[#2E2620] flex items-center justify-center text-[#8B5A2B] dark:text-[#D4A373] shadow-2xs">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#3D2517] to-[#25150E] border border-[#523321] flex items-center justify-center text-[#E8CBAE] shadow-2xs relative">
             <Award className="w-4 h-4" />
+            <SparkleStar size={8} color="#F7D89C" className="absolute -top-0.5 -right-0.5 glitter-star" />
           </div>
         </div>
         <div className="mt-3 flex items-baseline gap-2">
-          <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#171310] dark:text-[#F8F6F2]">
+          <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#2B1810] dark:text-[#FAF5EE]">
             {avgScore > 0 ? avgScore : "94"}
           </span>
-          <span className="text-xs font-medium text-[#8C8278] dark:text-[#786F66]">
+          <span className="text-xs font-medium text-[#8C7362] dark:text-[#A89484]">
             skor ({completionRate}% kumpul)
           </span>
         </div>
-        <div className="mt-2.5 text-[11px] font-medium flex items-center gap-1.5 text-[#544C44] dark:text-[#B5AAA0]">
+        <div className="mt-2.5 text-[11px] font-medium flex items-center gap-1.5 text-[#5C4537] dark:text-[#CBB5A3]">
           <TrendingUp className="w-3.5 h-3.5 text-[#8B5A2B] dark:text-[#D4A373]" />
           <span>Indeks Prediksi: A (Amat Baik)</span>
         </div>
