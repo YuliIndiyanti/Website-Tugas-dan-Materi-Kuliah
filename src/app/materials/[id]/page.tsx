@@ -170,12 +170,12 @@ export default function MaterialWorkspacePage({
           {/* Save Note Button */}
           <button
             onClick={handleSaveNote}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#065F46] text-white text-xs font-semibold hover:bg-emerald-800 shadow-xs"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#2B1810] via-[#3A2216] to-[#25150E] text-[#FAF5EE] text-xs font-semibold hover:opacity-95 shadow-xs cursor-pointer"
           >
             {isSaved ? (
-              <Check className="w-3.5 h-3.5" />
+              <Check className="w-3.5 h-3.5 text-[#E8CBAE]" />
             ) : (
-              <Save className="w-3.5 h-3.5" />
+              <Save className="w-3.5 h-3.5 text-[#E8CBAE]" />
             )}
             <span>{isSaved ? "Tersimpan" : "Simpan Catatan"}</span>
           </button>
@@ -184,11 +184,11 @@ export default function MaterialWorkspacePage({
 
       {/* Share feedback toast */}
       {shareUrl && (
-        <div className="p-3 rounded-2xl bg-[#D1FAE5] text-[#065F46] border border-emerald-200 text-xs font-medium flex items-center justify-between">
+        <div className="p-3 rounded-2xl bg-[#F8F2EA] dark:bg-[#20150E] text-[#3D2417] dark:text-[#E8CBAE] border border-[#DECFC0] dark:border-[#38261B] text-xs font-medium flex items-center justify-between">
           <span>
             🎉 Tautan baca-saja siap dibagikan ke teman sekelas: <b>{shareUrl}</b>
           </span>
-          <span className="text-[10px] bg-white px-2 py-0.5 rounded-md">
+          <span className="text-[10px] bg-white dark:bg-[#2D1B11] px-2 py-0.5 rounded-md border border-[#DECFC0] dark:border-[#422919]">
             Read-Only Token
           </span>
         </div>
@@ -197,10 +197,10 @@ export default function MaterialWorkspacePage({
       {/* SPLIT-VIEW WORKSPACE (Desktop: Left preview, Right markdown notes) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 h-[calc(100vh-12rem)] min-h-[550px]">
         {/* Left Side: Document / Slide Reader (6 or 7 cols) */}
-        <div className="lg:col-span-6 xl:col-span-7 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-soft overflow-hidden flex flex-col">
-          <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-[#FDFBF7] dark:bg-slate-800/80 flex items-center justify-between text-xs">
-            <span className="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2 truncate pr-2">
-              <FileText className="w-4 h-4 text-indigo-500 flex-shrink-0" />
+        <div className="lg:col-span-6 xl:col-span-7 rounded-3xl bg-[#FFFDFB] dark:bg-[#1E140E] border border-[#E3D6C9] dark:border-[#38261B] shadow-xs overflow-hidden flex flex-col">
+          <div className="p-4 border-b border-[#EBE0D5] dark:border-[#38261B] bg-[#FAF6F0] dark:bg-[#251810] flex items-center justify-between text-xs">
+            <span className="font-bold text-[#2A1810] dark:text-[#FAF5EE] flex items-center gap-2 truncate pr-2">
+              <FileText className="w-4 h-4 text-[#8B5A2B] dark:text-[#D4A373] flex-shrink-0" />
               <span className="truncate">{material.fileName || material.title}</span>
             </span>
             <div className="flex items-center gap-2 flex-shrink-0">

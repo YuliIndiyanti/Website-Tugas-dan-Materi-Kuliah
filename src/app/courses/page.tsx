@@ -193,7 +193,7 @@ export default function CoursesPage() {
                 {/* Footer link to detail */}
                 <Link
                   href={`/courses/${c.id}`}
-                  className="w-full py-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-[#E0E7FF] dark:hover:bg-[#312E81] text-slate-700 dark:text-slate-200 hover:text-[#3730A3] dark:hover:text-[#E0E7FF] text-xs font-bold flex items-center justify-center gap-1.5 transition-all group-hover:shadow-xs"
+                  className="w-full py-2.5 rounded-2xl bg-[#F8F2EA] dark:bg-[#251810] hover:bg-[#2B1810] dark:hover:bg-[#2B1810] text-[#3D2316] dark:text-[#E8CBAE] hover:text-[#FAF5EE] dark:hover:text-[#FAF5EE] border border-[#DECFC0] dark:border-[#38261B] text-xs font-bold flex items-center justify-center gap-1.5 transition-all group-hover:shadow-xs"
                 >
                   <span>Buka Workspace Mata Kuliah</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

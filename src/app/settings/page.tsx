@@ -118,7 +118,7 @@ export default function SettingsPage() {
           className={`p-4 rounded-2xl text-xs font-semibold flex items-center gap-2 animate-in fade-in ${
             feedbackMsg.isError
               ? "bg-[#FFE4E6] text-[#9F1239] border border-[#FECDD3]"
-              : "bg-[#D1FAE5] text-[#065F46] border border-[#A7F3D0]"
+              : "bg-[#F8F2EA] dark:bg-[#20150E] text-[#3D2417] dark:text-[#E8CBAE] border border-[#DECFC0] dark:border-[#38261B]"
           }`}
         >
           {feedbackMsg.text}
@@ -126,19 +126,19 @@ export default function SettingsPage() {
       )}
 
       {/* Backup & Export Section (PRD Section 9.3) */}
-      <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft space-y-4">
-        <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-          <Download className="w-4 h-4 text-[#8B5A2B]" />
+      <div className="p-6 rounded-3xl bg-[#FFFDFB] dark:bg-[#1E140E] border border-[#E3D6C9] dark:border-[#38261B] shadow-xs space-y-4">
+        <h3 className="text-sm font-bold text-[#2A1810] dark:text-[#FAF5EE] flex items-center gap-2">
+          <Download className="w-4 h-4 text-[#8B5A2B] dark:text-[#D4A373]" />
           <span>Ekspor Cadangan Data Lokal (JSON & CSV)</span>
         </h3>
-        <p className="text-xs text-slate-500 leading-relaxed">
+        <p className="text-xs text-[#7A5F4E] dark:text-[#CBB5A3] leading-relaxed">
           Seluruh data semester, mata kuliah, metadata materi, tugas, dan catatan tersimpan di browser Anda. Unduh salinan cadangan kapan saja agar data Anda selalu aman.
         </p>
 
         <div className="flex items-center gap-3 flex-wrap pt-2">
           <button
             onClick={handleDownloadJSON}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#EDE3D6] text-[#453120] dark:bg-[#382314] dark:text-[#EAE0D5] text-xs font-bold hover:bg-[#E4D4C3] transition-colors shadow-xs"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#EFE5DA] text-[#3D2316] dark:bg-[#281B13] dark:text-[#E8CBAE] border border-[#DFCFC1] dark:border-[#422C1F] text-xs font-bold hover:bg-[#EAE0D4] transition-all shadow-xs cursor-pointer"
           >
             <Download className="w-4 h-4" />
             <span>Unduh Cadangan Lengkap (JSON)</span>
@@ -146,7 +146,7 @@ export default function SettingsPage() {
 
           <button
             onClick={handleDownloadCSV}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#F6EDE0] text-[#5B3B18] dark:bg-[#281F19] dark:text-[#F6EDE0] text-xs font-bold hover:bg-[#EAE0D5] transition-colors shadow-xs"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#FFFDFB] text-[#2A1810] dark:bg-[#20150E] dark:text-[#FAF5EE] border border-[#DECFC0] dark:border-[#38261B] text-xs font-bold hover:bg-[#F4ECE3] transition-all shadow-xs cursor-pointer"
           >
             <FileSpreadsheet className="w-4 h-4" />
             <span>Ekspor Rekap Tugas (CSV / Excel)</span>

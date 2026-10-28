@@ -7,6 +7,7 @@ import { AssignmentModal } from "@/components/AssignmentModal";
 import { MaterialPreviewModal } from "@/components/MaterialPreviewModal";
 import { NewAssignmentModal } from "@/components/NewAssignmentModal";
 import { NewMaterialModal } from "@/components/NewMaterialModal";
+import { SparkleStar } from "@/components/GlitterEffects";
 import {
   BookOpen,
   CheckSquare,
@@ -167,70 +168,83 @@ export default function CourseDetailPage({
           <div className="flex items-center gap-2">
             <button
               onClick={() => setIsNewMaterialOpen(true)}
-              className="px-3.5 py-2 rounded-2xl bg-white text-indigo-700 text-xs font-bold hover:bg-slate-50 shadow-xs border border-indigo-100 flex items-center gap-1.5"
+              className="px-3.5 py-2 rounded-2xl bg-[#FFFDFB] dark:bg-[#1E140E] text-[#2A1810] dark:text-[#FAF5EE] text-xs font-bold hover:bg-[#F4ECE3] dark:hover:bg-[#281B13] shadow-xs border border-[#DECFC0] dark:border-[#38261B] flex items-center gap-1.5 btn-tactile cursor-pointer"
             >
-              <Plus className="w-3.5 h-3.5" />
+              <Plus className="w-3.5 h-3.5 text-[#8B5A2B] dark:text-[#D4A373]" />
               <span>Upload Materi</span>
             </button>
             <button
               onClick={() => setIsNewAssignmentOpen(true)}
-              className="px-3.5 py-2 rounded-2xl bg-[#065F46] text-white text-xs font-bold hover:bg-emerald-800 shadow-xs flex items-center gap-1.5"
+              className="px-3.5 py-2 rounded-2xl bg-gradient-to-r from-[#2B1810] via-[#3A2216] to-[#25150E] text-[#FAF5EE] hover:opacity-95 text-xs font-bold shadow-xs flex items-center gap-1.5 btn-tactile cursor-pointer"
             >
-              <Plus className="w-3.5 h-3.5" />
+              <Plus className="w-3.5 h-3.5 text-[#E8CBAE]" />
               <span>+ Tugas Baru</span>
+              <SparkleStar size={9} color="#F7D89C" className="glitter-star" />
             </button>
           </div>
         </div>
       </div>
 
       {/* 4 Tabs Navigation Bar */}
-      <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-1 overflow-x-auto text-xs font-bold">
+      <div className="flex items-center gap-2 border-b border-[#E3D6C9] dark:border-[#38261B] pb-1 overflow-x-auto text-xs font-bold">
         <button
           onClick={() => setActiveTab("MATERIALS")}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl transition-all ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl transition-all cursor-pointer ${
             activeTab === "MATERIALS"
-              ? "bg-[#E0E7FF] text-[#3730A3] dark:bg-[#312E81] dark:text-[#E0E7FF] shadow-xs"
-              : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+              ? "bg-gradient-to-r from-[#2B1810] via-[#382216] to-[#25150E] text-[#FAF5EE] shadow-xs font-bold border border-[#4F301F]"
+              : "text-[#7A5F4E] dark:text-[#CBB5A3] hover:text-[#2A1810] dark:hover:text-[#FAF5EE] hover:bg-[#EFE5DA]/70 dark:hover:bg-[#20150E]"
           }`}
         >
-          <FileText className="w-4 h-4" />
+          <FileText className="w-4 h-4 text-[#D4A373]" />
           <span>Materi per Pertemuan ({courseMaterials.length})</span>
+          {activeTab === "MATERIALS" && (
+            <SparkleStar size={8} color="#F7D89C" className="glitter-star" />
+          )}
         </button>
 
         <button
           onClick={() => setActiveTab("ASSIGNMENTS")}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl transition-all ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl transition-all cursor-pointer ${
             activeTab === "ASSIGNMENTS"
-              ? "bg-[#D1FAE5] text-[#065F46] dark:bg-[#064E3B] dark:text-[#D1FAE5] shadow-xs"
-              : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+              ? "bg-gradient-to-r from-[#2B1810] via-[#382216] to-[#25150E] text-[#FAF5EE] shadow-xs font-bold border border-[#4F301F]"
+              : "text-[#7A5F4E] dark:text-[#CBB5A3] hover:text-[#2A1810] dark:hover:text-[#FAF5EE] hover:bg-[#EFE5DA]/70 dark:hover:bg-[#20150E]"
           }`}
         >
-          <CheckSquare className="w-4 h-4" />
+          <CheckSquare className="w-4 h-4 text-[#D4A373]" />
           <span>Daftar Tugas & Kuis ({courseAssignments.length})</span>
+          {activeTab === "ASSIGNMENTS" && (
+            <SparkleStar size={8} color="#F7D89C" className="glitter-star" />
+          )}
         </button>
 
         <button
           onClick={() => setActiveTab("NOTES")}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl transition-all ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl transition-all cursor-pointer ${
             activeTab === "NOTES"
-              ? "bg-[#F3E8FF] text-[#6B21A8] dark:bg-[#6B21A8]/40 dark:text-[#F3E8FF] shadow-xs"
-              : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+              ? "bg-gradient-to-r from-[#2B1810] via-[#382216] to-[#25150E] text-[#FAF5EE] shadow-xs font-bold border border-[#4F301F]"
+              : "text-[#7A5F4E] dark:text-[#CBB5A3] hover:text-[#2A1810] dark:hover:text-[#FAF5EE] hover:bg-[#EFE5DA]/70 dark:hover:bg-[#20150E]"
           }`}
         >
-          <Edit className="w-4 h-4" />
+          <Edit className="w-4 h-4 text-[#D4A373]" />
           <span>Catatan Kuliah Markdown</span>
+          {activeTab === "NOTES" && (
+            <SparkleStar size={8} color="#F7D89C" className="glitter-star" />
+          )}
         </button>
 
         <button
           onClick={() => setActiveTab("GRADES")}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl transition-all ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl transition-all cursor-pointer ${
             activeTab === "GRADES"
-              ? "bg-[#FEF3C7] text-[#92400E] dark:bg-[#92400E]/40 dark:text-[#FEF3C7] shadow-xs"
-              : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+              ? "bg-gradient-to-r from-[#2B1810] via-[#382216] to-[#25150E] text-[#FAF5EE] shadow-xs font-bold border border-[#4F301F]"
+              : "text-[#7A5F4E] dark:text-[#CBB5A3] hover:text-[#2A1810] dark:hover:text-[#FAF5EE] hover:bg-[#EFE5DA]/70 dark:hover:bg-[#20150E]"
           }`}
         >
-          <Award className="w-4 h-4" />
+          <Award className="w-4 h-4 text-[#D4A373]" />
           <span>Rekap Nilai ({gradeCalc.letter})</span>
+          {activeTab === "GRADES" && (
+            <SparkleStar size={8} color="#F7D89C" className="glitter-star" />
+          )}
         </button>
       </div>
 
@@ -291,17 +305,17 @@ export default function CourseDetailPage({
                       weekMaterials.map((mat) => (
                         <div
                           key={mat.id}
-                          className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-100 dark:border-slate-700 hover:border-indigo-200 transition-all gap-2"
+                          className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-2xl bg-[#FFFDFB] dark:bg-[#1E140E] border border-[#E3D6C9] dark:border-[#38261B] hover:border-[#DECFC0] transition-all gap-2"
                         >
                           <div className="flex items-start gap-3 min-w-0">
-                            <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-[#E0E7FF] text-[#3730A3] dark:bg-indigo-950 dark:text-indigo-300 font-bold text-xs flex-shrink-0">
+                            <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-gradient-to-br from-[#3D2517] to-[#25150E] text-[#E8CBAE] border border-[#523321] font-bold text-xs flex-shrink-0">
                               <FileText className="w-4 h-4" />
                             </div>
                             <div className="min-w-0">
-                              <p className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">
+                              <p className="text-xs font-bold text-[#2A1810] dark:text-[#FAF5EE] truncate">
                                 {mat.title}
                               </p>
-                              <p className="text-[11px] text-slate-500 truncate">
+                              <p className="text-[11px] text-[#7A5F4E] dark:text-[#CBB5A3] truncate">
                                 {mat.description}
                               </p>
                               <div className="flex items-center gap-1.5 mt-1 flex-wrap">
@@ -324,13 +338,13 @@ export default function CourseDetailPage({
                           <div className="flex items-center gap-2 self-end sm:self-auto flex-shrink-0">
                             <button
                               onClick={() => setSelectedMaterialId(mat.id)}
-                              className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 shadow-xs hover:bg-slate-50"
+                              className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#FAF6F0] dark:bg-[#281B13] text-[#2A1810] dark:text-[#FAF5EE] border border-[#DECFC0] dark:border-[#38261B] shadow-xs hover:bg-[#F4ECE3] cursor-pointer"
                             >
                               Pratinjau
                             </button>
                             <Link
                               href={`/materials/${mat.id}`}
-                              className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#E0E7FF] text-[#3730A3] hover:bg-indigo-200 shadow-xs flex items-center gap-1"
+                              className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#EFE5DA] text-[#3D2316] dark:bg-[#281B13] dark:text-[#E8CBAE] hover:bg-[#E2D5C7] border border-[#DFCFC1] dark:border-[#422C1F] shadow-xs flex items-center gap-1 cursor-pointer"
                             >
                               <span>Workspace</span>
                               <ExternalLink className="w-3 h-3" />
@@ -343,7 +357,7 @@ export default function CourseDetailPage({
                                   toast.success(`Materi "${mat.title}" berhasil dihapus! 🗑️`);
                                 }
                               }}
-                              className="p-1.5 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                              className="p-1.5 rounded-xl text-[#947866] hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
                               title="Hapus Materi"
                               aria-label={`Hapus materi ${mat.title}`}
                             >
@@ -473,17 +487,18 @@ export default function CourseDetailPage({
             </div>
             <button
               onClick={handleSaveNotes}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-[#065F46] text-white text-xs font-bold hover:bg-emerald-800 shadow-sm"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-gradient-to-r from-[#2B1810] via-[#3A2216] to-[#25150E] text-[#FAF5EE] text-xs font-bold hover:opacity-95 shadow-sm cursor-pointer"
             >
               {isSavedNote ? (
                 <>
-                  <Check className="w-3.5 h-3.5" />
+                  <Check className="w-3.5 h-3.5 text-[#E8CBAE]" />
                   <span>Tersimpan!</span>
                 </>
               ) : (
                 <>
-                  <Save className="w-3.5 h-3.5" />
+                  <Save className="w-3.5 h-3.5 text-[#E8CBAE]" />
                   <span>Simpan Catatan</span>
+                  <SparkleStar size={8} color="#F7D89C" className="glitter-star" />
                 </>
               )}
             </button>
@@ -502,38 +517,38 @@ export default function CourseDetailPage({
       {activeTab === "GRADES" && (
         <div className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="p-5 rounded-3xl bg-[#D1FAE5] text-[#065F46] dark:bg-[#064E3B]/40 dark:text-[#D1FAE5] border border-[#A7F3D0]">
-              <span className="text-xs font-bold uppercase">
+            <div className="p-5 rounded-3xl bg-[#FFFDFB] dark:bg-[#1E140E] text-[#2A1810] dark:text-[#FAF5EE] border border-[#E3D6C9] dark:border-[#38261B] shadow-xs">
+              <span className="text-xs font-bold uppercase text-[#7A5F4E] dark:text-[#CBB5A3]">
                 Estimasi Rata-rata Berjalan
               </span>
-              <p className="text-3xl font-extrabold mt-2">
+              <p className="text-3xl font-extrabold mt-2 text-[#2B1810] dark:text-[#FAF5EE]">
                 {gradeCalc.weightedAverage > 0 ? gradeCalc.weightedAverage : "-"}
               </p>
-              <p className="text-[11px] mt-1 opacity-80">
+              <p className="text-[11px] mt-1 text-[#8C7362] dark:text-[#A89484]">
                 Berdasarkan {courseAssignments.length} komponen tugas
               </p>
             </div>
 
-            <div className="p-5 rounded-3xl bg-[#DBEAFE] text-[#1E3A8A] dark:bg-[#1E3A8A]/30 dark:text-[#DBEAFE] border border-blue-200">
-              <span className="text-xs font-bold uppercase">
+            <div className="p-5 rounded-3xl bg-[#FFFDFB] dark:bg-[#1E140E] text-[#2A1810] dark:text-[#FAF5EE] border border-[#E3D6C9] dark:border-[#38261B] shadow-xs">
+              <span className="text-xs font-bold uppercase text-[#7A5F4E] dark:text-[#CBB5A3]">
                 Indeks Nilai Huruf
               </span>
-              <p className="text-3xl font-extrabold mt-2">
+              <p className="text-3xl font-extrabold mt-2 text-[#8B5A2B] dark:text-[#D4A373]">
                 {gradeCalc.letter}
               </p>
-              <p className="text-[11px] mt-1 opacity-80">
+              <p className="text-[11px] mt-1 text-[#8C7362] dark:text-[#A89484]">
                 Skala 4.0 (A: 4.0, B: 3.0, C: 2.0)
               </p>
             </div>
 
-            <div className="p-5 rounded-3xl bg-[#F3E8FF] text-[#6B21A8] dark:bg-[#6B21A8]/30 dark:text-[#F3E8FF] border border-purple-200">
-              <span className="text-xs font-bold uppercase">
+            <div className="p-5 rounded-3xl bg-[#FFFDFB] dark:bg-[#1E140E] text-[#2A1810] dark:text-[#FAF5EE] border border-[#E3D6C9] dark:border-[#38261B] shadow-xs">
+              <span className="text-xs font-bold uppercase text-[#7A5F4E] dark:text-[#CBB5A3]">
                 Total Bobot Tercakup
               </span>
-              <p className="text-3xl font-extrabold mt-2">
+              <p className="text-3xl font-extrabold mt-2 text-[#2B1810] dark:text-[#FAF5EE]">
                 {gradeCalc.totalWeight}%
               </p>
-              <p className="text-[11px] mt-1 opacity-80">
+              <p className="text-[11px] mt-1 text-[#8C7362] dark:text-[#A89484]">
                 dari 100% total semester
               </p>
             </div>

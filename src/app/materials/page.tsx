@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { MaterialCategory } from "@/types";
 import { toast } from "sonner";
+import { SparkleStar } from "@/components/GlitterEffects";
 
 export default function MaterialsPage() {
   const { activeMaterials, courses, deleteMaterial, deleteSeedMaterials } = useVault();
@@ -93,25 +94,26 @@ export default function MaterialsPage() {
 
           <button
             onClick={() => setIsNewMaterialOpen(true)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-[#4A2E1B] text-white text-xs font-semibold hover:bg-[#382314] transition-colors shadow-sm btn-tactile"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-gradient-to-r from-[#2B1810] via-[#3A2216] to-[#25150E] text-[#FAF5EE] text-xs font-bold hover:opacity-95 transition-all shadow-sm btn-tactile cursor-pointer"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 text-[#E8CBAE]" />
             <span>+ Upload Materi Baru</span>
+            <SparkleStar size={9} color="#F7D89C" className="glitter-star" />
           </button>
         </div>
       </div>
 
       {/* Filter Bar & Search */}
-      <div className="bg-white dark:bg-slate-900 p-4 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-3">
+      <div className="bg-[#FFFDFB] dark:bg-[#1E140E] p-4 rounded-3xl border border-[#E3D6C9] dark:border-[#38261B] shadow-2xs space-y-3">
         {/* Search */}
-        <div className="flex items-center gap-2 px-3 py-2 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700">
-          <Search className="w-4 h-4 text-slate-400" />
+        <div className="flex items-center gap-2 px-3 py-2 rounded-2xl bg-[#FAF6F0] dark:bg-[#251810] border border-[#DECFC0] dark:border-[#38261B]">
+          <Search className="w-4 h-4 text-[#947866]" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Cari judul materi, nama file, atau topik..."
-            className="w-full text-xs bg-transparent outline-none text-slate-800 dark:text-slate-100 placeholder-slate-400"
+            className="w-full text-xs bg-transparent outline-none text-[#2A1810] dark:text-[#FAF5EE] placeholder-[#A89484]"
           />
         </div>
 
@@ -119,20 +121,20 @@ export default function MaterialsPage() {
         <div className="flex items-center gap-2 flex-wrap text-xs">
           <button
             onClick={() => setCategoryFilter("ALL")}
-            className={`px-3 py-1.5 rounded-xl font-semibold transition-all ${
+            className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
               categoryFilter === "ALL"
-                ? "bg-[#EFE6DD] text-[#3D271D] dark:bg-[#3D271D] dark:text-[#EFE6DD]"
-                : "text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
+                ? "bg-gradient-to-r from-[#2B1810] via-[#382216] to-[#25150E] text-[#FAF5EE] shadow-xs"
+                : "text-[#7A5F4E] dark:text-[#CBB5A3] hover:bg-[#EFE5DA] dark:hover:bg-[#281B13]"
             }`}
           >
             Semua ({activeMaterials.length})
           </button>
           <button
             onClick={() => setCategoryFilter("SLIDE")}
-            className={`px-3 py-1.5 rounded-xl font-semibold transition-all ${
+            className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
               categoryFilter === "SLIDE"
-                ? "bg-[#F3EADF] text-[#4C331E] dark:bg-[#432C19] dark:text-[#F3EADF]"
-                : "text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
+                ? "bg-gradient-to-r from-[#2B1810] via-[#382216] to-[#25150E] text-[#FAF5EE] shadow-xs"
+                : "text-[#7A5F4E] dark:text-[#CBB5A3] hover:bg-[#EFE5DA] dark:hover:bg-[#281B13]"
             }`}
           >
             📕 Slide & Modul

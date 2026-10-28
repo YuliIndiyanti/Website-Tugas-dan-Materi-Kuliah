@@ -33,16 +33,16 @@ export default function SharedViewPage({
   return (
     <div className="max-w-3xl mx-auto py-8 px-4 space-y-6">
       {/* Read-only notification pill */}
-      <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#E0E7FF] text-[#3730A3] dark:bg-indigo-950/60 dark:text-indigo-200 border border-indigo-200 text-xs shadow-xs">
+      <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#EFE5DA] text-[#3D2417] dark:bg-[#20150E] dark:text-[#E8CBAE] border border-[#DECFC0] dark:border-[#38261B] text-xs shadow-xs">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4" />
+          <Sparkles className="w-4 h-4 text-[#8B5A2B] dark:text-[#D4A373]" />
           <span>
             <b>Tautan Baca-Saja (Read-Only Share):</b> Dokumen ini dibagikan melalui Yuli&apos;s Vault
           </span>
         </div>
         <Link
           href="/"
-          className="text-indigo-700 dark:text-indigo-300 font-bold hover:underline flex items-center gap-1"
+          className="text-[#8B5A2B] dark:text-[#D4A373] font-bold hover:underline flex items-center gap-1"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Buka Vault</span>

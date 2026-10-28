@@ -54,17 +54,34 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({
     return (
       <>
         <LoginPage />
+        {/* Modern Toast System (Sonner) - Warm Brown Palette */}
         <Toaster
           position="bottom-right"
           closeButton
-          richColors
           toastOptions={{
             style: {
               borderRadius: "1.25rem",
-              padding: "0.875rem 1rem",
+              padding: "0.875rem 1.15rem",
               fontSize: "0.8125rem",
               fontWeight: 600,
+              background: "#FFFDFB",
+              border: "1px solid #DFCFC1",
+              color: "#2A1810",
+              boxShadow: "0 12px 32px -4px rgba(43, 24, 16, 0.15)",
             },
+            classNames: {
+              title: "!text-[#2A1810] dark:!text-[#FAF5EE] !font-bold",
+              description: "!text-[#7A5F4E] dark:!text-[#CBB5A3] !text-[11px] !mt-0.5",
+              actionButton: "!bg-[#2B1810] !text-[#FAF5EE] !rounded-xl !font-bold",
+              cancelButton: "!bg-[#F6EFE7] !text-[#2A1810] !rounded-xl",
+              closeButton: "!border-[#DECFC0] !bg-[#FFFDFB] !text-[#7A5F4E] hover:!bg-[#F3EBE1]",
+            },
+          }}
+          icons={{
+            success: <span className="text-base">☕</span>,
+            info: <span className="text-base">✨</span>,
+            warning: <span className="text-base">⚠️</span>,
+            error: <span className="text-base">✕</span>,
           }}
         />
       </>
@@ -138,18 +155,34 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({
       {/* Dev-Only Break-UI Toggle */}
       <BreakUiToggle />
 
-      {/* Modern Toast System (Sonner) */}
+      {/* Modern Toast System (Sonner) - Warm Brown Palette */}
       <Toaster
         position="bottom-right"
         closeButton
-        richColors
         toastOptions={{
           style: {
             borderRadius: "1.25rem",
-            padding: "0.875rem 1rem",
+            padding: "0.875rem 1.15rem",
             fontSize: "0.8125rem",
             fontWeight: 600,
+            background: "#FFFDFB",
+            border: "1px solid #DFCFC1",
+            color: "#2A1810",
+            boxShadow: "0 12px 32px -4px rgba(43, 24, 16, 0.15)",
           },
+          classNames: {
+            title: "!text-[#2A1810] dark:!text-[#FAF5EE] !font-bold",
+            description: "!text-[#7A5F4E] dark:!text-[#CBB5A3] !text-[11px] !mt-0.5",
+            actionButton: "!bg-[#2B1810] !text-[#FAF5EE] !rounded-xl !font-bold",
+            cancelButton: "!bg-[#F6EFE7] !text-[#2A1810] !rounded-xl",
+            closeButton: "!border-[#DECFC0] !bg-[#FFFDFB] !text-[#7A5F4E] hover:!bg-[#F3EBE1]",
+          },
+        }}
+        icons={{
+          success: <span className="text-base">☕</span>,
+          info: <span className="text-base">✨</span>,
+          warning: <span className="text-base">⚠️</span>,
+          error: <span className="text-base">✕</span>,
         }}
       />
     </div>

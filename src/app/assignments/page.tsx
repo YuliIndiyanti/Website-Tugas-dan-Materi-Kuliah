@@ -24,6 +24,7 @@ import { STATUS_CONFIG } from "@/lib/constants";
 import { formatDate, getAssignmentUrgency } from "@/lib/utils";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
+import { SparkleStar } from "@/components/GlitterEffects";
 
 export default function AssignmentsPage() {
   const {
@@ -106,29 +107,29 @@ export default function AssignmentsPage() {
       id: "TODO",
       label: "Belum Dimulai",
       icon: "🕊️",
-      bg: "bg-[#F1F5F9]/60 dark:bg-slate-800/40",
-      border: "border-[#E4D6C6] dark:border-[#3D2F26]",
+      bg: "bg-[#F8F3ED]/90 dark:bg-[#1E140E]/80",
+      border: "border-[#E0D1C2] dark:border-[#38261B]",
     },
     {
       id: "IN_PROGRESS",
       label: "Sedang Dikerjakan",
       icon: "☕",
-      bg: "bg-[#EDE0D2]/60 dark:bg-[#2B2019]/40",
-      border: "border-[#D8C3AE] dark:border-[#4A382A]",
+      bg: "bg-[#F3EBE1]/90 dark:bg-[#251810]/80",
+      border: "border-[#DECFC0] dark:border-[#422C1F]",
     },
     {
       id: "READY",
       label: "Siap Dikumpulkan",
       icon: "📦",
-      bg: "bg-[#E4D4C3]/60 dark:bg-[#32241C]/40",
-      border: "border-[#CEB9A3] dark:border-[#543D2E]",
+      bg: "bg-[#EFE5DA]/90 dark:bg-[#2B1B12]/80",
+      border: "border-[#DFCFC1] dark:border-[#4D3121]",
     },
     {
       id: "SUBMITTED",
       label: "Sudah Dikumpulkan",
       icon: "✓",
-      bg: "bg-[#D8C4AF]/60 dark:bg-[#3B2B20]/40",
-      border: "border-[#BD9F84] dark:border-[#5E4331]",
+      bg: "bg-[#E8DDD0]/90 dark:bg-[#322015]/80",
+      border: "border-[#D5C2B1] dark:border-[#573725]",
     },
   ];
 
@@ -139,38 +140,39 @@ export default function AssignmentsPage() {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xl">📝</span>
-            <h1 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100">
-              Task & Deadline Tracker
+            <h1 className="text-xl sm:text-2xl font-bold text-[#2A1810] dark:text-[#FAF5EE] flex items-center gap-2">
+              <span>Task & Deadline Tracker</span>
+              <SparkleStar size={12} color="#D4A373" className="glitter-star" />
             </h1>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-[#7A5F4E] dark:text-[#CBB5A3] mt-1">
             Prioritize tasks, monitor your progress, and never miss a deadline.
           </p>
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
           {/* View Mode Toggle */}
-          <div className="flex items-center p-1 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xs">
+          <div className="flex items-center p-1 rounded-2xl bg-[#FFFDFB] dark:bg-[#1E140E] border border-[#DECFC0] dark:border-[#38261B] shadow-2xs">
             <button
               onClick={() => setViewMode("KANBAN")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === "KANBAN"
-                  ? "bg-[#EFE6DD] text-[#3D271D] dark:bg-[#3D271D] dark:text-[#EFE6DD]"
-                  : "text-slate-500 hover:text-slate-800"
+                  ? "bg-gradient-to-r from-[#2B1810] via-[#382216] to-[#25150E] text-[#FAF5EE] font-bold shadow-xs"
+                  : "text-[#7A5F4E] dark:text-[#CBB5A3] hover:text-[#2A1810] dark:hover:text-[#FAF5EE]"
               }`}
             >
-              <Kanban className="w-3.5 h-3.5" />
+              <Kanban className="w-3.5 h-3.5 text-[#D4A373]" />
               <span>Kanban</span>
             </button>
             <button
               onClick={() => setViewMode("TABLE")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === "TABLE"
-                  ? "bg-[#EFE6DD] text-[#3D271D] dark:bg-[#3D271D] dark:text-[#EFE6DD]"
-                  : "text-slate-500 hover:text-slate-800"
+                  ? "bg-gradient-to-r from-[#2B1810] via-[#382216] to-[#25150E] text-[#FAF5EE] font-bold shadow-xs"
+                  : "text-[#7A5F4E] dark:text-[#CBB5A3] hover:text-[#2A1810] dark:hover:text-[#FAF5EE]"
               }`}
             >
-              <TableIcon className="w-3.5 h-3.5" />
+              <TableIcon className="w-3.5 h-3.5 text-[#D4A373]" />
               <span>Tabel</span>
             </button>
           </div>
@@ -178,16 +180,17 @@ export default function AssignmentsPage() {
           {/* + Tugas Baru */}
           <button
             onClick={() => setIsNewAssignmentOpen(true)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-[#4A2E1B] text-white text-xs font-bold hover:bg-[#382314] transition-colors shadow-sm"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-gradient-to-r from-[#2B1810] via-[#3A2216] to-[#25150E] text-[#FAF5EE] text-xs font-bold hover:opacity-95 transition-all shadow-sm cursor-pointer"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 text-[#E8CBAE]" />
             <span>+ Tugas Baru</span>
+            <SparkleStar size={9} color="#F7D89C" className="glitter-star" />
           </button>
         </div>
       </div>
 
       {/* Filter Bar */}
-      <div className="flex items-center gap-3 bg-white dark:bg-slate-900 p-3 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs flex-wrap">
+      <div className="flex items-center gap-3 bg-[#FFFDFB] dark:bg-[#1E140E] p-3 rounded-2xl border border-[#E3D6C9] dark:border-[#38261B] shadow-2xs flex-wrap">
         <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
           <Filter className="w-3.5 h-3.5" />
           <span>Filter:</span>

@@ -271,3 +271,42 @@ body {
   }
 }
 
+/* Custom Sonner Toast Brown Luxury Theme */
+[data-sonner-toast] {
+  background: #FFFDFB !important;
+  border: 1px solid #DFCFC1 !important;
+  color: #2A1810 !important;
+}
+.dark [data-sonner-toast] {
+  background: #1E140E !important;
+  border: 1px solid #4A2F20 !important;
+  color: #FAF5EE !important;
+}
+[data-sonner-toast] [data-title] {
+  color: #2A1810 !important;
+  font-weight: 700 !important;
+}
+.dark [data-sonner-toast] [data-title] {
+  color: #FAF5EE !important;
+}
+[data-sonner-toast] [data-description] {
+  color: #7A5F4E !important;
+}
+.dark [data-sonner-toast] [data-description] {
+  color: #CBB5A3 !important;
+}
+[data-sonner-toast] [data-icon] {
+  color: #8B5A2B !important;
+}
+[data-sonner-toast][data-type="success"] {
+  background: #FAF6F0 !important;
+  border-color: #D5C2B1 !important;
+  color: #2A1810 !important;
+}
+.dark [data-sonner-toast][data-type="success"] {
+  background: #251810 !important;
+  border-color: #523321 !important;
+  color: #FAF5EE !important;
+}
+
+
