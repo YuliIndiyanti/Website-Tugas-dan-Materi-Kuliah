@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { VaultProvider } from "@/context/VaultContext";
+import { AuthProvider } from "@/context/AuthContext";
 import { AppShell } from "@/components/AppShell";
 
 export const metadata: Metadata = {
@@ -16,10 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" suppressHydrationWarning>
-      <body className="antialiased selection:bg-[#EDE3D6] selection:text-[#453120]">
-        <VaultProvider>
-          <AppShell>{children}</AppShell>
-        </VaultProvider>
+      <body className="antialiased selection:bg-[#EAE0D5] selection:text-[#382314]">
+        <AuthProvider>
+          <VaultProvider>
+            <AppShell>{children}</AppShell>
+          </VaultProvider>
+        </AuthProvider>
       </body>
     </html>
   );

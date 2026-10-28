@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import { LoginPage } from "./LoginPage";
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
 import { CommandPalette } from "./CommandPalette";
@@ -17,6 +20,9 @@ import { Toaster } from "sonner";
 export const AppShell: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { isAuthenticated, isLoading } = useAuth();
+  const pathname = usePathname();
+
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNewAssignmentOpen, setIsNewAssignmentOpen] = useState(false);
   const [isUploadMaterialOpen, setIsUploadMaterialOpen] = useState(false);
@@ -26,8 +32,47 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({
   const [selectedAssignmentId, setSelectedAssignmentId] = useState<string | null>(null);
   const [selectedMaterialId, setSelectedMaterialId] = useState<string | null>(null);
 
+  // Allow access to shared material links without forcing login
+  const isPublicRoute = pathname?.startsWith("/shared/");
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#F8F7F5] dark:bg-[#110F0E]">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-12 h-12 rounded-2xl bg-white dark:bg-[#1E1916] border border-[#EAE6E0] dark:border-[#2C241E] flex items-center justify-center text-xl shadow-xs animate-pulse">
+            ☕
+          </div>
+          <p className="text-xs font-semibold text-[#736B63] dark:text-[#A3998F] tracking-wide">
+            Memuat Yuli&apos;s Vault...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated && !isPublicRoute) {
+    return (
+      <>
+        <LoginPage />
+        <Toaster
+          position="bottom-right"
+          closeButton
+          richColors
+          toastOptions={{
+            style: {
+              borderRadius: "1.25rem",
+              padding: "0.875rem 1rem",
+              fontSize: "0.8125rem",
+              fontWeight: 600,
+            },
+          }}
+        />
+      </>
+    );
+  }
+
   return (
-    <div className="min-h-screen flex flex-col bg-[#FDFBF7] dark:bg-[#0F172A] text-slate-800 dark:text-slate-100 transition-colors">
+    <div className="min-h-screen flex flex-col bg-[#F8F7F5] dark:bg-[#110F0E] text-[#171310] dark:text-[#F5EFEB] transition-colors">
       {/* Top Navbar */}
       <Navbar
         onOpenSearch={() => setIsSearchOpen(true)}

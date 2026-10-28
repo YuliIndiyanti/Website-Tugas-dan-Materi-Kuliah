@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useVault } from "@/context/VaultContext";
+import { useAuth } from "@/context/AuthContext";
 import {
   Search,
   Plus,
@@ -13,6 +14,7 @@ import {
   Bell,
   Sparkles,
   ChevronDown,
+  LogOut,
 } from "lucide-react";
 import { getAssignmentUrgency } from "@/lib/utils";
 
@@ -39,6 +41,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     isDarkMode,
     toggleDarkMode,
   } = useVault();
+  const { user, logout } = useAuth();
 
   // Count urgent assignments (<24h or overdue)
   const urgentCount = activeAssignments.filter((a) => {
@@ -47,7 +50,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   }).length;
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#EAE0D5] bg-[#FAF7F2]/90 dark:border-[#3D2F26] dark:bg-[#1C1512]/90 backdrop-blur-md transition-colors">
+    <header className="sticky top-0 z-40 w-full border-b border-[#E8E4DD] bg-[#F8F7F5]/90 dark:border-[#2A231E] dark:bg-[#110F0E]/90 backdrop-blur-md transition-colors">
       <div className="flex h-16 items-center justify-between px-4 sm:px-6">
         {/* Left Section: Brand & Semester Selector */}
         <div className="flex items-center gap-4">
@@ -55,20 +58,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             href="/"
             className="flex items-center gap-2 group transition-transform active:scale-95"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#EFE6DD] via-[#F3EADF] to-[#EAE0D5] dark:from-[#3D271D] dark:via-[#4C331E] dark:to-[#2E1A0A] shadow-sm border border-[#D9C7B6] dark:border-[#523A2A]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white dark:bg-[#1A1614] border border-[#E8E4DD] dark:border-[#2C241E] shadow-sm">
               <span className="text-xl">☕</span>
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-bold text-lg text-[#2A1D15] dark:text-[#F5EFEB] tracking-tight">
+                <span className="font-bold text-lg text-[#171310] dark:text-[#F8F6F2] tracking-tight">
                   Yuli&apos;s Vault
                 </span>
-                <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#EFE6DD] text-[#3D271D] dark:bg-[#3D271D] dark:text-[#EFE6DD] border border-[#D9C7B6]/70 dark:border-[#523A2A]">
-                  Warm Mocha
+                <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#EFE9E0] text-[#544434] dark:bg-[#2B2119] dark:text-[#D4C3B2] border border-[#E0D5C7] dark:border-[#3D2F24]">
+                  Academic
                 </span>
               </div>
-              <p className="text-[11px] text-[#756353] dark:text-[#B0A092] hidden sm:block">
-                Personal Academic Vault
+              <p className="text-[11px] text-[#736B63] dark:text-[#A3998F] hidden sm:block">
+                Personal Academic Second Brain
               </p>
             </div>
           </Link>
@@ -77,13 +80,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="relative">
             <button
               onClick={onOpenSemesterModal}
-              className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-white dark:bg-[#281F19] hover:bg-[#F3EADF]/50 dark:hover:bg-[#35271F] text-[#3D271D] dark:text-[#EFE6DD] shadow-sm transition-all btn-tactile"
+              className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-xl border border-[#E8E4DD] dark:border-[#2A231E] bg-white dark:bg-[#181513] hover:bg-[#F2ECE4] dark:hover:bg-[#221C18] text-[#171310] dark:text-[#F5EFEB] shadow-xs transition-all btn-tactile cursor-pointer"
             >
-              <Calendar className="w-3.5 h-3.5 text-[#967252] dark:text-[#D4C2B0]" />
+              <Calendar className="w-3.5 h-3.5 text-[#8B5A2B] dark:text-[#D4A373]" />
               <span className="max-w-[140px] truncate">
                 {activeSemester?.name || "Pilih Semester"}
               </span>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+              <ChevronDown className="w-3.5 h-3.5 text-[#8C8278]" />
             </button>
           </div>
         </div>
@@ -92,13 +95,13 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex-1 max-w-md mx-4 hidden md:block">
           <button
             onClick={onOpenSearch}
-            className="w-full flex items-center justify-between px-3.5 py-2 text-xs text-[#756353] dark:text-[#B0A092] bg-[#F3EADF]/60 dark:bg-[#281F19] hover:bg-[#EFE6DD] dark:hover:bg-[#35271F] rounded-xl border border-[#EAE0D5] dark:border-[#3D2F26] transition-all shadow-inner btn-tactile"
+            className="w-full flex items-center justify-between px-3.5 py-2 text-xs text-[#736B63] dark:text-[#A3998F] bg-[#F0ECE4]/70 dark:bg-[#1A1614] hover:bg-[#EAE4DC] dark:hover:bg-[#221C18] rounded-xl border border-[#E2DDD5] dark:border-[#2C241E] transition-all shadow-inner btn-tactile cursor-pointer"
           >
             <div className="flex items-center gap-2">
-              <Search className="w-4 h-4 text-[#967252]" />
+              <Search className="w-4 h-4 text-[#8B5A2B] dark:text-[#D4A373]" />
               <span>Cari materi, tugas, slide, tag...</span>
             </div>
-            <kbd className="inline-flex items-center gap-0.5 px-2 py-0.5 text-[10px] font-semibold bg-[#EFE6DD] text-[#3D271D] dark:bg-[#3D271D] dark:text-[#EFE6DD] border border-[#D9C7B6] dark:border-[#523A2A] rounded-md shadow-xs">
+            <kbd className="inline-flex items-center gap-0.5 px-2 py-0.5 text-[10px] font-semibold bg-white text-[#544C44] dark:bg-[#241E1A] dark:text-[#D4C3B2] border border-[#DDD5CA] dark:border-[#382E25] rounded-md shadow-2xs">
               Ctrl+K
             </kbd>
           </button>
@@ -119,7 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* + Tugas Baru */}
           <button
             onClick={onOpenNewAssignment}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-[#EFE6DD] text-[#3D271D] hover:bg-[#E2D5C7] dark:bg-[#3D271D] dark:text-[#EFE6DD] dark:hover:bg-[#4C331E] border border-[#D9C7B6] dark:border-[#523A2A] shadow-sm transition-all btn-tactile"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-white text-[#171310] hover:bg-[#F4EFEA] dark:bg-[#1C1714] dark:text-[#F5EFEB] dark:hover:bg-[#26201B] border border-[#E2DDD5] dark:border-[#2E2620] shadow-xs transition-all btn-tactile cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
             <span className="hidden sm:inline">+ Tugas</span>
@@ -128,7 +131,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* + Upload Materi */}
           <button
             onClick={onOpenUploadMaterial}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-[#4A2E1B] text-white hover:bg-[#382314] dark:bg-[#5C3D26] dark:hover:bg-[#4A2E1B] shadow-sm transition-all btn-tactile"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-[#231A14] text-white hover:bg-[#140F0C] dark:bg-[#EAE0D5] dark:text-[#231A14] dark:hover:bg-white shadow-xs transition-all btn-tactile cursor-pointer"
           >
             <Upload className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Upload</span>
@@ -137,13 +140,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Reminder Bell with Badge */}
           <button
             onClick={onOpenReminderModal}
-            className="relative p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent hover:border-[#EAE0D5] dark:hover:border-[#3D2F26] transition-all btn-tactile"
+            className="relative p-2 rounded-xl text-[#544C44] dark:text-[#B5AAA0] hover:bg-[#EFE9E0]/60 dark:hover:bg-[#201B18] border border-transparent hover:border-[#E8E4DD] dark:hover:border-[#2A231E] transition-all btn-tactile cursor-pointer"
             title="Pengingat Deadline Telegram & Web"
             aria-label={`Pengingat deadline telegram, ${urgentCount} tugas mendesak`}
           >
             <Bell className="w-4 h-4" />
             {urgentCount > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] px-1 items-center justify-center rounded-full bg-[#F7E2DD] text-[#7A271A] text-[10px] font-bold border border-[#E8BFB5] animate-pulse">
+              <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] px-1 items-center justify-center rounded-full bg-[#E5484D] text-white text-[10px] font-bold shadow-xs animate-pulse">
                 {urgentCount}
               </span>
             )}
@@ -152,33 +155,40 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Dark Mode Toggle */}
           <button
             onClick={toggleDarkMode}
-            className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent hover:border-[#EAE0D5] dark:hover:border-[#3D2F26] transition-all"
+            className="p-2 rounded-xl text-[#544C44] dark:text-[#B5AAA0] hover:bg-[#EFE9E0]/60 dark:hover:bg-[#201B18] border border-transparent hover:border-[#E8E4DD] dark:hover:border-[#2A231E] transition-all cursor-pointer"
             title={isDarkMode ? "Ganti ke Terang" : "Ganti ke Gelap"}
             aria-label={isDarkMode ? "Beralih ke tema terang" : "Beralih ke tema gelap"}
           >
             {isDarkMode ? (
               <Sun className="w-4 h-4 text-amber-400" />
             ) : (
-              <Moon className="w-4 h-4 text-[#756353]" />
+              <Moon className="w-4 h-4 text-[#736B63]" />
             )}
           </button>
 
-          {/* Profile pill */}
-          <div
-            className="hidden lg:flex items-center gap-2.5 pl-2.5 border-l border-[#EAE0D5] dark:border-[#3D2F26]"
-            title="Yuli Indiyanti - NIM 240511130 KELAS TI24D (Pemilik Vault)"
-          >
-            <div className="w-8 h-8 rounded-full bg-[#EAE0D5] text-[#3D271D] dark:bg-[#3D271D] dark:text-[#EFE6DD] flex items-center justify-center text-xs font-bold shadow-sm border border-[#D9C7B6] dark:border-[#523A2A]">
-              YI
+          {/* Profile & Logout pill */}
+          <div className="hidden lg:flex items-center gap-2 pl-2.5 border-l border-[#E8E4DD] dark:border-[#2A231E]">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-[#EAE0D5] text-[#382314] dark:bg-[#3D2C20] dark:text-[#EAE0D5] flex items-center justify-center text-xs font-bold shadow-2xs border border-[#D9C7B6] dark:border-[#523A2A]">
+                {user?.avatar || "YI"}
+              </div>
+              <div className="text-left">
+                <p className="text-xs font-semibold text-[#171310] dark:text-[#F5EFEB] leading-none">
+                  {user?.name || "Yuli Indiyanti"}
+                </p>
+                <p className="text-[10px] text-[#736B63] dark:text-[#A3998F] leading-none mt-1">
+                  {user?.nim || "240511130"} • {user?.className || "TI24D"}
+                </p>
+              </div>
             </div>
-            <div className="text-left">
-              <p className="text-xs font-semibold text-[#2A1D15] dark:text-[#F5EFEB] leading-none">
-                Yuli Indiyanti
-              </p>
-              <p className="text-[10px] text-[#756353] dark:text-[#B0A092] leading-none mt-1">
-                240511130 • TI24D
-              </p>
-            </div>
+            <button
+              onClick={logout}
+              className="p-1.5 ml-1 rounded-xl text-[#736B63] hover:text-rose-600 dark:text-[#A3998F] dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all btn-tactile cursor-pointer"
+              title="Keluar dari Akun (Logout)"
+              aria-label="Keluar dari akun"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
       </div>

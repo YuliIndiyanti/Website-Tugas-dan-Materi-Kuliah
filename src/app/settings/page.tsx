@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useVault } from "@/context/VaultContext";
+import { useAuth } from "@/context/AuthContext";
 import {
   Settings,
   Download,
@@ -13,6 +14,7 @@ import {
   Check,
   AlertTriangle,
   Smartphone,
+  LogOut,
 } from "lucide-react";
 
 export default function SettingsPage() {
@@ -25,6 +27,7 @@ export default function SettingsPage() {
     activeAssignments,
     activeMaterials,
   } = useVault();
+  const { user, logout } = useAuth();
 
   const [importText, setImportText] = useState("");
   const [feedbackMsg, setFeedbackMsg] = useState<{
@@ -178,53 +181,57 @@ export default function SettingsPage() {
       </div>
 
       {/* Single-User Profile & Security Specification (PRD Section 2 & 9.1) */}
-      <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft space-y-4">
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#181513] border border-[#E8E4DD] dark:border-[#2A231E] shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-[#8B5A2B]" />
-            <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">
-              Profil Pemilik Vault & Spesifikasi Akun
+            <Shield className="w-4 h-4 text-[#8B5A2B] dark:text-[#D4A373]" />
+            <h3 className="text-sm font-bold text-[#171310] dark:text-[#F8F6F2]">
+              Profil Pemilik Vault & Sesi Masuk
             </h3>
           </div>
-          <span className="text-[10px] px-2.5 py-0.5 rounded-full font-bold bg-[#EDE3D6] text-[#453120] border border-[#D9C7B6]">
-            Single-User Active
-          </span>
+          <button
+            onClick={logout}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/40 hover:bg-rose-100 dark:hover:bg-rose-950/50 transition-colors cursor-pointer"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Keluar Akun</span>
+          </button>
         </div>
-        <p className="text-xs text-slate-500 leading-relaxed">
+        <p className="text-xs text-[#736B63] dark:text-[#A3998F] leading-relaxed">
           Aplikasi berjalan dalam mode Pengguna Tunggal (*Single-User Vault*) eksklusif untuk pemilik sistem akademik mandiri.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
-          <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-            <span className="text-[10px] uppercase font-bold text-slate-400">
+          <div className="p-3.5 rounded-2xl bg-[#F8F7F5] dark:bg-[#201B18] border border-[#EAE6E0] dark:border-[#2E2620]">
+            <span className="text-[10px] uppercase font-bold text-[#8C8278] dark:text-[#786F66]">
               Pemilik Vault
             </span>
-            <p className="font-bold text-slate-800 dark:text-slate-100 mt-1">
-              👩‍🎓 Yuli Indiyanti
+            <p className="font-bold text-[#171310] dark:text-[#F8F6F2] mt-1">
+              {user?.avatar || "👩‍🎓"} {user?.name || "Yuli Indiyanti"}
             </p>
-            <p className="text-[11px] text-[#4A2E1B] dark:text-[#D9C7B6] font-semibold mt-0.5">
-              NIM: 240511130
+            <p className="text-[11px] text-[#8B5A2B] dark:text-[#D4A373] font-semibold mt-0.5">
+              NIM: {user?.nim || "240511130"}
             </p>
           </div>
-          <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-            <span className="text-[10px] uppercase font-bold text-slate-400">
+          <div className="p-3.5 rounded-2xl bg-[#F8F7F5] dark:bg-[#201B18] border border-[#EAE6E0] dark:border-[#2E2620]">
+            <span className="text-[10px] uppercase font-bold text-[#8C8278] dark:text-[#786F66]">
               Kelas Akademik
             </span>
-            <p className="font-bold text-slate-800 dark:text-slate-100 mt-1">
-              KELAS TI24D
+            <p className="font-bold text-[#171310] dark:text-[#F8F6F2] mt-1">
+              {user?.className || "KELAS TI24D"}
             </p>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-              Teknik Informatika
+            <p className="text-[11px] text-[#736B63] dark:text-[#A3998F] mt-0.5">
+              {user?.major || "Teknik Informatika"}
             </p>
           </div>
-          <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-            <span className="text-[10px] uppercase font-bold text-slate-400">
+          <div className="p-3.5 rounded-2xl bg-[#F8F7F5] dark:bg-[#201B18] border border-[#EAE6E0] dark:border-[#2E2620]">
+            <span className="text-[10px] uppercase font-bold text-[#8C8278] dark:text-[#786F66]">
               Status Sistem
             </span>
-            <p className="font-bold text-[#54371C] dark:text-[#D9C7B6] mt-1">
+            <p className="font-bold text-[#8B5A2B] dark:text-[#D4A373] mt-1">
               ☕ Yuli&apos;s Second Brain
             </p>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+            <p className="text-[11px] text-[#736B63] dark:text-[#A3998F] mt-0.5">
               100% Free-Tier Offline
             </p>
           </div>
