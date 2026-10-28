@@ -99,6 +99,20 @@ body {
   will-change: transform, opacity;
 }
 
+@keyframes avatarBreathe {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.animate-subtle-bounce {
+  animation: avatarBreathe 3.5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
 /* Accessibility: Keyboard focus indicator */
 :focus-visible {
   outline: 2px solid #8B5A2B;

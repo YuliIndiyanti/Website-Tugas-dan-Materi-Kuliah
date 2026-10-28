@@ -108,7 +108,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     }
 
-    toast.success(`Selamat datang kembali, ${authUser.name}! ☕`, {
+    toast.success(`Selamat datang kembali, ${authUser.name}! ✨`, {
       description: `Masuk sebagai Mahasiswa ${authUser.className} (NIM: ${authUser.nim})`,
     });
     return true;

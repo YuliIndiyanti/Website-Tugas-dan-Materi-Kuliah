@@ -229,7 +229,7 @@ export default function SettingsPage() {
               Status Sistem
             </span>
             <p className="font-bold text-[#8B5A2B] dark:text-[#D4A373] mt-1">
-              ☕ Yuli&apos;s Second Brain
+              ✨ Yuli&apos;s Second Brain
             </p>
             <p className="text-[11px] text-[#736B63] dark:text-[#A3998F] mt-0.5">
               100% Free-Tier Offline

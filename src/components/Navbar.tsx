@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useVault } from "@/context/VaultContext";
 import { useAuth } from "@/context/AuthContext";
 import { SparkleStar } from "./GlitterEffects";
+import { AnimatedGirlAvatar } from "./AnimatedGirlAvatar";
 import {
   Search,
   Plus,
@@ -57,12 +58,9 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-4">
           <Link
             href="/"
-            className="flex items-center gap-2 group transition-transform active:scale-95"
+            className="flex items-center gap-2.5 group transition-transform active:scale-95"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#3D2517] via-[#2D1B11] to-[#1C100A] text-[#E8CBAE] border border-[#523321] shadow-sm relative">
-              <span className="text-xl">☕</span>
-              <SparkleStar size={9} color="#F7D89C" className="absolute -top-1 -right-1 glitter-star" />
-            </div>
+            <AnimatedGirlAvatar size={40} />
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-bold text-lg text-[#2A1810] dark:text-[#FAF5EE] tracking-tight">

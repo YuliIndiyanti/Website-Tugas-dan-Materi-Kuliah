@@ -113,7 +113,7 @@ export default function AssignmentsPage() {
     {
       id: "IN_PROGRESS",
       label: "Sedang Dikerjakan",
-      icon: "☕",
+      icon: "✍️",
       bg: "bg-[#F3EBE1]/90 dark:bg-[#251810]/80",
       border: "border-[#DECFC0] dark:border-[#422C1F]",
     },

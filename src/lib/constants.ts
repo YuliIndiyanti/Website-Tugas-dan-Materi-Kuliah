@@ -70,7 +70,7 @@ export const STATUS_CONFIG = {
     bgHex: "#EDE0D2",
     textHex: "#54371C",
     borderHex: "#D8C3AE",
-    icon: "☕",
+    icon: "✍️",
   },
   READY: {
     label: "Siap Dikumpulkan",
@@ -108,7 +108,7 @@ export const URGENCY_CONFIG = {
     bgHex: "#F6F0E8",
     textHex: "#6B5543",
     borderHex: "#E4D6C6",
-    icon: "☕",
+    icon: "✨",
   },
   COMPLETED: {
     label: "Selesai",

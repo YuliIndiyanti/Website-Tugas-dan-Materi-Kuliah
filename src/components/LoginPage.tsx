@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { SparkleStar, GlitterField } from "./GlitterEffects";
+import { AnimatedGirlAvatar } from "./AnimatedGirlAvatar";
 import { User, KeyRound, Eye, EyeOff, ArrowRight } from "lucide-react";
 
 export const LoginPage: React.FC = () => {
@@ -33,16 +34,8 @@ export const LoginPage: React.FC = () => {
       {/* Main Aesthetic Login Card */}
       <div className="w-full max-w-sm relative z-10">
         {/* Top Header */}
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-to-br from-[#3D2517] via-[#2D1B11] to-[#1C100A] text-[#E8CBAE] border border-[#523321] shadow-lg mb-3 relative group">
-            <span className="text-3xl filter drop-shadow-xs">☕</span>
-            <div className="absolute -top-1 -right-1">
-              <SparkleStar size={15} color="#F7D89C" className="glitter-star" />
-            </div>
-            <div className="absolute -bottom-1 -left-1">
-              <SparkleStar size={11} color="#E0B075" className="glitter-star" style={{ animationDelay: "1.2s" }} />
-            </div>
-          </div>
+        <div className="text-center mb-6 flex flex-col items-center">
+          <AnimatedGirlAvatar size={70} className="mb-3" />
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#2A1810] dark:text-[#FAF5EE]">
             Yuli&apos;s Vault
           </h1>

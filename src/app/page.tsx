@@ -9,6 +9,7 @@ import { AssignmentModal } from "@/components/AssignmentModal";
 import { MaterialPreviewModal } from "@/components/MaterialPreviewModal";
 import { NewAssignmentModal } from "@/components/NewAssignmentModal";
 import { SparkleStar, GlitterField } from "@/components/GlitterEffects";
+import { AnimatedGirlAvatar } from "@/components/AnimatedGirlAvatar";
 import {
   Calendar,
   Clock,
@@ -35,18 +36,23 @@ export default function DashboardPage() {
         {/* Floating animated sparkles across banner */}
         <GlitterField count={8} />
 
-        <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#3D2517] text-[#E8CBAE] shadow-2xs mb-3 border border-[#5E3A25]">
-            <SparkleStar size={11} color="#F7D89C" className="glitter-star" />
-            <span>Yuli&apos;s Vault • {activeSemester?.name || "Semester Aktif"}</span>
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="max-w-xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#3D2517] text-[#E8CBAE] shadow-2xs mb-3 border border-[#5E3A25]">
+              <SparkleStar size={11} color="#F7D89C" className="glitter-star" />
+              <span>Yuli&apos;s Vault • {activeSemester?.name || "Semester Aktif"}</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
+              <span>Yuli&apos;s Second Brain</span>
+              <SparkleStar size={18} color="#F7D89C" className="glitter-star inline-block" />
+            </h1>
+            <p className="text-xs sm:text-sm text-[#DFC8B6] mt-2 leading-relaxed">
+              Streamline your study workflow. Track tasks and manage materials effortlessly.
+            </p>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
-            <span>Yuli&apos;s Second Brain</span>
-            <SparkleStar size={18} color="#F7D89C" className="glitter-star inline-block" />
-          </h1>
-          <p className="text-xs sm:text-sm text-[#DFC8B6] mt-2 leading-relaxed">
-            Streamline your study workflow. Track tasks and manage materials effortlessly.
-          </p>
+          <div className="flex-shrink-0 self-center sm:self-auto sm:pr-4">
+            <AnimatedGirlAvatar size={74} />
+          </div>
         </div>
 
         {/* Decorative subtle ambient luxury glow */}

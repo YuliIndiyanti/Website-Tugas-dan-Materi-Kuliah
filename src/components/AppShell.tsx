@@ -15,6 +15,7 @@ import { TelegramReminderModal } from "./TelegramReminderModal";
 import { AssignmentModal } from "./AssignmentModal";
 import { MaterialPreviewModal } from "./MaterialPreviewModal";
 import { BreakUiToggle } from "./BreakUiToggle";
+import { AnimatedGirlAvatar } from "./AnimatedGirlAvatar";
 import { Toaster } from "sonner";
 
 export const AppShell: React.FC<{ children: React.ReactNode }> = ({
@@ -39,9 +40,7 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#F7F2EB] dark:bg-[#150E0A]">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-[#FFFDFB] dark:bg-[#201610] border border-[#E3D6C9] dark:border-[#38261B] flex items-center justify-center text-xl shadow-xs animate-pulse">
-            ☕
-          </div>
+          <AnimatedGirlAvatar size={56} />
           <p className="text-xs font-semibold text-[#6B5547] dark:text-[#B8A495] tracking-wide">
             Memuat Yuli&apos;s Vault...
           </p>
@@ -78,7 +77,7 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({
             },
           }}
           icons={{
-            success: <span className="text-base">☕</span>,
+            success: <span className="text-base">✨</span>,
             info: <span className="text-base">✨</span>,
             warning: <span className="text-base">⚠️</span>,
             error: <span className="text-base">✕</span>,
@@ -179,7 +178,7 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({
           },
         }}
         icons={{
-          success: <span className="text-base">☕</span>,
+          success: <span className="text-base">✨</span>,
           info: <span className="text-base">✨</span>,
           warning: <span className="text-base">⚠️</span>,
           error: <span className="text-base">✕</span>,
