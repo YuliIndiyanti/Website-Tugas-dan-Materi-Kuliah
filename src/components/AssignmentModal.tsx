@@ -239,9 +239,6 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
               <span className="text-xs font-medium text-slate-400 flex-shrink-0">
                 • Minggu {assignment.weekNumber}
               </span>
-              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex-shrink-0">
-                Bobot: {assignment.weightPercentage}%
-              </span>
               {isEditing && (
                 <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-200 text-amber-900 dark:bg-amber-900 dark:text-amber-200 animate-pulse flex-shrink-0">
                   Mode Edit
@@ -473,35 +470,19 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                   </div>
                 </div>
 
-                {/* Grid: Minggu & Bobot Nilai */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                      Minggu Pertemuan Kuliah
-                    </label>
-                    <input
-                      type="number"
-                      min={1}
-                      max={16}
-                      value={editWeekNumber}
-                      onChange={(e) => setEditWeekNumber(Number(e.target.value) || 1)}
-                      className="w-full px-3 py-2 text-xs rounded-xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-white dark:bg-[#281F19] text-[#2A1D15] dark:text-[#F5EFEB] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/30 focus:border-[#8B5A2B] transition-all shadow-xs"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                      Bobot Nilai (%)
-                    </label>
-                    <input
-                      type="number"
-                      min={0}
-                      max={100}
-                      value={editWeightPercentage}
-                      onChange={(e) => setEditWeightPercentage(Number(e.target.value) || 0)}
-                      className="w-full px-3 py-2 text-xs rounded-xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-white dark:bg-[#281F19] text-[#2A1D15] dark:text-[#F5EFEB] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/30 focus:border-[#8B5A2B] transition-all shadow-xs"
-                    />
-                  </div>
+                {/* Minggu Pertemuan */}
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    Minggu Pertemuan Kuliah
+                  </label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={16}
+                    value={editWeekNumber}
+                    onChange={(e) => setEditWeekNumber(Number(e.target.value) || 1)}
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-white dark:bg-[#281F19] text-[#2A1D15] dark:text-[#F5EFEB] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/30 focus:border-[#8B5A2B] transition-all shadow-xs"
+                  />
                 </div>
 
                 {/* Tingkat Prioritas */}
@@ -742,9 +723,53 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
             )
           )}
 
-          {/* TAB: GRADE & FEEDBACK (FR-13 & FR-14) */}
+          {/* TAB: GRADE & FEEDBACK */}
           {activeTab === "GRADE" && (
             <div className="space-y-4">
+              {/* Tautan Penilaian Dosen (Shareable Grading Link) */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#F7F2EB] dark:bg-[#1E140E] border border-[#DECFC0] dark:border-[#38261B] space-y-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <Sparkles className="w-4 h-4 text-[#8B5A2B] dark:text-[#D4A373]" />
+                      <h5 className="text-xs font-bold text-[#2A1810] dark:text-[#FAF5EE]">
+                        Tautan Penilaian Khusus Dosen (Tanpa Login)
+                      </h5>
+                    </div>
+                    <p className="text-[11px] text-[#7A5F4E] dark:text-[#CBB5A3] mt-1 leading-relaxed">
+                      Bagikan tautan ini ke dosen pengampu agar dosen dapat langsung menginput skor nilai dan evaluasi untuk tugas ini secara praktis.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 pt-1 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const url = `${window.location.origin}/grade/${assignment.id}`;
+                      navigator.clipboard.writeText(url);
+                      toast.success("Tautan penilaian dosen berhasil disalin! 📋", {
+                        description: "Kirim link ini ke dosen pengampu Anda.",
+                      });
+                    }}
+                    className="px-3.5 py-2 rounded-xl bg-[#2A1810] text-[#FAF5EE] dark:bg-[#FAF5EE] dark:text-[#2A1810] text-xs font-bold hover:opacity-90 transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
+                  >
+                    <LinkIcon className="w-3.5 h-3.5" />
+                    <span>Salin Tautan Penilaian Dosen</span>
+                  </button>
+
+                  <a
+                    href={`/grade/${assignment.id}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-3.5 py-2 rounded-xl bg-[#FFFDFB] dark:bg-[#281B13] text-[#2A1810] dark:text-[#FAF5EE] border border-[#DECFC0] dark:border-[#422C1F] text-xs font-bold hover:bg-[#F3EBE1] dark:hover:bg-[#332218] transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Buka Lembar Penilaian</span>
+                  </a>
+                </div>
+              </div>
+
               <div className="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xs">
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">

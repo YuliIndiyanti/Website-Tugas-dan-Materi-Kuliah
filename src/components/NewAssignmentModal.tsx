@@ -339,34 +339,18 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
           </div>
 
           {/* Deadline */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label htmlFor="assign-due-date-input" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                Tenggat Waktu (Tanggal & Jam) *
-              </label>
-              <input
-                id="assign-due-date-input"
-                type="datetime-local"
-                required
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-                className="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none"
-              />
-            </div>
-            <div>
-              <label htmlFor="assign-weight-input" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                Bobot Nilai (%)
-              </label>
-              <input
-                id="assign-weight-input"
-                type="number"
-                min="0"
-                max="100"
-                value={weightPercentage}
-                onChange={(e) => setWeightPercentage(Number(e.target.value))}
-                className="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none"
-              />
-            </div>
+          <div>
+            <label htmlFor="assign-due-date-input" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+              Tenggat Waktu (Tanggal & Jam) *
+            </label>
+            <input
+              id="assign-due-date-input"
+              type="datetime-local"
+              required
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+              className="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none"
+            />
           </div>
 
           {/* Priority & Type */}

@@ -33,8 +33,9 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({
   const [selectedAssignmentId, setSelectedAssignmentId] = useState<string | null>(null);
   const [selectedMaterialId, setSelectedMaterialId] = useState<string | null>(null);
 
-  // Allow access to shared material links without forcing login
-  const isPublicRoute = pathname?.startsWith("/shared/");
+  // Allow access to shared material links and lecturer grading links without forcing login
+  const isPublicRoute =
+    pathname?.startsWith("/shared/") || pathname?.startsWith("/grade/");
 
   if (isLoading) {
     return (

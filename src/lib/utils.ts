@@ -154,22 +154,15 @@ export function scoreToGpaPoint(score: number): number {
 
 export function calculateCourseAverage(assignments: Assignment[]) {
   const scored = assignments.filter((a) => a.score !== undefined && a.score !== null);
-  if (scored.length === 0) return { weightedAverage: 0, totalWeight: 0, letter: "-" };
+  if (scored.length === 0) return { average: 0, weightedAverage: 0, totalWeight: 0, letter: "-" };
 
-  let totalWeightedScore = 0;
-  let totalWeight = 0;
-
-  for (const a of scored) {
-    const weight = a.weightPercentage || 10;
-    totalWeightedScore += (a.score as number) * weight;
-    totalWeight += weight;
-  }
-
-  const average = totalWeight > 0 ? totalWeightedScore / totalWeight : 0;
+  const totalScore = scored.reduce((sum, a) => sum + (a.score as number), 0);
+  const average = Math.round((totalScore / scored.length) * 10) / 10;
   const letter = scoreToLetter(average);
   return {
-    weightedAverage: Math.round(average * 10) / 10,
-    totalWeight,
+    average,
+    weightedAverage: average,
+    totalWeight: scored.length,
     letter,
   };
 }

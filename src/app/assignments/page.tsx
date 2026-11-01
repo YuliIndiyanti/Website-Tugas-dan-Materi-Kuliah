@@ -405,7 +405,7 @@ export default function AssignmentsPage() {
                 <th className="p-4">Deadline</th>
                 <th className="p-4">Urgensi</th>
                 <th className="p-4">Status</th>
-                <th className="p-4">Bobot</th>
+                <th className="p-4">Minggu</th>
                 <th className="p-4">Nilai</th>
                 <th className="p-4 pr-6 text-right">Aksi</th>
               </tr>
@@ -461,7 +461,7 @@ export default function AssignmentsPage() {
                         {st.icon} {st.label}
                       </span>
                     </td>
-                    <td className="p-4 text-slate-600">{a.weightPercentage}%</td>
+                    <td className="p-4 text-slate-600 dark:text-slate-300 font-medium">Minggu {a.weekNumber}</td>
                     <td className="p-4 font-bold text-slate-800 dark:text-slate-100">
                       {a.score !== undefined
                         ? `${a.score} (${a.gradeLetter})`

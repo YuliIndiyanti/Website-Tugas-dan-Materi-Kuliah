@@ -404,9 +404,6 @@ export default function CourseDetailPage({
                       <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
                         Minggu {a.weekNumber}
                       </span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
-                        Bobot: {a.weightPercentage}%
-                      </span>
                       {a.score !== undefined && (
                         <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-[#D1FAE5] text-[#065F46]">
                           Nilai: {a.score} ({a.gradeLetter})
@@ -543,13 +540,13 @@ export default function CourseDetailPage({
 
             <div className="p-5 rounded-3xl bg-[#FFFDFB] dark:bg-[#1E140E] text-[#2A1810] dark:text-[#FAF5EE] border border-[#E3D6C9] dark:border-[#38261B] shadow-xs">
               <span className="text-xs font-bold uppercase text-[#7A5F4E] dark:text-[#CBB5A3]">
-                Total Bobot Tercakup
+                Tugas Telah Dinilai
               </span>
               <p className="text-3xl font-extrabold mt-2 text-[#2B1810] dark:text-[#FAF5EE]">
-                {gradeCalc.totalWeight}%
+                {courseAssignments.filter((a) => a.score !== undefined).length} / {courseAssignments.length}
               </p>
               <p className="text-[11px] mt-1 text-[#8C7362] dark:text-[#A89484]">
-                dari 100% total semester
+                Tugas dinilai semester ini
               </p>
             </div>
           </div>
@@ -560,7 +557,7 @@ export default function CourseDetailPage({
               <thead className="bg-[#FDFBF7] dark:bg-slate-800/80 text-slate-500 font-bold border-b border-slate-100 dark:border-slate-800">
                 <tr>
                   <th className="p-3.5 pl-5">Komponen Tugas</th>
-                  <th className="p-3.5">Bobot</th>
+                  <th className="p-3.5">Minggu</th>
                   <th className="p-3.5">Skor (0-100)</th>
                   <th className="p-3.5">Huruf</th>
                   <th className="p-3.5 pr-5">Feedback Dosen</th>
@@ -577,7 +574,7 @@ export default function CourseDetailPage({
                       {a.title}
                     </td>
                     <td className="p-3.5 text-slate-600 dark:text-slate-300">
-                      {a.weightPercentage}%
+                      Minggu {a.weekNumber}
                     </td>
                     <td className="p-3.5 font-bold text-slate-800 dark:text-slate-100">
                       {a.score !== undefined ? a.score : "-"}

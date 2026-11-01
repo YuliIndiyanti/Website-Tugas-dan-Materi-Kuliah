@@ -51,11 +51,11 @@ export default function SettingsPage() {
 
   const handleDownloadCSV = () => {
     // Generate CSV for assignments
-    const headers = "ID,MataKuliah,Judul,Deadline,Status,Bobot,Skor,Huruf\n";
+    const headers = "ID,MataKuliah,Judul,Deadline,Status,Minggu,Skor,Huruf\n";
     const rows = activeAssignments
       .map((a) => {
         const c = activeCourses.find((course) => course.id === a.courseId);
-        return `"${a.id}","${c?.name || ""}","${a.title}","${a.dueDate}","${a.status}",${a.weightPercentage},${a.score || ""},"${a.gradeLetter || ""}"`;
+        return `"${a.id}","${c?.name || ""}","${a.title}","${a.dueDate}","${a.status}",${a.weekNumber},${a.score || ""},"${a.gradeLetter || ""}"`;
       })
       .join("\n");
 

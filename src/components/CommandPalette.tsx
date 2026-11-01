@@ -253,7 +253,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                             <div className="flex items-center gap-2 text-[11px] text-slate-500 mt-0.5">
                               <span>{c?.name}</span>
                               <span>•</span>
-                              <span>Bobot {a.weightPercentage}%</span>
+                              <span>Minggu {a.weekNumber}</span>
                             </div>
                           </div>
                         </div>
