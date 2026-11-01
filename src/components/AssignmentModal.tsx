@@ -30,6 +30,7 @@ import {
   formatDate,
   getAssignmentUrgency,
   scoreToLetter,
+  getAssignmentTypeMeta,
 } from "@/lib/utils";
 import { STATUS_CONFIG, GRADE_CONFIG } from "@/lib/constants";
 import { AssignmentStatus, Priority, AssignmentType } from "@/types";
@@ -461,11 +462,11 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                       onChange={(e) => setEditType(e.target.value as AssignmentType)}
                       className="w-full px-3 py-2 text-xs rounded-xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-white dark:bg-[#281F19] text-[#2A1D15] dark:text-[#F5EFEB] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/30 focus:border-[#8B5A2B] transition-all shadow-xs"
                     >
-                      <option value="TASK">Tugas Mandiri / Kelompok</option>
-                      <option value="PROJECT">Proyek / Tugas Besar</option>
-                      <option value="QUIZ">Kuis Mandiri</option>
-                      <option value="MIDTERM">Ujian Tengah Semester (UTS)</option>
-                      <option value="FINAL">Ujian Akhir Semester (UAS)</option>
+                      <option value="INDIVIDUAL">👤 Tugas Individu</option>
+                      <option value="GROUP">👥 Tugas Kelompok</option>
+                      <option value="PROJECT">🚀 Tugas Besar</option>
+                      <option value="MIDTERM">📝 Tugas UTS</option>
+                      <option value="FINAL">🎯 Tugas UAS</option>
                     </select>
                   </div>
                 </div>
@@ -483,33 +484,6 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                     onChange={(e) => setEditWeekNumber(Number(e.target.value) || 1)}
                     className="w-full px-3 py-2 text-xs rounded-xl border border-[#EAE0D5] dark:border-[#3D2F26] bg-white dark:bg-[#281F19] text-[#2A1D15] dark:text-[#F5EFEB] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/30 focus:border-[#8B5A2B] transition-all shadow-xs"
                   />
-                </div>
-
-                {/* Tingkat Prioritas */}
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                    Tingkat Prioritas
-                  </label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {[
-                      { value: "LOW", label: "🌱 Rendah", bg: "bg-[#F6F0E8] dark:bg-[#281F19] text-[#6B5543] dark:text-[#D9C7B6] border-[#EAE0D5] dark:border-[#3D2F26]" },
-                      { value: "MEDIUM", label: "🍑 Sedang", bg: "bg-[#F8ECD9] dark:bg-[#332214] text-[#734311] dark:text-[#F3EADF] border-[#E8D1B5] dark:border-[#523A2A]" },
-                      { value: "HIGH", label: "🌷 Tinggi", bg: "bg-[#F7E2DD] dark:bg-[#3B1E19] text-[#7A271A] dark:text-[#F8D2CA] border-[#EDBCB2] dark:border-[#5A2B23]" },
-                    ].map((item) => (
-                      <button
-                        key={item.value}
-                        type="button"
-                        onClick={() => setEditPriority(item.value as Priority)}
-                        className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all text-center flex items-center justify-center gap-1.5 ${
-                          editPriority === item.value
-                            ? `${item.bg} ring-2 ring-[#8B5A2B]/40 shadow-xs font-extrabold`
-                            : "bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 opacity-70 hover:opacity-100"
-                        }`}
-                      >
-                        {item.label}
-                      </button>
-                    ))}
-                  </div>
                 </div>
 
                 {/* Deskripsi & Instruksi Pengerjaan */}
@@ -680,34 +654,20 @@ export const AssignmentModal: React.FC<AssignmentModalProps> = ({
                 )}
 
                 {/* Status Summary */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
                     <span className="text-[10px] font-bold uppercase text-slate-400">
-                      Prioritas
+                      Kategori Asesmen
                     </span>
-                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">
-                      {assignment.priority === "HIGH"
-                        ? "🌷 Tinggi"
-                        : assignment.priority === "MEDIUM"
-                        ? "🍑 Sedang"
-                        : "🌱 Rendah"}
-                    </p>
-                  </div>
-                  <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-                    <span className="text-[10px] font-bold uppercase text-slate-400">
-                      Tipe Asesmen
-                    </span>
-                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">
-                      {assignment.type === "PROJECT"
-                        ? "Proyek / Tugas Besar"
-                        : assignment.type === "QUIZ"
-                        ? "Kuis Mandiri"
-                        : assignment.type === "MIDTERM"
-                        ? "Ujian Tengah Semester (UTS)"
-                        : assignment.type === "FINAL"
-                        ? "Ujian Akhir Semester (UAS)"
-                        : "Tugas Rutin"}
-                    </p>
+                    {(() => {
+                      const typeMeta = getAssignmentTypeMeta(assignment.type);
+                      return (
+                        <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1 flex items-center gap-1.5">
+                          <span>{typeMeta.icon}</span>
+                          <span>{typeMeta.label}</span>
+                        </p>
+                      );
+                    })()}
                   </div>
                   <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
                     <span className="text-[10px] font-bold uppercase text-slate-400">

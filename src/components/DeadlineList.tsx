@@ -10,7 +10,7 @@ import {
   ChevronRight,
   ExternalLink,
 } from "lucide-react";
-import { formatShortDate, getAssignmentUrgency } from "@/lib/utils";
+import { formatShortDate, getAssignmentUrgency, getAssignmentTypeMeta } from "@/lib/utils";
 import { STATUS_CONFIG } from "@/lib/constants";
 import { SparkleStar } from "./GlitterEffects";
 
@@ -38,7 +38,7 @@ export const DeadlineList: React.FC<DeadlineListProps> = ({
         <div>
           <h3 className="text-base font-bold text-[#2A1810] dark:text-[#FAF5EE] flex items-center gap-2">
             <span>⏰</span>
-            <span>Tenggat Waktu & Prioritas Pengerjaan</span>
+            <span>Tenggat Waktu & Jadwal Tugas</span>
             <SparkleStar size={11} color="#D4A373" className="glitter-star" />
           </h3>
           <p className="text-xs text-[#7A5F4E] dark:text-[#CBB5A3] mt-0.5">
@@ -63,6 +63,7 @@ export const DeadlineList: React.FC<DeadlineListProps> = ({
             const course = getCourse(assignment.courseId);
             const urg = getAssignmentUrgency(assignment);
             const statusMeta = STATUS_CONFIG[assignment.status];
+            const typeMeta = getAssignmentTypeMeta(assignment.type);
 
             return (
               <div
@@ -90,6 +91,12 @@ export const DeadlineList: React.FC<DeadlineListProps> = ({
                     </span>
                     <span className="text-[10px] px-2 py-0.5 rounded-full font-medium bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300">
                       W{assignment.weekNumber}
+                    </span>
+                    <span
+                      className={`text-[10px] px-2 py-0.5 rounded-full font-semibold border flex items-center gap-1 ${typeMeta.bg} ${typeMeta.text} ${typeMeta.border}`}
+                    >
+                      <span>{typeMeta.icon}</span>
+                      <span>{typeMeta.label}</span>
                     </span>
                   </div>
 

@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { URGENCY_CONFIG } from "./constants";
+import { URGENCY_CONFIG, ASSIGNMENT_TYPE_CONFIG } from "./constants";
 import { Assignment } from "@/types";
 
 export function cn(...inputs: ClassValue[]) {
@@ -165,4 +165,16 @@ export function calculateCourseAverage(assignments: Assignment[]) {
     totalWeight: scored.length,
     letter,
   };
+}
+
+export function getAssignmentTypeMeta(type: string) {
+  return (
+    ASSIGNMENT_TYPE_CONFIG[type] || {
+      label: "Tugas Individu",
+      icon: "👤",
+      bgHex: "#EFE6DD",
+      textHex: "#3D271D",
+      borderHex: "#D9C7B6",
+    }
+  );
 }

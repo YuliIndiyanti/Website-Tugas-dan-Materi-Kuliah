@@ -18,7 +18,7 @@ import {
   Check,
   ExternalLink,
 } from "lucide-react";
-import { formatDate, scoreToLetter } from "@/lib/utils";
+import { formatDate, scoreToLetter, getAssignmentTypeMeta } from "@/lib/utils";
 import { GRADE_CONFIG } from "@/lib/constants";
 import confetti from "canvas-confetti";
 import { toast } from "sonner";
@@ -167,9 +167,20 @@ export default function LecturerGradingPage({
               <p className="text-xs font-bold text-[#8B5A2B] dark:text-[#D4A373] mt-0.5">
                 {course?.code} - {course?.name}
               </p>
-              <p className="text-[11px] text-[#7A5F4E] dark:text-[#CBB5A3]">
-                Minggu ke-{assignment.weekNumber}
-              </p>
+              <div className="flex items-center gap-1.5 sm:justify-end mt-1 flex-wrap">
+                <span className="text-[11px] text-[#7A5F4E] dark:text-[#CBB5A3]">
+                  Minggu ke-{assignment.weekNumber}
+                </span>
+                {(() => {
+                  const tm = getAssignmentTypeMeta(assignment.type);
+                  return (
+                    <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border ${tm.bg} ${tm.text} ${tm.border}`}>
+                      <span>{tm.icon}</span>
+                      <span>{tm.label}</span>
+                    </span>
+                  );
+                })()}
+              </div>
             </div>
           </div>
 

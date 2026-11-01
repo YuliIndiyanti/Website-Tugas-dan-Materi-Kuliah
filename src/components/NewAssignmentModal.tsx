@@ -39,7 +39,7 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
   const [instructions, setInstructions] = useState("");
   const [dueDate, setDueDate] = useState("2026-10-27T23:59");
   const [priority, setPriority] = useState<Priority>("HIGH");
-  const [type, setType] = useState<AssignmentType>("TASK");
+  const [type, setType] = useState<AssignmentType>("INDIVIDUAL");
   const [weightPercentage, setWeightPercentage] = useState(15);
 
   // File Attachment State
@@ -353,53 +353,23 @@ export const NewAssignmentModal: React.FC<NewAssignmentModalProps> = ({
             />
           </div>
 
-          {/* Priority & Type */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <fieldset>
-              <legend className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                Tingkat Prioritas
-              </legend>
-              <div className="flex gap-1.5" role="radiogroup">
-                {[
-                  { id: "LOW", label: "🌱 Rendah", bg: "bg-[#F6F0E8] text-[#6B5543] dark:bg-[#281F19] dark:text-[#D9C7B6]" },
-                  { id: "MEDIUM", label: "🍑 Sedang", bg: "bg-[#F8ECD9] text-[#734311] dark:bg-[#332214] dark:text-[#F3EADF]" },
-                  { id: "HIGH", label: "🌷 Tinggi", bg: "bg-[#F7E2DD] text-[#7A271A] dark:bg-[#3B1E19] dark:text-[#F8D2CA]" },
-                ].map((p) => (
-                  <button
-                    key={p.id}
-                    type="button"
-                    role="radio"
-                    aria-checked={priority === p.id}
-                    onClick={() => setPriority(p.id as Priority)}
-                    className={`flex-1 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
-                      priority === p.id
-                        ? `${p.bg} border-current shadow-xs`
-                        : "bg-slate-50 dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700"
-                    }`}
-                  >
-                    {p.label}
-                  </button>
-                ))}
-              </div>
-            </fieldset>
-
-            <div>
-              <label htmlFor="assign-type-select" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                Kategori Asesmen
-              </label>
-              <select
-                id="assign-type-select"
-                value={type}
-                onChange={(e) => setType(e.target.value as AssignmentType)}
-                className="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none"
-              >
-                <option value="TASK">Tugas Rutin</option>
-                <option value="PROJECT">Proyek / Tugas Besar</option>
-                <option value="QUIZ">Kuis / Post-Test</option>
-                <option value="MIDTERM">Ujian Tengah Semester (UTS)</option>
-                <option value="FINAL">Ujian Akhir Semester (UAS)</option>
-              </select>
-            </div>
+          {/* Kategori Asesmen */}
+          <div>
+            <label htmlFor="assign-type-select" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+              Kategori Asesmen *
+            </label>
+            <select
+              id="assign-type-select"
+              value={type}
+              onChange={(e) => setType(e.target.value as AssignmentType)}
+              className="w-full text-xs px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none font-medium"
+            >
+              <option value="INDIVIDUAL">👤 Tugas Individu</option>
+              <option value="GROUP">👥 Tugas Kelompok</option>
+              <option value="PROJECT">🚀 Tugas Besar</option>
+              <option value="MIDTERM">📝 Tugas UTS</option>
+              <option value="FINAL">🎯 Tugas UAS</option>
+            </select>
           </div>
 
           {/* Submit Button */}

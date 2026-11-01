@@ -2,7 +2,14 @@ export type Priority = "LOW" | "MEDIUM" | "HIGH";
 
 export type AssignmentStatus = "TODO" | "IN_PROGRESS" | "READY" | "SUBMITTED";
 
-export type AssignmentType = "TASK" | "QUIZ" | "PROJECT" | "MIDTERM" | "FINAL";
+export type AssignmentType =
+  | "INDIVIDUAL"
+  | "GROUP"
+  | "PROJECT"
+  | "MIDTERM"
+  | "FINAL"
+  | "TASK"
+  | "QUIZ";
 
 export type MaterialCategory = "SLIDE" | "BOOK" | "RECORDING" | "LINK" | "OTHER";
 

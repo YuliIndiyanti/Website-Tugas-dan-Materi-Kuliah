@@ -33,6 +33,7 @@ import {
   formatDate,
   getAssignmentUrgency,
   calculateCourseAverage,
+  getAssignmentTypeMeta,
 } from "@/lib/utils";
 import { STATUS_CONFIG, GRADE_CONFIG } from "@/lib/constants";
 import Link from "next/link";
@@ -404,6 +405,17 @@ export default function CourseDetailPage({
                       <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
                         Minggu {a.weekNumber}
                       </span>
+                      {(() => {
+                        const tm = getAssignmentTypeMeta(a.type);
+                        return (
+                          <span
+                            className={`text-[10px] px-2 py-0.5 rounded-full font-semibold border flex items-center gap-1 ${tm.bg} ${tm.text} ${tm.border}`}
+                          >
+                            <span>{tm.icon}</span>
+                            <span>{tm.label}</span>
+                          </span>
+                        );
+                      })()}
                       {a.score !== undefined && (
                         <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-[#D1FAE5] text-[#065F46]">
                           Nilai: {a.score} ({a.gradeLetter})
@@ -557,6 +569,7 @@ export default function CourseDetailPage({
               <thead className="bg-[#FDFBF7] dark:bg-slate-800/80 text-slate-500 font-bold border-b border-slate-100 dark:border-slate-800">
                 <tr>
                   <th className="p-3.5 pl-5">Komponen Tugas</th>
+                  <th className="p-3.5">Kategori</th>
                   <th className="p-3.5">Minggu</th>
                   <th className="p-3.5">Skor (0-100)</th>
                   <th className="p-3.5">Huruf</th>
@@ -564,43 +577,54 @@ export default function CourseDetailPage({
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                {courseAssignments.map((a) => (
-                  <tr
-                    key={a.id}
-                    onClick={() => setSelectedAssignmentId(a.id)}
-                    className="hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer"
-                  >
-                    <td className="p-3.5 pl-5 font-semibold text-slate-800 dark:text-slate-100">
-                      {a.title}
-                    </td>
-                    <td className="p-3.5 text-slate-600 dark:text-slate-300">
-                      Minggu {a.weekNumber}
-                    </td>
-                    <td className="p-3.5 font-bold text-slate-800 dark:text-slate-100">
-                      {a.score !== undefined ? a.score : "-"}
-                    </td>
-                    <td className="p-3.5">
-                      {a.gradeLetter ? (
+                {courseAssignments.map((a) => {
+                  const tm = getAssignmentTypeMeta(a.type);
+                  return (
+                    <tr
+                      key={a.id}
+                      onClick={() => setSelectedAssignmentId(a.id)}
+                      className="hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer"
+                    >
+                      <td className="p-3.5 pl-5 font-semibold text-slate-800 dark:text-slate-100">
+                        {a.title}
+                      </td>
+                      <td className="p-3.5">
                         <span
-                          className="px-2 py-0.5 rounded-md font-bold"
-                          style={{
-                            backgroundColor:
-                              GRADE_CONFIG[a.gradeLetter]?.bgHex || "#D1FAE5",
-                            color:
-                              GRADE_CONFIG[a.gradeLetter]?.textHex || "#065F46",
-                          }}
+                          className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border ${tm.bg} ${tm.text} ${tm.border}`}
                         >
-                          {a.gradeLetter}
+                          <span>{tm.icon}</span>
+                          <span>{tm.label}</span>
                         </span>
-                      ) : (
-                        <span className="text-slate-400">Belum dinilai</span>
-                      )}
-                    </td>
-                    <td className="p-3.5 pr-5 text-slate-500 italic max-w-xs truncate">
-                      {a.lecturerFeedback || "-"}
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td className="p-3.5 text-slate-600 dark:text-slate-300">
+                        Minggu {a.weekNumber}
+                      </td>
+                      <td className="p-3.5 font-bold text-slate-800 dark:text-slate-100">
+                        {a.score !== undefined ? a.score : "-"}
+                      </td>
+                      <td className="p-3.5">
+                        {a.gradeLetter ? (
+                          <span
+                            className="px-2 py-0.5 rounded-md font-bold"
+                            style={{
+                              backgroundColor:
+                                GRADE_CONFIG[a.gradeLetter]?.bgHex || "#D1FAE5",
+                              color:
+                                GRADE_CONFIG[a.gradeLetter]?.textHex || "#065F46",
+                            }}
+                          >
+                            {a.gradeLetter}
+                          </span>
+                        ) : (
+                          <span className="text-slate-400">Belum dinilai</span>
+                        )}
+                      </td>
+                      <td className="p-3.5 pr-5 text-slate-500 italic max-w-xs truncate">
+                        {a.lecturerFeedback || "-"}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

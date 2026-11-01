@@ -19,9 +19,9 @@ import {
   Trash2,
   Paperclip,
 } from "lucide-react";
-import { AssignmentStatus, Priority } from "@/types";
+import { AssignmentStatus } from "@/types";
 import { STATUS_CONFIG } from "@/lib/constants";
-import { formatDate, getAssignmentUrgency } from "@/lib/utils";
+import { formatDate, getAssignmentUrgency, getAssignmentTypeMeta } from "@/lib/utils";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
 import { SparkleStar } from "@/components/GlitterEffects";
@@ -37,7 +37,7 @@ export default function AssignmentsPage() {
 
   const [viewMode, setViewMode] = useState<"KANBAN" | "TABLE">("KANBAN");
   const [selectedCourseFilter, setSelectedCourseFilter] = useState<string>("ALL");
-  const [selectedPriorityFilter, setSelectedPriorityFilter] = useState<string>("ALL");
+  const [selectedTypeFilter, setSelectedTypeFilter] = useState<string>("ALL");
   const [selectedAssignmentId, setSelectedAssignmentId] = useState<string | null>(null);
   const [isNewAssignmentOpen, setIsNewAssignmentOpen] = useState(false);
   const [draggedAssignmentId, setDraggedAssignmentId] = useState<string | null>(null);
@@ -92,8 +92,8 @@ export default function AssignmentsPage() {
       return false;
     }
     if (
-      selectedPriorityFilter !== "ALL" &&
-      a.priority !== selectedPriorityFilter
+      selectedTypeFilter !== "ALL" &&
+      a.type !== selectedTypeFilter
     ) {
       return false;
     }
@@ -210,16 +210,18 @@ export default function AssignmentsPage() {
           ))}
         </select>
 
-        {/* Filter by Priority */}
+        {/* Filter by Assessment Type */}
         <select
-          value={selectedPriorityFilter}
-          onChange={(e) => setSelectedPriorityFilter(e.target.value)}
+          value={selectedTypeFilter}
+          onChange={(e) => setSelectedTypeFilter(e.target.value)}
           className="text-xs px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none"
         >
-          <option value="ALL">Semua Prioritas</option>
-          <option value="HIGH">🌷 Prioritas Tinggi</option>
-          <option value="MEDIUM">🍑 Prioritas Sedang</option>
-          <option value="LOW">🌱 Prioritas Rendah</option>
+          <option value="ALL">Semua Kategori Asesmen</option>
+          <option value="INDIVIDUAL">👤 Tugas Individu</option>
+          <option value="GROUP">👥 Tugas Kelompok</option>
+          <option value="PROJECT">🚀 Tugas Besar</option>
+          <option value="MIDTERM">📝 Tugas UTS</option>
+          <option value="FINAL">🎯 Tugas UAS</option>
         </select>
       </div>
 
@@ -278,6 +280,7 @@ export default function AssignmentsPage() {
                       const course = getCourse(assignment.courseId);
                       const urg = getAssignmentUrgency(assignment);
                       const isBeingDragged = draggedAssignmentId === assignment.id;
+                      const typeMeta = getAssignmentTypeMeta(assignment.type);
 
                       return (
                         <div
@@ -313,8 +316,13 @@ export default function AssignmentsPage() {
                             </span>
                             
                             <div className="flex items-center gap-1.5 flex-shrink-0">
-                              <span className="text-[10px] px-2 py-0.5 rounded-full font-medium bg-slate-100 dark:bg-slate-800 text-slate-500">
-                                W{assignment.weekNumber} • {assignment.weightPercentage}%
+                              <span
+                                className={`text-[10px] px-2 py-0.5 rounded-full font-semibold border flex items-center gap-1 ${typeMeta.bg} ${typeMeta.text} ${typeMeta.border}`}
+                              >
+                                <span>{typeMeta.icon}</span>
+                                <span>{typeMeta.label}</span>
+                                <span className="opacity-40">•</span>
+                                <span>W{assignment.weekNumber}</span>
                               </span>
 
                               {col.id !== "SUBMITTED" && (
@@ -402,6 +410,7 @@ export default function AssignmentsPage() {
               <tr>
                 <th className="p-4 pl-6">Mata Kuliah</th>
                 <th className="p-4">Judul Tugas</th>
+                <th className="p-4">Kategori</th>
                 <th className="p-4">Deadline</th>
                 <th className="p-4">Urgensi</th>
                 <th className="p-4">Status</th>
@@ -415,6 +424,7 @@ export default function AssignmentsPage() {
                 const course = getCourse(a.courseId);
                 const urg = getAssignmentUrgency(a);
                 const st = STATUS_CONFIG[a.status];
+                const tm = getAssignmentTypeMeta(a.type);
 
                 return (
                   <tr
@@ -435,6 +445,14 @@ export default function AssignmentsPage() {
                     </td>
                     <td className="p-4 font-semibold text-slate-800 dark:text-slate-100 max-w-xs truncate">
                       {a.title}
+                    </td>
+                    <td className="p-4">
+                      <span
+                        className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border ${tm.bg} ${tm.text} ${tm.border}`}
+                      >
+                        <span>{tm.icon}</span>
+                        <span>{tm.label}</span>
+                      </span>
                     </td>
                     <td className="p-4 text-slate-500">{formatDate(a.dueDate)}</td>
                     <td className="p-4">
