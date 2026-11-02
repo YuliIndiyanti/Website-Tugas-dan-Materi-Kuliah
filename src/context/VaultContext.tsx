@@ -107,7 +107,7 @@ interface VaultContextType {
   activeMaterials: Material[];
 }
 
-const STORAGE_KEY = "kuliahvault_data_v1.2";
+const STORAGE_KEY = "kuliahvault_data_v1.3";
 const THEME_KEY = "kuliahvault_theme";
 
 const VaultContext = createContext<VaultContextType | undefined>(undefined);
@@ -144,7 +144,12 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
           if (active) setActiveSemesterId(active.id);
           setCourses(res.courses);
           setMaterials(res.materials);
-          setAssignments(res.assignments);
+          const sanitizedAssignments = res.assignments.map((a: Assignment) =>
+            a.id === "assign-biz-pitch" && a.score === 94
+              ? { ...a, score: undefined, gradeLetter: undefined, lecturerFeedback: undefined }
+              : a
+          );
+          setAssignments(sanitizedAssignments);
           setSubmissions(res.submissions);
           setNotes(res.notes);
         } else {
@@ -156,7 +161,14 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({
             if (parsed.activeSemesterId) setActiveSemesterId(parsed.activeSemesterId);
             if (parsed.courses) setCourses(parsed.courses);
             if (parsed.materials) setMaterials(parsed.materials);
-            if (parsed.assignments) setAssignments(parsed.assignments);
+            if (parsed.assignments) {
+              const sanitizedAssignments = parsed.assignments.map((a: Assignment) =>
+                a.id === "assign-biz-pitch" && a.score === 94
+                  ? { ...a, score: undefined, gradeLetter: undefined, lecturerFeedback: undefined }
+                  : a
+              );
+              setAssignments(sanitizedAssignments);
+            }
             if (parsed.submissions) setSubmissions(parsed.submissions);
             if (parsed.notes) setNotes(parsed.notes);
           }

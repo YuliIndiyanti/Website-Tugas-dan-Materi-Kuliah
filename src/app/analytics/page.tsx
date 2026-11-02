@@ -23,14 +23,19 @@ export default function AnalyticsPage() {
   // Calculate course GPAs based on pure average
   let totalCredits = 0;
   let totalQualityPoints = 0;
+  let totalGradedCount = 0;
 
   const courseStats = activeCourses.map((c) => {
     const courseAssignments = assignments.filter((a) => a.courseId === c.id);
     const avg = calculateCourseAverage(courseAssignments);
     const gpaPoint = scoreToGpaPoint(avg.average);
+    const scoredCount = courseAssignments.filter((a) => a.score !== undefined && a.score !== null).length;
 
     totalCredits += c.credits;
-    totalQualityPoints += gpaPoint * c.credits;
+    if (scoredCount > 0) {
+      totalQualityPoints += gpaPoint * c.credits;
+      totalGradedCount += scoredCount;
+    }
 
     return {
       course: c,
@@ -41,9 +46,9 @@ export default function AnalyticsPage() {
   });
 
   const estimatedGPA =
-    totalCredits > 0
+    totalCredits > 0 && totalGradedCount > 0
       ? (totalQualityPoints / totalCredits).toFixed(2)
-      : "0.00";
+      : "-";
 
   return (
     <div className="space-y-6">
@@ -77,7 +82,13 @@ export default function AnalyticsPage() {
             </span>
           </div>
           <p className="text-xs mt-2 font-medium">
-            Prediksi yudisium: Dengan Pujian (Cum Laude)
+            {estimatedGPA !== "-"
+              ? Number(estimatedGPA) >= 3.5
+                ? "Prediksi yudisium: Dengan Pujian (Cum Laude)"
+                : Number(estimatedGPA) >= 3.0
+                ? "Prediksi yudisium: Sangat Memuaskan"
+                : "Prediksi yudisium: Memuaskan"
+              : "Belum ada nilai tugas yang masuk dari dosen"}
           </p>
         </div>
 

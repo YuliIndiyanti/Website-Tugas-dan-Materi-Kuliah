@@ -3,7 +3,8 @@
 import React from "react";
 import { useVault } from "@/context/VaultContext";
 import { CheckSquare, AlertCircle, FolderArchive, Award, TrendingUp } from "lucide-react";
-import { getAssignmentUrgency } from "@/lib/utils";
+import { getAssignmentUrgency, scoreToLetter } from "@/lib/utils";
+import { GRADE_CONFIG } from "@/lib/constants";
 import { SparkleStar } from "./GlitterEffects";
 
 export const MetricCards: React.FC = () => {
@@ -36,7 +37,10 @@ export const MetricCards: React.FC = () => {
           gradedTasks.reduce((sum, a) => sum + (a.score || 0), 0) /
             gradedTasks.length
         )
-      : 0;
+      : null;
+
+  const predictedLetter = avgScore !== null ? scoreToLetter(avgScore) : null;
+  const gradeLabel = predictedLetter ? GRADE_CONFIG[predictedLetter]?.label : null;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -132,15 +136,26 @@ export const MetricCards: React.FC = () => {
         </div>
         <div className="mt-3 flex items-baseline gap-2">
           <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#2B1810] dark:text-[#FAF5EE]">
-            {avgScore > 0 ? avgScore : "94"}
+            {avgScore !== null ? avgScore : "-"}
           </span>
           <span className="text-xs font-medium text-[#8C7362] dark:text-[#A89484]">
-            skor ({completionRate}% kumpul)
+            {avgScore !== null
+              ? `skor (${completionRate}% kumpul)`
+              : `(${completionRate}% kumpul)`}
           </span>
         </div>
         <div className="mt-2.5 text-[11px] font-medium flex items-center gap-1.5 text-[#5C4537] dark:text-[#CBB5A3]">
-          <TrendingUp className="w-3.5 h-3.5 text-[#8B5A2B] dark:text-[#D4A373]" />
-          <span>Indeks Prediksi: A (Amat Baik)</span>
+          {avgScore !== null ? (
+            <>
+              <TrendingUp className="w-3.5 h-3.5 text-[#8B5A2B] dark:text-[#D4A373]" />
+              <span>Indeks Prediksi: {predictedLetter} ({gradeLabel})</span>
+            </>
+          ) : (
+            <>
+              <span className="inline-block w-2 h-2 rounded-full bg-amber-500/80 animate-pulse" />
+              <span className="italic text-slate-500 dark:text-slate-400">Menunggu penilaian dari dosen</span>
+            </>
+          )}
         </div>
       </div>
     </div>
