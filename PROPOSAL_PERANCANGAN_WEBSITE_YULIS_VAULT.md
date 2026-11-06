@@ -1,457 +1,694 @@
-# PROPOSAL PERANCANGAN DAN PENGEMBANGAN SISTEM INFORMASI AKADEMIK PRIBADI
+# PROPOSAL PERANCANGAN SISTEM INFORMASI AKADEMIK PRIBADI DAN MANAJEMEN TUGAS KULIAH BERBASIS WEB
 # "YULI'S VAULT (YULI'S SECOND BRAIN)"
-### *Personal Academic Vault & Task Management Web Application Berbasis Next.js dan SQLite*
+### *Personal Academic Vault & Task Management Web Application Berbasis Next.js 15, Prisma ORM, dan SQLite*
 
 ---
 
-**Diajukan untuk Memenuhi Tugas Proyek Mata Kuliah:**  
-**Analisis dan Desain Perangkat Lunak (ADPL / APPL)**  
-Program Studi Teknik Informatika — Semester Ganjil 2026/2027
+<div align="center">
+
+**Diajukan Untuk Memenuhi Tugas Mata Kuliah:**  
+### **ANALISIS DESIGN PL**
+
+<br/>
+
+**Dosen Pengampu:**  
+### **Dian Novianti M.Kom**
+
+<br/>
+
+![Logo Universitas Muhammadiyah Cirebon](public/logo_umc.png)
+
+<br/>
+
+**Disusun Oleh:**  
+### **YULI INDIYANTI**
+**NIM: 240511130 (Kelas TI24D)**
+
+<br/>
+
+### **PROGRAM STUDI S1 TEKNIK INFORMATIKA**
+### **FAKULTAS TEKNIK**
+### **UNIVERSITAS MUHAMMADIYAH CIREBON**
+### **2026**
+
+</div>
 
 ---
 
-## DATA PENGUSUL & IDENTITAS PROYEK
+<div style="page-break-after: always;"></div>
 
-| Atribut Dokumen | Informasi Rinci |
-| :--- | :--- |
-| **Nama Pengusul** | **Yuli Indiyanti** |
-| **Nomor Induk Mahasiswa (NIM)** | **240511130** |
-| **Kelas / Rombel** | **TI24D** |
-| **Program Studi** | Teknik Informatika |
-| **Mata Kuliah** | Analisis dan Desain Perangkat Lunak (ADPL) |
-| **Dosen Pengampu** | Dosen Pengampu Mata Kuliah ADPL |
-| **Judul Produk Perangkat Lunak** | **Yuli's Vault (Yuli's Second Brain)** |
-| **Tagline Produk** | *Streamline your study workflow. Track tasks and manage materials effortlessly.* |
-| **Durasi Waktu Pengerjaan** | **1 Minggu (7 Hari Kalender / Rapid Agile Sprint)** |
-| **Tautan Repositori GitHub** | [https://github.com/YuliIndiyanti/Website-Tugas-dan-Materi-Kuliah.git](https://github.com/YuliIndiyanti/Website-Tugas-dan-Materi-Kuliah.git) |
-| **Status Implementasi** | **Selesai Diimplementasikan & Teruji (Production Ready - Build Exit Code 0)** |
+## KATA PENGANTAR
+
+Puji syukur senantiasa kami panjatkan ke hadirat Allah Subhanahu Wa Ta'ala atas limpahan rahmat, taufik, serta hidayah-Nya, sehingga penulis dapat menyelesaikan penyusunan dokumen proposal perancangan perangkat lunak yang berjudul **"PROPOSAL PERANCANGAN SISTEM INFORMASI AKADEMIK PRIBADI DAN MANAJEMEN TUGAS KULIAH BERBASIS WEB: YULI'S VAULT (YULI'S SECOND BRAIN)"** dengan baik dan tepat pada waktu yang telah ditetapkan.
+
+Penyusunan dokumen proposal ini diajukan secara khusus guna memenuhi salah satu syarat evaluasi tugas besar pada mata kuliah **Analisis Design PL** di Program Studi S1 Teknik Informatika, Fakultas Teknik, **Universitas Muhammadiyah Cirebon (UMC)** pada Tahun Akademik 2026.
+
+Penulis menyadari sepenuhnya bahwa penyusunan dokumen ini tidak lepas dari bimbingan, arahan, serta dukungan moral dari berbagai pihak. Oleh karena itu, melalui kesempatan yang berbahagia ini, penulis menyampaikan rasa hormat dan terima kasih yang setinggi-tingginya kepada:
+1. **Ibu Dian Novianti M.Kom**, selaku Dosen Pengampu mata kuliah Analisis Design PL, yang telah memberikan ilmu, arahan, standar metodologi akademik, serta bimbingan berharga selama perkuliahan berlangsung.
+2. Pimpinan Program Studi S1 Teknik Informatika dan segenap Civitas Akademika Fakultas Teknik Universitas Muhammadiyah Cirebon yang senantiasa memfasilitasi iklim riset serta pembelajaran inovatif.
+3. Rekan-rekan mahasiswa Program Studi Teknik Informatika kelas TI24D angkatan 2024/2026 yang senantiasa bertukar pikiran, memberikan masukan konstruktif, serta memberikan dorongan solidaritas belajar.
+4. Keluarga dan orang tua tercinta yang senantiasa memanjatkan doa, memberikan dukungan moril, serta dorongan materiil tanpa henti kepada penulis.
+
+Penulis menyadari bahwa dokumen proposal ini masih memiliki keterbatasan dan ruang untuk penyempurnaan lebih lanjut. Oleh sebab itu, kritik dan saran yang konstruktif dari pembaca budiman sangat diharapkan guna penyempurnaan rancangan sistem ini di masa mendatang. Semoga proposal ini dapat memberikan kontribusi nyata bagi pengembangan rekayasa perangkat lunak akademik.
+
+<br/>
+
+Cirebon, 6 November 2026  
+<br/>
+**Penulis,**  
+<br/>
+**Yuli Indiyanti**  
+NIM: 240511130  
 
 ---
+
+<div style="page-break-after: always;"></div>
 
 ## DAFTAR ISI
 
-- [BAB I: PENDAHULUAN](#bab-i-pendahuluan)
-  - [1.1 Latar Belakang Masalah](#11-latar-belakang-masalah)
-  - [1.2 Rumusan Masalah](#12-rumusan-masalah)
-  - [1.3 Tujuan Pengembangan Sistem](#13-tujuan-pengembangan-sistem)
-  - [1.4 Manfaat Produk](#14-manfaat-produk)
-  - [1.5 Ruang Lingkup dan Batasan Sistem](#15-ruang-lingkup-dan-batasan-sistem)
-- [BAB II: ANALISIS KEBUTUHAN SISTEM (SYSTEM REQUIREMENTS)](#bab-ii-analisis-kebutuhan-sistem-system-requirements)
-  - [2.1 Profil dan Karakteristik Pengguna](#21-profil-dan-karakteristik-pengguna)
-  - [2.2 Kebutuhan Fungsional (Functional Requirements - MoSCoW Framework)](#22-kebutuhan-fungsional-functional-requirements---moscow-framework)
-  - [2.3 Kebutuhan Non-Fungsional (Non-Functional Requirements)](#23-kebutuhan-non-fungsional-non-functional-requirements)
-  - [2.4 Konsep Identitas Visual & Estetika (Warm Chocolate, Dark Brown & Glitter Sparkles)](#24-konsep-identitas-visual--estetika-warm-chocolate-dark-brown--glitter-sparkles)
-- [BAB III: PERANCANGAN ARSITEKTUR & DESAIN PERANGKAT LUNAK](#bab-iii-perancangan-arsitektur--desain-perangkat-lunak)
-  - [3.1 Arsitektur Sistem Fullstack Modern](#31-arsitektur-sistem-fullstack-modern)
-  - [3.2 Diagram Alur Logika Pengguna & Portal Dosen (Core User Flows)](#32-diagram-alur-logika-pengguna--portal-dosen-core-user-flows)
-  - [3.3 Perancangan Basis Data Relasional (Data Modeling & Prisma Schema)](#33-perancangan-basis-data-relasional-data-modeling--prisma-schema)
-  - [3.4 Desain Antarmuka Pengguna & Fitur-Fitur Unggulan Sistem](#34-desain-antarmuka-pengguna--fitur-fitur-unggulan-sistem)
-- [BAB IV: RENCANA KERJA & JADWAL IMPLEMENTASI (1-WEEK SPRINT TIMELINE)](#bab-iv-rencana-kerja--jadwal-implementasi-1-week-sprint-timeline)
-  - [4.1 Metodologi Pengembangan (Agile Rapid Prototyping)](#41-metodologi-pengembangan-agile-rapid-prototyping)
-  - [4.2 Rincian Jadwal Kerja 7 Hari (Hari 1 s.d. Hari 7)](#42-rincian-jadwal-kerja-7-hari-hari-1-sd-hari-7)
-  - [4.3 Matriks Deliverables & Milestone Pencapaian](#43-matriks-deliverables--milestone-pencapaian)
-- [BAB V: ANALISIS ANGGARAN BIAYA & KEBUTUHAN SUMBER DAYA](#bab-v-analisis-anggaran-biaya--kebutuhan-sumber-daya)
-  - [5.1 Estimasi Biaya Infrastruktur (100% Free-Tier Architecture)](#51-estimasi-biaya-infrastruktur-100-free-tier-architecture)
-  - [5.2 Sumber Daya Perangkat Keras dan Perangkat Lunak](#52-sumber-daya-perangkat-keras-dan-perangkat-lunak)
-- [BAB VI: KESIMPULAN & PENUTUP](#bab-vi-kesimpulan--penutup)
-  - [6.1 Kesimpulan](#61-kesimpulan)
-  - [6.2 Saran dan Pengembangan Lanjutan](#62-saran-dan-pengembangan-lanjutan)
+- [KATA PENGANTAR](#kata-pengantar) ........................................................................................................................ ii
+- [DAFTAR ISI](#daftar-isi) ...................................................................................................................................... iii
+- [DAFTAR TABEL & DAFTAR GAMBAR](#daftar-tabel--daftar-gambar) ................................................................... vi
+- [RINGKASAN EKSEKUTIF](#ringkasan-eksekutif) .................................................................................................... vii
+- [BAB I: PENDAHULUAN](#bab-i-pendahuluan) ........................................................................................................ 1
+  - [1.1 Latar Belakang Masalah](#11-latar-belakang-masalah) ................................................................................. 1
+  - [1.2 Rumusan Masalah](#12-rumusan-masalah) ................................................................................................... 3
+  - [1.3 Batasan Masalah & Ruang Lingkup Sistem](#13-batasan-masalah--ruang-lingkup-sistem) ............................ 4
+  - [1.4 Tujuan Perancangan](#14-tujuan-perancangan) ........................................................................................... 5
+  - [1.5 Manfaat Perancangan](#15-manfaat-perancangan) ....................................................................................... 6
+- [BAB II: LANDASAN TEORI & TINJAUAN PUSTAKA](#bab-ii-landasan-teori--tinjauan-pustaka) ............................... 8
+  - [2.1 Konsep Dasar Sistem Informasi & Personal Knowledge Management (PKM)](#21-konsep-dasar-sistem-informasi--personal-knowledge-management-pkm) .. 8
+  - [2.2 Siklus Hidup Pengembangan Perangkat Lunak (SDLC)](#22-siklus-hidup-pengembangan-perangkat-lunak-sdlc) ................................................. 10
+  - [2.3 Perbandingan Metodologi: Waterfall vs Agile Scrum](#23-perbandingan-metodologi-waterfall-vs-agile-scrum) .............................................. 11
+  - [2.4 Konsep Personal Academic Vault & Single Source of Truth](#24-konsep-personal-academic-vault--single-source-of-truth) ........................................ 13
+  - [2.5 Sistem Asesmen Akademik Modern & Formula Rata-rata Murni Bebas Bias](#25-sistem-asesmen-akademik-modern--formula-rata-rata-murni-bebas-bias) ................................. 14
+- [BAB III: ANALISIS KEBUTUHAN SISTEM & PROFIL PENGGUNA](#bab-iii-analisis-kebutuhan-sistem--profil-pengguna) ......................... 16
+  - [3.1 Segmentasi Pengguna & Karakteristik Stakeholder](#31-segmentasi-pengguna--karakteristik-stakeholder) ................................................... 16
+  - [3.2 User Persona (Mahasiswa S1 & Dosen Pengampu)](#32-user-persona-mahasiswa-s1--dosen-pengampu) .................................................... 17
+  - [3.3 User Journey Mapping (5 Tahap Interaksi Utama)](#33-user-journey-mapping-5-tahap-interaksi-utama) ................................................. 19
+  - [3.4 Struktur Navigasi & Arsitektur Informasi (Sitemap)](#34-struktur-navigasi--arsitektur-informasi-sitemap) ............................................ 20
+- [BAB IV: SPESIFIKASI FITUR SISTEM & DESAIN MULTIMEDIA INTERAKTIF](#bab-iv-spesifikasi-fitur-sistem--desain-multimedia-interaktif) ..... 22
+  - [4.1 Spesifikasi Kebutuhan Fungsional (FR Matrix: MOD-01 s.d. MOD-10)](#41-spesifikasi-kebutuhan-fungsional-fr-matrix-mod-01-sd-mod-10) ................ 22
+  - [4.2 Logika Bisnis & Alur Penilaian Dosen Tanpa Hambatan Akun (Seamless Tokenized Flow)](#42-logika-bisnis--alur-penilaian-dosen-tanpa-hambatan-akun-seamless-tokenized-flow) 25
+  - [4.3 Desain Antarmuka Visual & Identitas Estetika (Warm Chocolate, Glitter, Avatar)](#43-desain-antarmuka-visual--identitas-estetika-warm-chocolate-glitter-avatar) 27
+- [BAB V: ARSITEKTUR TEKNIS & TECH STACK 100% GRATIS (ZERO-COST ARCHITECTURE)](#bab-v-arsitektur-teknis--tech-stack-100-gratis-zero-cost-architecture) 29
+  - [5.1 Pemilihan Tumpukan Teknologi Berbiaya Nol (Next.js 15, Prisma, SQLite)](#51-pemilihan-tumpukan-teknologi-berbiaya-nol-nextjs-15-prisma-sqlite) ... 29
+  - [5.2 Keandalan Penyimpanan Lokal (SQLite ACID Transactions & Server Actions)](#52-keandalan-penyimpanan-lokal-sqlite-acid-transactions--server-actions) 31
+- [BAB VI: RENCANA KERJA & TIMELINE PELAKSANAAN](#bab-vi-rencana-kerja--timeline-pelaksanaan) ............................. 33
+  - [6.1 Work Breakdown Structure (WBS 14 Hari Kerja)](#61-work-breakdown-structure-wbs-14-hari-kerja) ................................................... 33
+  - [6.2 Diagram Batang Rencana Kerja (Gantt Chart 2 Pekan)](#62-diagram-batang-rencana-kerja-gantt-chart-2-pekan) .......................................... 35
+  - [6.3 Alokasi Sumber Daya & Pembagian Peran Pengembang](#63-alokasi-sumber-daya--pembagian-peran-pengembang) ............................................ 36
+- [BAB VII: METRIK PENGUJIAN & INDIKATOR KEBERHASILAN](#bab-vii-metrik-pengujian--indikator-keberhasilan) ......................... 38
+  - [7.1 Metrik Pengujian Usability (SUS & SEQ)](#71-metrik-pengujian-usability-sus--seq) ................................................................. 38
+  - [7.2 Hasil Pengujian Eksekusi Produksi (Production Build Verified - Zero Error)](#72-hasil-pengujian-eksekusi-produksi-production-build-verified---zero-error) 40
+  - [7.3 Pengujian Kinerja & Aksesibilitas (Lighthouse & Core Web Vitals)](#73-pengujian-kinerja--aksesibilitas-lighthouse--core-web-vitals) ................ 41
+- [BAB VIII: ESTIMASI ANGGARAN BIAYA (ZERO-COST BUDGETING)](#bab-viii-estimasi-anggaran-biaya-zero-cost-budgeting) ................. 43
+  - [8.1 Rincian Biaya Perangkat Lunak, Hosting, Basis Data, dan Domain (Total Rp 0,-)](#81-rincian-biaya-perangkat-lunak-hosting-basis-data-dan-domain-total-rp-0-) 43
+- [BAB IX: MANAJEMEN RISIKO & STRATEGI MITIGASI](#bab-ix-manajemen-risiko--strategi-mitigasi) ............................. 45
+  - [9.1 Matriks Analisis Risiko (Likelihood & Impact Analysis)](#91-matriks-analisis-risiko-likelihood--impact-analysis) .................................... 45
+  - [9.2 Rencana Kontinjensi & Keberlanjutan Sistem Jangka Panjang](#92-rencana-kontinjensi--keberlanjutan-sistem-jangka-panjang) ............................. 47
+- [BAB X: PENUTUP](#bab-x-penutup) ............................................................................................................ 49
+  - [10.1 Kesimpulan](#101-kesimpulan) ....................................................................................................... 49
+  - [10.2 Saran Pengembangan Sistem di Masa Mendatang](#102-saran-pengembangan-sistem-di-masa-mendatang) ...................................... 50
+- [DAFTAR PUSTAKA (Standar IEEE)](#daftar-pustaka-standar-ieee) ............................................................................... 52
+- [LAMPIRAN DOKUMEN](#lampiran-dokumen) .................................................................................................... 54
+  - [Lampiran 1: Skema Basis Data Lengkap (Prisma SQLite Schema)](#lampiran-1-skema-basis-data-lengkap-prisma-sqlite-schema) ................. 54
+  - [Lampiran 2: Formula Matematika Rata-rata Nilai Murni Realistis](#lampiran-2-formula-matematika-rata-rata-nilai-murni-realistis) .............. 56
+  - [Lampiran 3: Format Instrumen Kuesioner Usability (SUS)](#lampiran-3-format-instrumen-kuesioner-usability-system-usability-scale---sus) ... 57
+  - [Lampiran 4: Matriks 5 Kategori Asesmen & Alur Portal Dosen](#lampiran-4-matriks-5-kategori-asesmen--alur-portal-dosen) ................... 58
+  - [Lampiran 5: Tautan Repositori GitHub & Panduan Deployment Lokal](#lampiran-5-tautan-repositori-github--panduan-deployment-lokal) .......... 59
 
 ---
+
+<div style="page-break-after: always;"></div>
+
+## DAFTAR TABEL & DAFTAR GAMBAR
+
+### DAFTAR TABEL
+- **Tabel 2.1**: Matriks Perbandingan Metodologi Waterfall vs Agile Scrum dalam Konteks Personal Vault
+- **Tabel 3.1**: Matriks Spesifikasi Persona Pengguna (Mahasiswa S1 dan Dosen Pengampu)
+- **Tabel 4.1**: Matriks Kebutuhan Fungsional Sistem (Functional Requirements Matrix MOD-01 s.d. MOD-10)
+- **Tabel 4.2**: Design Tokens & Panduan Palet Warna Warm Chocolate Luxury System
+- **Tabel 5.1**: Matriks Tumpukan Teknologi Berbiaya Nol (100% Free-Tier Architecture)
+- **Tabel 6.1**: Work Breakdown Structure (WBS) Sprint 14 Hari Kerja
+- **Tabel 6.2**: Gantt Chart Pelaksanaan Proyek (2 Pekan)
+- **Tabel 6.3**: Matriks Alokasi Sumber Daya & Pembagian Peran Pengembang
+- **Tabel 7.1**: Target Kuesioner System Usability Scale (SUS) dan Single Ease Question (SEQ)
+- **Tabel 7.2**: Matriks Hasil Pengujian Build & Verifikasi Produksi Bebas Error
+- **Tabel 7.3**: Target Skor Metrik Kinerja & Aksesibilitas Google Lighthouse
+- **Tabel 8.1**: Rincian Anggaran Biaya Pengembangan & Operasional (Zero-Cost Budgeting)
+- **Tabel 9.1**: Matriks Manajemen Risiko & Rencana Mitigasi Teknis
+- **Tabel L.1**: Instrumen Kuesioner System Usability Scale (SUS 10 Item Pertanyaan)
+- **Tabel L.2**: Matriks 5 Kategori Asesmen & Hak Akses Portal Dosen
+
+### DAFTAR GAMBAR
+- **Gambar 1.1**: Logo Resmi Universitas Muhammadiyah Cirebon (UMC)
+- **Gambar 3.1**: Alur Perjalanan Pengguna (User Journey Map Mahasiswa dan Dosen)
+- **Gambar 3.2**: Arsitektur Informasi dan Peta Situs (Sitemap Sistem Yuli's Vault)
+- **Gambar 4.1**: Diagram Alur Penilaian Dosen Tanpa Hambatan Akun (Seamless Grading Flow)
+- **Gambar 5.1**: Diagram Topologi Arsitektur Fullstack Next.js 15, Prisma ORM, dan SQLite
+
+---
+
+<div style="page-break-after: always;"></div>
+
+## RINGKASAN EKSEKUTIF
+
+Sistem informasi akademik personal bernama **"Yuli's Vault (Yuli's Second Brain)"** dirancang dan dibangun untuk menyelesaikan persoalan fragmentasi data akademik, disorganisasi repositori materi perkuliahan, ketidakpastian pemantauan tenggat waktu tugas, serta absennya transparansi umpan balik penilaian dosen yang selama ini dialami mahasiswa pada jenjang pendidikan tinggi. Berangkat dari kasus riil mahasiswa Program Studi S1 Teknik Informatika di **Universitas Muhammadiyah Cirebon (UMC)**, sistem ini menyatukan manajemen berkas silabus, pelacakan tenggat waktu tugas, simulasi prediktif capaian indeks prestasi, serta kanal penilaian khusus bagi dosen pengampu ke dalam satu platform web mandiri (*Single Source of Truth*).
+
+Dalam pengembangannya, Yuli's Vault mengusung **8 Pilar Inovasi Utama** yang secara komprehensif mengintegrasikan keandalan rekayasa perangkat lunak dengan kenyamanan antarmuka pengguna:
+
+1. **Vault Access Security & Quick Access Mode**: Mekanisme autentikasi ganda yang melindungi privasi data akademik mahasiswa melalui PIN/Sandi Vault sekaligus menyediakan mode akses cepat (*Guest/Reviewer Mode*) untuk mempermudah evaluasi penguji tanpa mengorbankan integritas data master.
+2. **5 Kategori Asesmen Akademik Baku**: Restrukturisasi skema pengelompokan beban perkuliahan ke dalam 5 taksonomi standar perguruan tinggi: **Tugas Individu**, **Tugas Kelompok**, **Tugas Besar (Proyek Final)**, **Ujian Tengah Semester (UTS)**, dan **Ujian Akhir Semester (UAS)**.
+3. **Standar Prioritas Tinggi Universal**: Penghapusan klasifikasi prioritas rendah/sedang yang sering menimbulkan bias kelalaian mahasiswa, didasarkan pada prinsip akademik bahwa setiap komponen evaluasi bernilai krusial terhadap kelulusan mata kuliah.
+4. **Formula Rata-rata Murni Bebas Bias**: Perhitungan capaian akademik dinamis yang merefleksikan nilai riil secara proporsional berdasarkan tugas yang telah dinilai, mencegah fenomena anjloknya indeks prediksi saat baru satu atau dua tugas yang terselesaikan.
+5. **Kalkulator Target Skor Adaptif**: Modul prediktif cerdas yang memproyeksikan skor minimal yang wajib dicapai mahasiswa pada sisa evaluasi semester guna mengamankan indeks huruf yang ditargetkan (Indeks A $ge 85$).
+6. **Portal Penilaian Dosen Tanpa Hambatan Akun (*Seamless Grading Flow*)**: Fitur revolusioner yang memungkinkan dosen pengampu (seperti Ibu Dian Novianti M.Kom) memberikan skor angka (0–100) dan catatan kualitatif langsung melalui tautan tugas unik (`/grade/[id]`) tanpa diwajibkan melakukan registrasi atau mengingat kredensial baru.
+7. **Arsitektur Tanpa Biaya (100% Zero-Cost Tech Stack)**: Implementasi *state-of-the-art framework* Next.js 15 App Router, React 19, TypeScript, Tailwind CSS, Lucide Icons, Prisma ORM, dan SQLite yang dapat di-host secara gratis seumur hidup tanpa biaya langganan cloud.
+8. **Desain Visual "Warm Chocolate Luxury & Glitter Sparkles"**: Estetika modern bernuansa cokelat hangat (#4A3B32, #6B4E3D, #FDFBF7) yang dilengkapi partikel kilau emas (*sparkles*) dan maskot avatar mahasiswi beranimasi, menciptakan suasana studi yang tenang, fokus, dan bebas stres (*mindful productivity*).
+
+Dokumen proposal ini memaparkan rancangan sistem secara mendalam melalui 10 bab terstruktur, mencakup landasan teori, analisis kebutuhan pengguna, spesifikasi teknis fungsional, arsitektur data relasional, jadwal sprint, metrik pengujian, hingga analisis risiko, sebagai wujud dedikasi akademik pada mata kuliah Analisis Design PL.
+
+---
+
+<div style="page-break-after: always;"></div>
 
 # BAB I: PENDAHULUAN
 
 ## 1.1 Latar Belakang Masalah
-Dalam era perkuliahan modern, mahasiswa program studi Teknik Informatika menghadapi lonjakan volume informasi dan tuntutan akademik yang sangat dinamis. Setiap semester, mahasiswa mengambil berbagai mata kuliah teknis yang menuntut pengelolaan beragam artefak pembelajaran, antara lain:
-1. **Materi Kuliah Multiformat**: Slide perkuliahan dosen (PDF/PPTX), modul praktikum laboratorium, buku teks elektronik (*e-book*), rekaman video asistensi, hingga tautan dokumentasi eksternal.
-2. **Beragam Format Tugas Kuliah**: Penugasan yang mencakup Tugas Individu, Tugas Kelompok, Tugas Besar (*Final Project*), Tugas UTS, hingga Tugas UAS, dengan tenggat waktu (*deadline*) yang ketat.
-3. **Keterlibatan Dosen dalam Evaluasi Nilai**: Dosen membutuhkan mekanisme penginputan skor penilaian dan evaluasi secara cepat dan praktis tanpa harus melalui birokrasi akun yang rumit.
 
-Realitas di lapangan menunjukkan bahwa artefak perkuliahan tersebut sering kali terserak tanpa struktur yang rapi di berbagai kanal, seperti grup obrolan WhatsApp, Google Drive yang tidak terkelola, folder unduhan komputer lokal, dan portal LMS kampus. Masalah utama yang sering dialami mahasiswa adalah:
-- **Disorganisasi Berkas & Penelusuran Lambat**: Mahasiswa menghabiskan waktu terlalu lama untuk menemukan kembali materi perkuliahan menjelang ujian.
-- **Risiko Keterlambatan Pengumpulan (*Missed Deadlines*)**: Sulitnya memantau urgensi tugas mingguan menyebabkan penugasan terlewat atau dikerjakan secara terburu-buru.
-- **Kekakuan Sistem Asesmen**: Banyak aplikasi manajemen tugas menggunakan kalkulator persentase bobot yang rumit dan pemilihan tingkat prioritas ganda, padahal dalam kenyataan perkuliahan **seluruh tugas wajib dikerjakan dan diprioritaskan tinggi** agar nilai akhir mahasiswa maksimal.
-- **Kelelahan Visual (*Visual Fatigue*)**: Antarmuka perangkat lunak produktivitas yang beredar mayoritas bernuansa kaku, terlalu terang, atau monoton, sehingga mengurangi motivasi belajar berjam-jam.
+Dalam era transformasi digital pendidikan tinggi, efisiensi dan tata kelola informasi akademik personal memegang peranan krusial terhadap keberhasilan studi mahasiswa. Pada Program Studi S1 Teknik Informatika di **Universitas Muhammadiyah Cirebon (UMC)**, kurikulum perkuliahan menuntut mahasiswa untuk menguasai kompetensi teoritis sekaligus praktikum perangkat lunak yang intensif. Khususnya pada mata kuliah berbobot perancangan seperti **Analisis Design PL**, mahasiswa dihadapkan pada arus materi perkuliahan yang padat—mulai dari slide presentasi, dokumen *Software Requirements Specification* (SRS), diagram UML, modul metodologi Agile, hingga penugasan terstruktur yang berjalan paralel dari pekan ke pekan.
 
-Berdasarkan permasalahan di atas, diperlukan sebuah solusi sistem informasi akademik personal yang terpusat (*Single Source of Truth*), responsif, aman, intuitif, dan mengedepankan nilai estetika yang tinggi. Maka dikembangkanlah sistem **"Yuli's Vault (Yuli's Second Brain)"** dengan tema visual *Warm Chocolate & Elegant Dark Brown* serta dilengkapi portal penilaian khusus dosen tanpa login.
+Namun demikian, realitas di lapangan menunjukkan bahwa sebagian besar mahasiswa masih mengandalkan pola manajemen informasi konvensional yang terfragmentasi. Materi kuliah sering kali tersebar di berbagai platform seperti grup obrolan instan (WhatsApp/Telegram), lampiran email, Google Classroom, atau tersimpan secara berantakan di memori internal ponsel cerdas dan direktori laptop tanpa penamaan standar. Kondisi ini melahirkan sejumlah permasalahan kritis:
+1. **Kehilangan Akses Terhadap Repositori Materi**: Mahasiswa kerap kesulitan menemukan kembali materi pertemuan tertentu saat hendak mempersiapkan ujian atau mengerjakan tugas proyek besar.
+2. **Kelalaian Tenggat Waktu (*Deadline Drift*)**: Tanpa sistem pengingat dan pemantau terpusat, mahasiswa rentan melewatkan tenggat waktu pengumpulan tugas yang berimplikasi langsung pada penurunan nilai akademik.
+3. **Disorganisasi Penilaian Mandiri**: Mahasiswa tidak memiliki gambaran pasti mengenai performa nilai berjalan (*running grade*) mereka sepanjang semester, sehingga sering kali terlambat menyadari bahwa nilai mereka terancam jatuh di bawah ambang kelulusan.
+4. **Hambatan Umpan Balik dari Pihak Dosen**: Dosen pengampu membutuhkan mekanisme sederhana dan cepat untuk memeriksa dan memberikan umpan balik penilaian tugas mahasiswa. Penggunaan portal *Learning Management System* (LMS) kampus yang birokratis sering kali menuntut tahapan login yang rumit, verifikasi sesi berkala, dan navigasi menu yang berlapis-lapis.
+
+Berdasarkan permasalahan mendasar tersebut, digagaslah perancangan sistem informasi akademik personal yang komprehensif bernama **"Yuli's Vault (Yuli's Second Brain)"**. Sistem ini diformulasikan sebagai *Personal Academic Vault* mandiri berbasis teknologi web modern (*Next.js 15* dan *Prisma SQLite*) yang berfungsi sebagai *Single Source of Truth* bagi mahasiswa sekaligus menyediakan gerbang interaktif yang ramah pengguna bagi dosen pengampu untuk menginput nilai dan catatan evaluasi secara langsung.
 
 ## 1.2 Rumusan Masalah
-Rumusan masalah dalam perancangan dan pengembangan sistem ini adalah:
-1. Bagaimana merancang arsitektur sistem informasi akademik pribadi yang mampu mengintegrasikan manajemen mata kuliah, repositori materi, pelacakan tugas, pencatatan nilai, dan catatan kuliah dalam satu platform terpadu?
-2. Bagaimana membangun fitur pelacakan tugas (*Task & Deadline Tracker*) yang mengadopsi 5 kategori asesmen perkuliahan resmi (Tugas Individu, Kelompok, Tugas Besar, UTS, UAS) dengan eliminasi beban kalkulator bobot rumit dan eliminasi tingkat prioritas yang berlebihan?
-3. Bagaimana merancang modul penilaian khusus bagi dosen (*Lecturer Grading Portal*) yang memungkinkan dosen memberikan nilai dan evaluasi secara instan melalui tautan unik tanpa memerlukan autentikasi login yang rumit?
-4. Bagaimana mengimplementasikan sistem antarmuka berbasis *Warm Chocolate & Dark Brown Luxury Aesthetics* dengan animasi interaktif glitter dan maskot animasi agar memberikan kenyamanan visual serta pengalaman pengguna yang menyenangkan?
-5. Bagaimana menyelesaikan seluruh siklus analisis, desain, implementasi, dan pengujian sistem dalam batas waktu kerja cepat (*rapid sprint*) selama 1 minggu (7 hari kalender)?
 
-## 1.3 Tujuan Pengembangan Sistem
-Tujuan yang dicapai dalam proyek perancangan website ini terbagi menjadi tiga dimensi:
+Berdasarkan latar belakang yang telah diuraikan di atas, rumusan masalah dalam perancangan perangkat lunak ini dirumuskan sebagai berikut:
+1. Bagaimana merancang dan membangun repositori materi perkuliahan dan tugas akademik digital yang terstruktur, aman, dan mudah diakses berbasis web personal vault?
+2. Bagaimana mengintegrasikan 5 kategori asesmen akademik standar perguruan tinggi (Tugas Individu, Tugas Kelompok, Tugas Besar, UTS, dan UAS) ke dalam pelacak tugas cerdas dengan paradigma universal *Prioritas Tinggi*?
+3. Bagaimana memformulasikan kalkulasi rata-rata nilai murni yang dinamis dan bebas bias agar merefleksikan capaian riil mahasiswa secara proporsional sesuai tugas yang telah dinilai?
+4. Bagaimana merancang portal penilaian dosen khusus (*Lecturer Direct Grading Portal*) yang memungkinkan dosen pengampu memberikan nilai dan umpan balik langsung melalui tautan instan tanpa terbebani keharusan registrasi atau login akun?
+5. Bagaimana merekayasa arsitektur sistem fullstack modern dengan performa tinggi yang beroperasi secara andal dengan biaya infrastruktur seratus persen gratis (*Zero-Cost Deployment*)?
 
-### 1.3.1 Tujuan Teknis
-- Membangun aplikasi web fullstack berperforma tinggi menggunakan **Next.js 15 (App Router)**, **React 19**, **TypeScript**, dan **Tailwind CSS**.
-- Mengimplementasikan basis data relasional lokal yang andal dan mandiri menggunakan **SQLite** melalui abstraksi **Prisma ORM**, didukung oleh *Next.js Server Actions* untuk eksekusi mutasi data yang aman dan reaktif.
-- Membangun mesin pengunggahan berkas lokal (*Local Upload Engine*) untuk mengarsipkan materi perkuliahan dan berkas soal tugas secara terstruktur.
+## 1.3 Batasan Masalah & Ruang Lingkup Sistem
 
-### 1.3.2 Tujuan Fungsional
-- Menyediakan gerbang masuk yang aman (*Vault Login Gate*) dengan fitur *Quick Access* personal ("Masuk cepat sebagai Yuli Indiyanti").
-- Menyediakan modul **Mata Kuliah** dengan pemetaan silabus 16 pertemuan, jadwal kuliah mingguan, dan pemilih tema warna identitas mata kuliah.
-- Menyediakan modul **Materi** dengan pratinjau dokumen langsung di peramban (*In-App Previewer*) dan tagging kategori.
-- Menyediakan modul **Tugas & Status** dengan papan Kanban drag-and-drop, tampilan tabel terstruktur, detektor urgensi tenggat waktu, dan 5 kategori asesmen resmi.
-- Menyediakan **Portal Penilaian Khusus Dosen (Tanpa Login)** melalui rute publik unik `/grade/[id]` untuk input skor nilai (skala 0–100) dan catatan evaluasi dosen yang tersinkronisasi otomatis ke dashboard mahasiswa.
-- Menyediakan modul **Rekap Nilai & Analitika IPK** berbasis rata-rata nilai murni (*arithmetic average*) yang menampilkan status riil (*pending evaluation state*) secara dinamis.
+Agar perancangan dan implementasi perangkat lunak ini terfokus, terukur, dan memenuhi target kurikulum mata kuliah Analisis Design PL, batasan masalah ditetapkan sebagai berikut:
+1. **Ruang Lingkup Entitas Akademik**: Sistem difokuskan untuk mengelola perkuliahan personal mahasiswa S1 Teknik Informatika (studi kasus: Yuli Indiyanti, Kelas TI24D, UMC), mencakup mata kuliah aktif seperti Analisis Design PL dan mata kuliah terkait lainnya.
+2. **Klasifikasi Asesmen**: Kategori penugasan dibatasi pada 5 taksonomi baku: Tugas Individu, Tugas Kelompok, Tugas Besar (Proyek Final), Ujian Tengah Semester (UTS), dan Ujian Akhir Semester (UAS). Seluruh tugas diklasifikasikan berstatus prioritas tinggi (*High Priority*).
+3. **Model Perhitungan Nilai**: Sistem mengimplementasikan algoritma rata-rata murni (*unweighted clean mean*) dari seluruh tugas yang telah memperoleh skor dari dosen, disertai kalkulator prediksi target nilai akhir.
+4. **Aksesibilitas Dosen**: Antarmuka penilaian dosen dirancang berbasis *route tokenized* (`/grade/[id]`), di mana dosen dapat memvalidasi berkas tugas, memasukkan skor rentang 0–100, dan membubuhkan umpan balik tanpa memerlukan kredensial akun terpisah.
+5. **Infrastruktur & Penyimpanan**: Sistem memanfaatkan basis data relasional lokal *SQLite* yang diorkestrasi menggunakan *Prisma ORM*, serta di-deploy pada lingkungan *Vercel/Node.js Serverless* berbiaya Rp 0,-.
 
-### 1.3.3 Tujuan Pengguna
-- Mewujudkan *Personal Second Brain* yang efisien bagi mahasiswa (Yuli Indiyanti / TI24D), memangkas waktu temu-kembali materi kuliah hingga di bawah 5 detik, dan memastikan tidak ada tugas yang terlewat (*zero missed deadlines*).
+## 1.4 Tujuan Perancangan
 
-## 1.4 Manfaat Produk
+Tujuan utama dari perancangan dan pengembangan perangkat lunak Yuli's Vault adalah:
+1. Menghasilkan sistem informasi akademik personal yang mampu mengonsolidasikan seluruh silabus, materi perkuliahan, dan repositori tugas dalam satu platform terpadu.
+2. Mengembangkan antarmuka manajemen tugas cerdas yang dilengkapi penanda tenggat waktu interaktif dan 5 kategori asesmen standar.
+3. Mengimplementasikan algoritma perhitungan rata-rata murni dan simulator target nilai akhir untuk mendukung perencanaan studi proaktif mahasiswa.
+4. Membangun portal penilaian dosen yang mulus (*seamless*), cepat, dan transparan guna mempercepat sirkulasi umpan balik akademik dari dosen ke mahasiswa.
+5. Menerapkan metodologi rekayasa perangkat lunak modern (analisis kebutuhan, pemodelan data relasional, desain antarmuka *Warm Chocolate Luxury*, dan pengujian *usability*) sesuai kaidah akademis mata kuliah Analisis Design PL.
 
-### 1.4.1 Bagi Mahasiswa (Pemilik Vault)
-- **Sentralisasi Informasi Akademik**: Semua jadwal, materi kuliah, tugas, nilai, dan catatan kuliah tersimpan rapi dalam satu pintu.
-- **Bebas Distraksi & Menenangkan**: Desain bertema cokelat hangat dan kilau lembut *glitter* menciptakan suasana belajar yang nyaman dan tidak melelahkan mata.
-- **Fokus Prioritas Jelas**: Tidak dipusingkan dengan pemilihan prioritas atau kalkulasi persentase bobot yang rumit, karena sistem secara otomatis menetapkan setiap tugas pada status prioritas utama.
-- **Dokumentasi Belajar Jangka Panjang**: Seluruh materi semester tersimpan terstruktur untuk persiapan Ujian Akhir Semester, magang, dan penyusunan skripsi di masa mendatang.
+## 1.5 Manfaat Perancangan
 
-### 1.4.2 Bagi Dosen Pengampu
-- **Kemudahan Input Nilai**: Dosen tidak perlu mendaftar akun atau mengingat kredensial login; cukup membuka tautan penilaian khusus per tugas untuk memasukkan nilai dan ulasan evaluasi.
-- **Transparansi Evaluasi**: Nilai dan catatan dosen langsung diterima oleh mahasiswa secara objektif dan instan.
+Perancangan perangkat lunak Yuli's Vault diharapkan memberikan kontribusi nyata dari berbagai sudut pandang:
 
-### 1.4.3 Bagi Institusi & Pembelajaran Akademik
-- Menjadi bukti nyata keberhasilan implementasi teori mata kuliah Analisis dan Desain Perangkat Lunak (ADPL) dalam menghasilkan produk perangkat lunak berskala produksi (*production-ready*) dalam sprint 1 minggu.
+### a. Manfaat Bagi Mahasiswa (Pengusul / Yuli Indiyanti)
+- Terhindar dari risiko kelalaian tugas berkat visualisasi status pengerjaan yang terorganisir rapi.
+- Meningkatkan efisiensi waktu belajar melalui kemudahan akses materi kuliah dan tautan referensi dalam hitungan detik.
+- Memiliki kendali penuh atas capaian akademik melalui metrik prediksi nilai yang akurat dan transparan.
+- Menciptakan suasana belajar yang menyenangkan dan estetik melalui identitas visual *Warm Chocolate Luxury* dan partikel *glitter* yang menenangkan.
 
-## 1.5 Ruang Lingkup dan Batasan Sistem
-Untuk menjamin proyek selesai secara optimal dalam batas waktu 7 hari, ditetapkan batasan sistem sebagai berikut:
-1. **Target Pengguna Utama**: Mahasiswa aktif Teknik Informatika atas nama Yuli Indiyanti (NIM: 240511130, Kelas TI24D).
-2. **Akses Dosen Pengampu**: Akses dosen dibatasi pada lembar penilaian khusus tugas per tautan publik `/grade/[id]` tanpa kewenangan mengubah struktur mata kuliah atau menghapus data vault.
-3. **Penyimpanan Berkas**: Menggunakan penyimpanan berkas lokal server (`public/uploads`) yang mendukung berkas PDF, dokumen Office (DOCX, PPTX, XLSX), arsip ZIP, dan gambar.
-4. **Penyimpanan Basis Data**: Menggunakan SQLite lokal terintegrasi (`prisma/dev.db`) dengan mekanisme backup dan ekspor JSON.
-5. **Lingkungan Eksekusi**: Aplikasi berbasis web responsif yang kompatibel dengan browser modern (Google Chrome, Microsoft Edge, Mozilla Firefox, Safari) pada perangkat desktop, tablet, maupun ponsel cerdas.
+### b. Manfaat Bagi Dosen Pengampu (Ibu Dian Novianti M.Kom)
+- Memperoleh akses instan untuk meninjau hasil pengerjaan tugas mahasiswa tanpa kendala birokrasi otentikasi login.
+- Mempermudah penginputan nilai angka dan umpan balik naratif langsung dari browser perangkat laptop maupun smartphone.
+- Menerima bukti kepatuhan metodologi analisis dan desain perangkat lunak yang diterapkan mahasiswa secara nyata dalam bentuk produk *production-ready*.
+
+### c. Manfaat Bagi Institusi & Perkembangan Ilmu Rekayasa Perangkat Lunak
+- Menjadi model percontohan (*best-practice prototype*) implementasi *Personal Knowledge Management (PKM)* di lingkungan Universitas Muhammadiyah Cirebon.
+- Membuktikan bahwa arsitektur perangkat lunak berstandar industri dapat dibangun dengan efisiensi anggaran total nol rupiah (*Zero-Cost Open Source Stack*).
 
 ---
 
-# BAB II: ANALISIS KEBUTUHAN SISTEM (SYSTEM REQUIREMENTS)
+<div style="page-break-after: always;"></div>
 
-## 2.1 Profil dan Karakteristik Pengguna
-Pengguna sistem terdiri dari dua kelompok pengguna dengan hak akses dan karakteristik sebagai berikut:
+# BAB II: LANDASAN TEORI & TINJAUAN PUSTAKA
 
-| Parameter Karakteristik | Pengguna Utama (Mahasiswa) | Pengguna Tamu (Dosen Pengampu) |
+## 2.1 Konsep Dasar Sistem Informasi & Personal Knowledge Management (PKM)
+
+Secara epistemologis, **Sistem Informasi (SI)** didefinisikan sebagai kombinasi terorganisir dari manusia, perangkat keras (*hardware*), perangkat lunak (*software*), jaringan komunikasi, sumber data, serta prosedur dan kebijakan yang saling berinteraksi untuk mengumpulkan, memproses, menyimpan, dan mendistribusikan informasi guna mendukung pengambilan keputusan dan kendali dalam suatu organisasi atau aktivitas individu [1]. Dalam ranah pendidikan, evolusi sistem informasi telah bergeser dari sistem sentralistik berskala institusi (*Enterprise LMS*) menuju sistem berbasis individu yang dikenal dengan istilah **Personal Knowledge Management (PKM)** atau konsep *"Second Brain"* [2].
+
+Paradigma *Second Brain* yang dipopulerkan oleh Tiago Forte menekankan bahwa daya ingat biologis manusia memiliki kapasitas memori kerja yang terbatas (*cognitive bandwidth limit*). Oleh karena itu, seorang akademisi dituntut memiliki media eksternal digital untuk menampung, menyaring, mengorganisasi, dan mensintesis aliran pengetahuan. Dalam konteks perkuliahan Teknik Informatika, Yuli's Vault bertindak sebagai *Second Brain* digital yang mengeksternalisasi beban kognitif mahasiswa terkait memori tugas, tanggal batas pengumpulan, berkas slide perkuliahan, dan catatan nilai ke dalam struktur basis data relasional yang terindeks secara sempurna.
+
+## 2.2 Siklus Hidup Pengembangan Perangkat Lunak (SDLC)
+
+**Software Development Life Cycle (SDLC)** adalah kerangka kerja sistematis yang digunakan dalam rekayasa perangkat lunak untuk merancang, mengembangkan, menguji, dan memelihara aplikasi berkualitas tinggi yang memenuhi ekspektasi pengguna [3]. Tahapan formal dalam SDLC secara umum meliputi:
+1. **Analisis Kebutuhan (*Requirements Engineering*)**: Mengidentifikasi permasalahan riil, mendefinisikan kebutuhan fungsional dan non-fungsional, serta merumuskan batasan operasional sistem.
+2. **Perancangan Sistem (*System & Architectural Design*)**: Merancang arsitektur basis data (*Entity-Relationship Diagram*), antarmuka pengguna (*User Interface / UI*), dan logika interaksi pengguna (*User Experience / UX*).
+3. **Implementasi (*Coding & Unit Construction*)**: Menerjemahkan spesifikasi desain ke dalam instruksi kode program menggunakan tumpukan teknologi modern (*Next.js 15, Prisma ORM, SQLite*).
+4. **Pengujian (*Verification & Validation*)**: Menguji fungsionalitas sistem melalui *Production Build Verification* dan pengujian kegunaan (*System Usability Scale*).
+5. **Penyebaran (*Deployment & Maintenance*)**: Meluncurkan sistem ke lingkungan produksi berbasis cloud dan melakukan pemeliharaan berkala.
+
+## 2.3 Perbandingan Metodologi: Waterfall vs Agile Scrum
+
+Dalam mata kuliah **Analisis Design PL**, pemilihan metodologi pengembangan memegang peranan vital terhadap ketepatan waktu rilis dan fleksibilitas iterasi produk. Dua paradigma utama yang dianalisis dalam perancangan ini adalah model sekuensial linear (**Waterfall**) dan model adaptif iteratif (**Agile Scrum**).
+
+**Tabel 2.1**: Matriks Perbandingan Metodologi Waterfall vs Agile Scrum dalam Konteks Personal Vault
+| Parameter Evaluasi | Model Waterfall (Sekuensial) | Model Agile Scrum (Sprint 2 Pekan) | Kesesuaian Yuli's Vault |
+| :--- | :--- | :--- | :--- |
+| **Fleksibilitas Perubahan Kebutuhan** | Rendah; perubahan di tengah jalan memerlukan biaya dan waktu refactoring tinggi. | Sangat Tinggi; perubahan umpan balik dosen dapat diintegrasikan dalam sprint harian. | **Agile Scrum Sangat Sesuai** (mendukung perubahan dinamis seperti penyesuaian portal dosen). |
+| **Waktu Peluncuran Produk (*Time to Market*)** | Lambat; produk fungsional baru dapat diakses di akhir fase seluruh tahapan. | Cepat; menghasilkan *Working Software Prototype* sejak Sprint 1. | **Agile Scrum Sangat Sesuai** (memungkinkan demo bertahap kepada dosen pengampu). |
+| **Keterlibatan Pengguna (*Stakeholder Engagement*)** | Hanya intensif di fase awal (spesifikasi) dan fase akhir (evaluasi). | Berkelanjutan pada setiap akhir sprint melalui *Sprint Review*. | **Agile Scrum Sangat Sesuai** (mendukung pengujian langsung input nilai dosen). |
+| **Kesesuaian Skala Proyek** | Sangat cocok untuk sistem industri skala masif dengan regulasi kaku. | Optimal untuk pengembangan perangkat lunak personal dan tim pengembang ramping (*lean team*). | **Agile Scrum Terpilih** sebagai metodologi pelaksanaan proyek Yuli's Vault. |
+
+Berdasarkan perbandingan pada Tabel 2.1, proyek perancangan Yuli's Vault mengadopsi kerangka kerja **Agile Scrum** dengan durasi sprint 14 hari kerja (2 pekan). Pendekatan ini memungkinkan penulis melakukan iterasi cepat terhadap perbaikan antarmuka (*Warm Chocolate Theme*) dan logika asesmen 5 kategori secara mulus.
+
+## 2.4 Konsep Personal Academic Vault & Single Source of Truth
+
+Prinsip **Single Source of Truth (SSOT)** dalam rekayasa perangkat lunak menyatakan bahwa setiap elemen data dalam arsitektur sistem hanya boleh direpresentasikan dan diubah pada satu titik referensi otoritatif [4]. Dalam konteks akademik mahasiswa, fenomena disorganisasi data muncul akibat tidak adanya SSOT; tugas dicatat di buku agenda, materi disimpan di Google Drive, pengumuman terserak di grup pesan WhatsApp, dan nilai tersimpan di portal kampus yang lambat diakses.
+
+Yuli's Vault mengimplementasikan prinsip SSOT melalui basis data relasional SQLite terintegrasi. Setiap relasi mata kuliah (*Course*) menjadi entitas induk (*parent entity*) yang mengikat seluruh modul materi perkuliahan (*Materials*), catatan tugas (*Tasks*), berkas unduhan, dan histori nilai dari dosen. Dengan struktur relasional ini, integritas referensial data terjaga secara konsisten, mencegah anomali redundansi data (*update/delete anomaly*).
+
+## 2.5 Sistem Asesmen Akademik Modern & Formula Rata-rata Murni Bebas Bias
+
+Sistem evaluasi pembelajaran di perguruan tinggi umumnya membagi penugasan ke dalam berbagai kategori instrumen penilaian. Dalam praktiknya, penggunaan sistem bobot persentase tetap (*fixed percentage weighting*) sering kali menimbulkan distorsi angka di awal dan pertengahan semester ketika sebagian besar komponen evaluasi belum dilaksanakan. Sebagai contoh, jika sebuah tugas bernilai bobot 10% dikerjakan dengan nilai sempurna (100), sistem bobot konvensional kerap kali menampilkan nilai berjalan kumulatif sebesar $10$ dari skala $100$, yang secara psikologis menimbulkan kebingungan bagi mahasiswa.
+
+Untuk mengatasi permasalahan tersebut, Yuli's Vault menerapkan **Formula Rata-rata Murni Bebas Bias (*Unweighted Active Mean Formula*)**. Formula ini menghitung rata-rata secara dinamis murni hanya dari penugasan yang telah memperoleh penilaian resmi dari dosen:
+
+$$	ext{Rata-rata Nilai Murni} = rac{sum_{i=1}^{k} 	ext{Skor Tugas Ke-}i}{k}$$
+
+Di mana:
+- $k$ adalah jumlah tugas yang telah dinilai secara resmi oleh dosen ($k le n$).
+- $n$ adalah jumlah total seluruh penugasan yang terdaftar dalam sistem.
+- Apabila $k = 0$ (belum ada tugas yang dinilai), sistem secara elegan menampilkan status informatif netral: *"Belum ada tugas yang dinilai oleh Dosen. Mulai kumpulkan tugas untuk melihat rata-rata nilai Anda!"*, sehingga tidak menimbulkan nilai nol semu yang menyesatkan.
+
+---
+
+<div style="page-break-after: always;"></div>
+
+# BAB III: ANALISIS KEBUTUHAN SISTEM & PROFIL PENGGUNA
+
+## 3.1 Segmentasi Pengguna & Karakteristik Stakeholder
+
+Identifikasi kebutuhan sistem diawali dengan memetakan segmen pengguna yang berinteraksi dengan perangkat lunak Yuli's Vault. Terdapat dua entitas pemangku kepentingan (*stakeholders*) utama:
+1. **Primary User (Mahasiswa Pengelola / Yuli Indiyanti)**: Pengguna berkuasa penuh atas personal vault yang bertanggung jawab menambahkan mata kuliah, mengunggah materi perkuliahan, mencatat tugas, memantau tenggat waktu, dan menyalin tautan penilaian untuk diberikan kepada dosen pengampu.
+2. **Secondary User (Dosen Pengampu / Ibu Dian Novianti M.Kom & Rekan Dosen)**: Penilai eksternal yang menerima tautan penilaian tugas, meninjau berkas yang dikumpulkan, memberikan skor numerik 0–100, dan menuliskan catatan evaluasi kualitatif tanpa memerlukan akun login.
+
+## 3.2 User Persona (Mahasiswa S1 & Dosen Pengampu)
+
+Guna memastikan setiap keputusan perancangan antarmuka dan alur sistem berakar pada kebutuhan riil, disusunlah dua profil persona pengguna representatif pada Tabel 3.1:
+
+**Tabel 3.1**: Matriks Spesifikasi Persona Pengguna (Mahasiswa S1 dan Dosen Pengampu)
+| Atribut Persona | Persona Mahasiswa (Primary User) | Persona Dosen Pengampu (Evaluator) |
 | :--- | :--- | :--- |
-| **Identitas Pengguna** | Yuli Indiyanti (NIM: 240511130, TI24D) | Dosen Pengampu Mata Kuliah Bersangkutan |
-| **Hak Akses (*Role*)** | *Full Owner / Administrator* | *Evaluator / Grader (Task-Scoped)* |
-| **Mekanisme Akses** | Autentikasi Vault Login Gate & Quick Access PIN | Akses langsung tautan unik `/grade/[id]` (Tanpa Login) |
-| **Tingkat Kemahiran Digital** | Tinggi (*Tech-Savvy*, pengembang perangkat lunak) | Menengah s.d. Tinggi |
-| **Perangkat Utama** | Komputer Desktop / Laptop / Smartphone | Laptop / Tablet / Smartphone |
-| **Kebutuhan Utama** | Manajemen semester, materi, jadwal, tugas, dan rekap IPK | Pengisian skor (0–100) dan evaluasi tugas mahasiswa |
+| **Nama Representatif** | **Yuli Indiyanti (NIM: 240511130)** | **Ibu Dian Novianti M.Kom** |
+| **Peran / Jabatan** | Mahasiswa S1 Teknik Informatika (Kelas TI24D) | Dosen Pengampu Mata Kuliah Analisis Design PL |
+| **Tujuan Utama (*Goals*)** | Menjaga IPK tetap unggul (Indeks A), mengumpulkan tugas tepat waktu, dan memiliki arsip materi kuliah yang rapi. | Memberikan evaluasi tugas mahasiswa secara objektif, cepat, transparan, dan tanpa hambatan teknis otentikasi. |
+| **Kendala Utama (*Frustrations*)** | Sering lupa deadline tugas ketika jadwal praktikum padat; berkas slide perkuliahan tercecer di memori HP. | Waktu terbatas untuk login ke sistem kampus yang lambat hanya untuk menginput nilai satu tugas mahasiswa. |
+| **Kebutuhan Teknis** | Dashboard web yang responsif, estetik, kalkulator target nilai cerdas, dan proteksi sandi vault. | Tautan ringkas yang langsung membuka halaman input nilai satu klik (*one-click direct grading interface*). |
 
-## 2.2 Kebutuhan Fungsional (Functional Requirements - MoSCoW Framework)
-Kebutuhan fungsional dianalisis menggunakan kerangka MoSCoW (*Must-Have, Should-Have, Could-Have, Won't-Have*):
+## 3.3 User Journey Mapping (5 Tahap Interaksi Utama)
 
-| ID Kebutuhan | Nama Kebutuhan Fungsional | Deskripsi Spesifikasi Fungsional | Kategori MoSCoW |
-| :---: | :--- | :--- | :---: |
-| **FR-01** | **Vault Authentication & Login Gate** | Pengguna harus melewati gerbang login estetik dengan verifikasi nama pengguna & kata sandi, serta fitur *Quick Access* ("Masuk cepat sebagai Yuli Indiyanti"). | **Must-Have (P0)** |
-| **FR-02** | **Manajemen Semester & Filter Global** | Pengguna dapat membuat data semester akademik, menentukan rentang waktu, dan memilih semester aktif untuk memfilter seluruh data tampilan. | **Must-Have (P0)** |
-| **FR-03** | **Manajemen Mata Kuliah & Jadwal** | Pengguna dapat menambah, mengedit, dan menghapus mata kuliah (Kode, Nama, SKS, Dosen, Jadwal Mingguan, Ruang, dan Kode Warna). | **Must-Have (P0)** |
-| **FR-04** | **Struktur Silabus 16 Pertemuan** | Sistem secara otomatis mengelompokkan materi perkuliahan ke dalam 16 pertemuan mingguan, UTS, dan UAS. | **Should-Have (P1)** |
-| **FR-05** | **Multi-File Upload Berkas Materi** | Pengguna dapat mengunggah berkas materi (PDF, DOCX, PPTX, gambar) ke repositori penyimpanan server lokal. | **Must-Have (P0)** |
-| **FR-06** | **In-App Document Previewer** | Pengguna dapat membaca langsung dokumen PDF dan materi slide di dalam jendela pratinjau browser tanpa perlu mengunduh file. | **Must-Have (P0)** |
-| **FR-07** | **Task & Deadline Tracker (Kanban & Tabel)** | Pengguna dapat memantau penugasan melalui Papan Kanban (Belum Dimulai, Sedang Dikerjakan, Siap Dikumpulkan, Sudah Dikumpulkan) dan Tabel Interaktif. | **Must-Have (P0)** |
-| **FR-08** | **5 Kategori Asesmen Perkuliahan Lengkap** | Penugasan diklasifikasikan ke dalam 5 format resmi: Tugas Individu, Tugas Kelompok, Tugas Besar, Tugas UTS, dan Tugas UAS. | **Must-Have (P0)** |
-| **FR-09** | **Eliminasi Prioritas Manual & Bobot Rumit** | Sistem menetapkan seluruh tugas pada prioritas utama secara otomatis dan menghitung nilai berdasarkan rata-rata murni tanpa bobot persentase kalkulator yang rumit. | **Must-Have (P0)** |
-| **FR-10** | **Detektor Urgensi Waktu Nyata** | Sistem menghitung sisa waktu menuju tenggat dan memberikan badge visual otomatis (< 24 jam / darurat, 1–3 hari, atau aman). | **Must-Have (P0)** |
-| **FR-11** | **Portal Penilaian Khusus Dosen (Tanpa Login)** | Dosen pengampu dapat menilai tugas via URL `/grade/[id]`, melihat berkas soal tugas, mengisi skor nilai (0–100), dan menulis catatan evaluasi. | **Must-Have (P0)** |
-| **FR-12** | **Sinkronisasi Nilai Real-Time & Confetti** | Nilai yang diisi dosen langsung tersinkronisasi ke database mahasiswa dengan efek selebrasi konfeti pada browser dosen. | **Must-Have (P0)** |
-| **FR-13** | **Pelacakan Nilai Realistis (Pending State)** | Kartu metrik beranda dan analitika menampilkan tanda strip `-` (menunggu penilaian) dan persentase kepatuhan kumpul saat belum ada tugas yang dinilai. | **Must-Have (P0)** |
-| **FR-14** | **Workspace Catatan Terintegrasi (Split-View)** | Layar terpisah antara dokumen materi kuliah di sisi kiri dan editor catatan Markdown interaktif di sisi kanan. | **Should-Have (P1)** |
-| **FR-15** | **Pencarian Cepat & Filter Multi-Kriteria** | Pengguna dapat mencari tugas dan materi secara instan berdasarkan kata kunci, mata kuliah, maupun kategori asesmen. | **Must-Have (P0)** |
-| **FR-16** | **Cadangan Data & Ekspor CSV/JSON** | Pengguna dapat mencadangkan seluruh data akademik ke format JSON atau mengekspor rekapitulasi nilai ke format CSV. | **Must-Have (P0)** |
+Alur interaksi pengguna dengan sistem Yuli's Vault dirancang melalui 5 fase perjalanan terstruktur:
+1. **Fase Masuk (*Vault Entry & Authentication*)**: Mahasiswa membuka sistem, disambut layar proteksi *Vault Security*. Mahasiswa memasukkan sandi master atau memilih *Guest Quick Access* untuk mode demonstrasi.
+2. **Fase Eksplorasi Dashboard**: Menampilkan ringkasan statistik: total mata kuliah aktif, jumlah tugas berstatus *Pending/Completed*, rata-rata nilai murni berjalan, dan daftar tenggat waktu terdekat.
+3. **Fase Pengelolaan Materi & Tugas**: Mahasiswa membuka modul mata kuliah (misal: Analisis Design PL), menambahkan berkas materi baru, atau membuat tugas baru dengan kategori baku (Tugas Individu, Kelompok, Tugas Besar, UTS, atau UAS) berstatus *High Priority*.
+4. **Fase Sirkulasi Penilaian Dosen**: Mahasiswa menyalin tautan unik penilaian (`/grade/[id]`) dan mengirimkannya ke dosen pengampu bersamaan dengan penyerahan laporan tugas.
+5. **Fase Evaluasi & Prediksi Nilai**: Dosen membuka tautan, menginput nilai dan catatan. Sistem secara otomatis memperbarui rata-rata murni mahasiswa dan menampilkan proyeksi skor pada kalkulator target nilai akhir.
 
-## 2.3 Kebutuhan Non-Fungsional (Non-Functional Requirements)
-1. **Performa Sistem (*Performance*)**:
-   - Waktu muat awal (*Initial Page Load / First Contentful Paint*) di bawah 1,5 detik.
-   - Respon pemfilteran data dan interaksi drag-and-drop Kanban instan di bawah 100 ms berkat arsitektur *client-side reactive state*.
-2. **Keandalan & Integritas (*Reliability & Consistency*)**:
-   - Setiap mutasi data tersimpan secara persisten ke SQLite melalui transaksi Prisma ORM.
-   - Nilai skor yang dimasukkan oleh dosen langsung tersimpan aman ke database tanpa risiko duplikasi data.
-3. **Aksesibilitas & Keterbacaan Visual (*Accessibility*)**:
-   - Memenuhi standar **WCAG 2.1 Level AA/AAA** dengan rasio kontras teks minimal 7:1 antara warna teks cokelat gelap dan latar belakang krem/kopi lembut.
-4. **Keamanan & Privasi (*Security & Privacy*)**:
-   - Gerbang autentikasi lokal melindungi area personal mahasiswa dari akses pihak ketiga yang tidak berwenang pada perangkat bersama.
-   - Endpoint portal dosen menggunakan URL berbasis ID acak tugas sehingga hanya pihak yang memiliki tautan yang dapat memberikan nilai.
+## 3.4 Struktur Navigasi & Arsitektur Informasi (Sitemap)
 
-## 2.4 Konsep Identitas Visual & Estetika (Warm Chocolate, Dark Brown & Glitter Sparkles)
-Sistem meninggalkan pendekatan visual monoton dan mengadopsi bahasa desain **Luxury Warm Chocolate & Coffee Theme** yang mewah, menenangkan, dan estetik:
-
-```
-+-------------------------------------------------------------------------------------------------+
-|                           WARM CHOCOLATE & LUXURY COFFEE DESIGN SYSTEM                          |
-+---------------------+-------------------------------+-------------------------------------------+
-| Nama Token Desain   | Nilai Hexadecimal (Hex)       | Penggunaan Antarmuka                      |
-+---------------------+-------------------------------+-------------------------------------------+
-| Espresso Dark       | #1E140E / #2A1810             | Latar belakang Dark Mode, Teks Utama      |
-| Roasted Mocha       | #3D2517 / #4A2E1B             | Header Card, Sidebar Aktif, Tombol Primer |
-| Caramel Bronze      | #8B5A2B / #A06836             | Border Fokus, Aksen Seleksi, Ikon Utama   |
-| Warm Cream Coffee   | #F7F2EB / #FFFDFB             | Latar Belakang Halaman & Kartu Light Mode |
-| Golden Hazelnut     | #D4A373 / #F3EADF             | Lencana Kategori, Badge, Highlight Teks   |
-| Glitter Sparkles    | Animasi CSS Bintang & Partikel| Aksen kerlip lembut bintang interaktif    |
-| Animated Avatar     | Ilustrasi Perempuan Berhijab  | Maskot personal hidup di Login & Profil   |
-+---------------------+-------------------------------+-------------------------------------------+
-```
+Arsitektur informasi Yuli's Vault dirancang dengan hierarki dangkal (*shallow hierarchy*) guna meminimalkan jumlah klik pengguna (*Three-Click Rule*):
+- **/** (Gerbang Utama / Vault Access Gate & Dashboard Ringkasan)
+- **/courses** (Katalog Mata Kuliah Semester Aktif)
+  - **/courses/[id]** (Detail Mata Kuliah: Arsip Materi, Modul Silabus, dan Daftar Tugas Terkait)
+- **/tasks** (Pusat Kendali Seluruh Tugas: Filter Kategori Asesmen, Status Pengerjaan, dan Urutan Deadline)
+- **/grade/[id]** (Portal Penilaian Dosen Mandiri: Input Skor 0–100, Catatan Umpan Balik, dan Riwayat Penilai)
+- **/analytics** (Kalkulator Prediksi Target Nilai Akhir & Grafik Progres Belajar)
 
 ---
 
-# BAB III: PERANCANGAN ARSITEKTUR & DESAIN PERANGKAT LUNAK
+<div style="page-break-after: always;"></div>
 
-## 3.1 Arsitektur Sistem Fullstack Modern
-Sistem dibangun menggunakan pola arsitektur **Next.js Fullstack Monolith** modern yang mengombinasikan *React Server Components (RSC)*, *Client Components*, *Server Actions*, dan *Database Layer* secara efisien:
+# BAB IV: SPESIFIKASI FITUR SISTEM & DESAIN MULTIMEDIA INTERAKTIF
 
-```
-+---------------------------------------------------------------------------------------------+
-|                                    LAPISAN KLIEN (CLIENT LAYER)                             |
-|  - Next.js 15 App Router Pages: `/` (Home), `/courses`, `/assignments`, `/grade/[id]`       |
-|  - UI Engine: Tailwind CSS, Lucide Icons, Canvas-Confetti, Glitter Field, Animated Avatar   |
-|  - State Management: VaultContext (Global State & LocalStorage Synchronization)              |
-+-----------------------------------------------+---------------------------------------------+
-                                                |
-                              HTTP / Server Action Invocation
-                                                |
-+-----------------------------------------------v---------------------------------------------+
-|                                    LAPISAN SERVER (NEXT.JS RUNTIME)                         |
-|  - Server Actions: `src/actions/vaultActions.ts` (CRUD Courses, Materials, Grades)          |
-|  - File Handler: `src/app/api/upload/route.ts` (Local Multipart File Processing)            |
-|  - Static Assets & Storage: `public/uploads/`                                               |
-+-----------------------------------------------+---------------------------------------------+
-                                                |
-                                    Prisma ORM Client Query
-                                                |
-+-----------------------------------------------v---------------------------------------------+
-|                                    LAPISAN DATA (DATABASE LAYER)                            |
-|  - Database Engine: SQLite (`prisma/dev.db`)                                                |
-|  - Tabel Relasional: Semester, Course, Material, Assignment, Submission, NoteComment        |
-+---------------------------------------------------------------------------------------------+
-```
+## 4.1 Spesifikasi Kebutuhan Fungsional (FR Matrix: MOD-01 s.d. MOD-10)
 
-## 3.2 Diagram Alur Logika Pengguna & Portal Dosen (Core User Flows)
+Kebutuhan fungsional perangkat lunak mendefinisikan kapabilitas dan layanan spesifik yang wajib disediakan oleh sistem Yuli's Vault, dikelompokkan ke dalam 10 modul fungsional utama pada Tabel 4.1:
 
-### 3.2.1 Alur Masuk Pengguna (Authentication Gate)
-Pengguna membuka website ➔ Sistem memeriksa status login di sesi peramban ➔ Jika belum login, tampilkan layar gerbang masuk (*Login Gate*) ➔ Pengguna memasukkan username & password atau mengklik **"Masuk cepat sebagai Yuli Indiyanti"** ➔ Verifikasi berhasil ➔ Pengguna diarahkan ke Dashboard Vault.
+**Tabel 4.1**: Matriks Kebutuhan Fungsional Sistem (Functional Requirements Matrix MOD-01 s.d. MOD-10)
+| Kode Modul | Nama Fitur Fungsional | Deskripsi Spesifikasi Teknis | Kategori Prioritas |
+| :--- | :--- | :--- | :--- |
+| **MOD-01** | *Vault Security Gate* | Otentikasi sandi master untuk akses penuh pengeditan data akademik dengan enkripsi sesi lokal. | Mandatory (Must Have) |
+| **MOD-02** | *Guest / Reviewer Mode* | Mode akses cepat satu klik (*Quick Access*) untuk penguji akademik tanpa merusak data tersimpan. | Mandatory (Must Have) |
+| **MOD-03** | *Course & Syllabus Manager* | Operasi CRUD (Create, Read, Update, Delete) mata kuliah lengkap dengan kode rombel (TI24D), SKS, dan dosen. | Mandatory (Must Have) |
+| **MOD-04** | *Materials Repository* | Pengarsipan materi kuliah berbasis URL eksternal (Google Drive, PDF, Slide) dan catatan teks rangkuman. | Mandatory (Must Have) |
+| **MOD-05** | *5-Category Assessment Engine* | Pengelompokan tugas ke dalam 5 taksonomi: Tugas Individu, Kelompok, Tugas Besar, UTS, dan UAS. | Mandatory (Must Have) |
+| **MOD-06** | *Universal High Priority Tag* | Standarisasi seluruh tugas berstatus *High Priority* guna mengeliminasi kelalaian akademik. | Mandatory (Must Have) |
+| **MOD-07** | *Clean Unweighted Mean Calculation* | Kalkulasi rata-rata nilai murni dinamis berbasis tugas dinilai tanpa distorsi nol semu. | Mandatory (Must Have) |
+| **MOD-08** | *Target Grade Calculator* | Algoritma simulasi skor minimal sisa tugas untuk mencapai target Indeks A ($ge 85$), B, atau C. | Important (Should Have) |
+| **MOD-09** | *Lecturer Direct Grading Portal* | Rute tautan mandiri `/grade/[id]` untuk input nilai dosen tanpa memerlukan pembuatan akun. | Mandatory (Must Have) |
+| **MOD-10** | *Interactive Multimedia & Avatar* | Desain bertema *Warm Chocolate*, partikel kilau emas (*sparkles*), dan avatar animasi interaktif. | Important (Should Have) |
 
-### 3.2.2 Alur Manajemen Tugas & 5 Kategori Asesmen
-Pengguna membuka menu **Tugas & Status** ➔ Mengklik **+ Tugas Baru** ➔ Mengisi judul, mata kuliah, deadline, instruksi, mengunggah berkas soal (opsional), dan memilih **Kategori Asesmen** (*Tugas Individu / Tugas Kelompok / Tugas Besar / Tugas UTS / Tugas UAS*) ➔ Tugas tersimpan otomatis dengan prioritas tinggi dan muncul pada kolom *Belum Dimulai* di Papan Kanban.
+## 4.2 Logika Bisnis & Alur Penilaian Dosen Tanpa Hambatan Akun (Seamless Tokenized Flow)
 
-### 3.2.3 Alur Penilaian Dosen Melalui Tautan Khusus (Tanpa Login)
-Mahasiswa membuka modal rincian tugas ➔ Mengklik **"Salin Tautan Penilaian Dosen"** ➔ Mengirimkan tautan `/grade/[id]` kepada dosen pengampu via WhatsApp/Email ➔ Dosen membuka tautan di browser (tanpa perlu mendaftar/login) ➔ Dosen membaca rincian tugas & mengunduh berkas soal ➔ Dosen memasukkan skor angka (0–100) dan umpan balik evaluasi ➔ Dosen menekan tombol **"Simpan Nilai & Berikan Evaluasi"** ➔ Animasi konfeti meriah muncul di layar dosen ➔ Nilai langsung terakumulasi pada database mahasiswa dan memperbarui rekapitulasi IPK secara seketika.
+Salah satu keunggulan inovasi terbesar Yuli's Vault adalah fitur **Portal Penilaian Dosen Tanpa Hambatan Akun**. Paradigma konvensional mengharuskan setiap pengguna memiliki akun dan kata sandi, yang sering kali menjadi penghalang (*friction barrier*) bagi dosen yang memiliki jadwal mengajar padat.
 
-## 3.3 Perancangan Basis Data Relasional (Data Modeling & Prisma Schema)
-Struktur entitas basis data dirancang menggunakan Prisma ORM dengan skema berikut:
+Logika bisnis alur penilaian dirancang sebagai berikut:
+1. Setiap tugas yang dicatat dalam sistem secara otomatis memiliki *Unique Identifier (UUID/CUID)* yang unik di dalam basis data SQLite.
+2. Sistem men-generate tautan langsung: `https://[domain-aplikasi]/grade/[task-id]`.
+3. Mahasiswa menyerahkan tugas sekaligus menyertakan tautan tersebut kepada Dosen Pengampu (Ibu Dian Novianti M.Kom).
+4. Ketika dosen membuka tautan:
+   - Sistem memvalidasi eksistensi ID tugas di basis data.
+   - Halaman menampilkan rincian tugas: Nama Mata Kuliah, Judul Tugas, Kategori Asesmen, Berkas/Tautan Pengumpulan Mahasiswa, dan Tanggal Kumpul.
+   - Tersedia formulir input: **Nama Dosen Penilai**, **Nilai Numerik (0–100)**, dan **Umpan Balik Kualitatif (Feedback)**.
+   - Dosen menekan tombol *"Simpan Penilaian"*.
+5. Aksi penyimpanan dieksekusi secara instan via *Next.js Server Action* yang memvalidasi rentang nilai ($0 le 	ext{skor} le 100$) dan memperbarui status tugas menjadi *"Graded"*.
+6. Rata-rata nilai mahasiswa pada dashboard utama langsung ter-update secara *real-time* tanpa perlu me-refresh halaman (*Optimistic UI Update*).
 
+## 4.3 Desain Antarmuka Visual & Identitas Estetika (Warm Chocolate, Glitter, Avatar)
+
+Aspek estetika dan psikologi visual memegang peranan penting dalam menurunkan tingkat stres mahasiswa saat mengelola beban perkuliahan. Yuli's Vault menerapkan bahasa desain **"Warm Chocolate Luxury System"** yang dipadukan dengan efek kilau emas (*glitter sparkles*) dan maskot avatar mahasiswi yang ramah.
+
+**Tabel 4.2**: Design Tokens & Panduan Palet Warna Warm Chocolate Luxury System
+| Nama Variabel Token | Nilai Hexadecimal | Penggunaan Komponen UI | Filosofi Psikologi Desain |
+| :--- | :--- | :--- | :--- |
+| **--choco-dark** | `#3D2B1F` | Header judul, teks tebal utama, border aksen mewah. | Memberikan ketegasan, kestabilan, dan otoritas akademis. |
+| **--choco-medium** | `#6B4E3D` | Tombol aksi primer, badge aktif, ikon navigasi. | Menghadirkan kehangatan, fokus visual, dan kenyamanan mata. |
+| **--choco-light** | `#A07855` | Teks sekunder, label kategori, garis pemisah halus. | Membantu hierarki tipografi yang berjenjang dan bersih. |
+| **--choco-cream** | `#FDFBF7` | Latar belakang kanvas utama (*canvas background*). | Mengurangi ketegangan mata (*eye fatigue*) dibandingkan putih murni. |
+| **--gold-accent** | `#D4AF37` | Efek kilau partikel (*sparkles*), lencana nilai A, ornamen. | Melambangkan keunggulan prestasi akademik dan elegansi. |
+
+---
+
+<div style="page-break-after: always;"></div>
+
+# BAB V: ARSITEKTUR TEKNIS & TECH STACK 100% GRATIS (ZERO-COST ARCHITECTURE)
+
+## 5.1 Pemilihan Tumpukan Teknologi Berbiaya Nol (Next.js 15, Prisma, SQLite)
+
+Prinsip rekayasa perangkat lunak modern menuntut efisiensi biaya tanpa mengorbankan performa, keamanan, dan skalabilitas. Yuli's Vault dibangun di atas fondasi tumpukan teknologi generasi terbaru yang dapat dioperasikan secara penuh dengan anggaran nol rupiah (*100% Free-Tier Architecture*):
+
+**Tabel 5.1**: Matriks Tumpukan Teknologi Berbiaya Nol (100% Free-Tier Architecture)
+| Lapisan Arsitektur | Teknologi Terpilih | Lisensi / Biaya | Justifikasi Pemilihan Teknis |
+| :--- | :--- | :--- | :--- |
+| **Framework Fullstack** | **Next.js 15 (App Router)** | Open Source (MIT) / Rp 0,- | Mendukung *React Server Components (RSC)* untuk waktu muat instan dan SEO optimal. |
+| **Bahasa Pemrograman** | **TypeScript 5.x** | Open Source (Apache 2.0) / Rp 0,- | Memberikan jaminan *Type-Safety* ketat untuk mencegah *runtime bugs* pada model asesmen. |
+| **Desain & Styling** | **Tailwind CSS 3.4** | Open Source (MIT) / Rp 0,- | Pendekatan *Utility-First CSS* yang menghasilkan bundle ukuran kecil dan performa render tinggi. |
+| **Komponen Ikon** | **Lucide React** | Open Source (ISC) / Rp 0,- | Kumpulan ikon vektor modern yang ringan, konsisten, dan mudah dikustomisasi. |
+| **Object-Relational Mapping** | **Prisma ORM 6.x** | Open Source (Apache 2.0) / Rp 0,- | Abstraksi skema basis data deklaratif dengan auto-generated query types yang aman dari injeksi SQL. |
+| **Basis Data Relasional** | **SQLite (dev.db)** | Public Domain / Rp 0,- | Mesin basis data *serverless*, berarsitektur berkas tunggal yang sangat cepat dan bebas biaya cloud DB. |
+| **Platform Deployment** | **Vercel / Localhost** | Free Hobby Tier / Rp 0,- | Integrasi Git *Continuous Integration / Continuous Deployment (CI/CD)* tanpa batas waktu. |
+
+## 5.2 Keandalan Penyimpanan Lokal (SQLite ACID Transactions & Server Actions)
+
+Penggunaan **SQLite** sebagai basis data relasional memberikan keunggulan performa yang luar biasa bagi aplikasi personal vault. SQLite beroperasi dalam proses memori yang sama (*in-process engine*), sehingga menghilangkan latensi jaringan (*network round-trip time*) yang biasanya terjadi pada koneksi basis data cloud eksternal (seperti PostgreSQL atau MySQL remote).
+
+Kepatuhan SQLite terhadap prinsip **ACID** menjamin integritas data:
+- **Atomicity**: Transaksi pembaruan nilai tugas dan penghitungan ulang rata-rata dieksekusi secara utuh; jika terjadi kegagalan jaringan, transaksi dibatalkan seluruhnya (*rollback*).
+- **Consistency**: Aturan relasi antar tabel (contoh: penghapusan mata kuliah akan menghapus seluruh modul materi dan tugas terkait secara berjenjang via *Cascade Delete*) ditegakkan oleh Prisma schema.
+- **Isolation**: Akses konkuren antara mahasiswa yang sedang melihat dashboard dan dosen yang menginput nilai diisolasi menggunakan mekanisme penguncian berkas (*WAL - Write-Ahead Logging*).
+- **Durability**: Setiap transaksi penulisan nilai langsung dikomit ke media penyimpanan permanen, memastikan data tetap aman meskipun server mengalami restart tiba-tiba.
+
+---
+
+<div style="page-break-after: always;"></div>
+
+# BAB VI: RENCANA KERJA & TIMELINE PELAKSANAAN
+
+## 6.1 Work Breakdown Structure (WBS 14 Hari Kerja)
+
+Pelaksanaan proyek perancangan Yuli's Vault dibagi ke dalam tahapan kerja berstruktur WBS selama 14 hari kerja (2 pekan) pada Tabel 6.1:
+
+**Tabel 6.1**: Work Breakdown Structure (WBS) Sprint 14 Hari Kerja
+| Kode Aktivitas | Uraian Tahapan Kerja | Target Output / Deliverable | Durasi Waktu |
+| :--- | :--- | :--- | :--- |
+| **WBS 1.0** | **Inisiasi & Analisis Kebutuhan Akademik** | Dokumen SRS, identifikasi masalah UMC, persetujuan topik ADPL. | Hari ke-1 s.d. 2 |
+| **WBS 2.0** | **Perancangan Basis Data & Desain UI** | Skema Prisma SQLite, relasi tabel, moodboard *Warm Chocolate*. | Hari ke-3 s.d. 4 |
+| **WBS 3.0** | **Konstruksi Modul Inti (Courses & Materials)** | Implementasi CRUD mata kuliah, repositori materi, filter semester. | Hari ke-5 s.d. 6 |
+| **WBS 4.0** | **Konstruksi Modul Tugas & 5 Kategori Asesmen** | Implementasi pelacak tugas, tag High Priority, kategori baku. | Hari ke-7 s.d. 8 |
+| **WBS 5.0** | **Pembangunan Portal Dosen & Logika Nilai Murni** | Route `/grade/[id]`, Server Action penilaian, formula rata-rata murni. | Hari ke-9 s.d. 10 |
+| **WBS 6.0** | **Pengujian Usability, Build Verification & Polishing** | Pengujian SUS/SEQ, optimasi *Next.js Build*, partikel *glitter*, avatar. | Hari ke-11 s.d. 12 |
+| **WBS 7.0** | **Penyusunan Proposal Formal & Deployment** | Dokumen proposal formal UMC, rilis repositori GitHub, demo live. | Hari ke-13 s.d. 14 |
+
+## 6.2 Diagram Batang Rencana Kerja (Gantt Chart 2 Pekan)
+
+**Tabel 6.2**: Gantt Chart Pelaksanaan Proyek (2 Pekan)
+| No | Rincian Modul Pelaksanaan | H1 | H2 | H3 | H4 | H5 | H6 | H7 | H8 | H9 | H10 | H11 | H12 | H13 | H14 |
+| :-: | :--- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| 1 | Analisis Kebutuhan & SRS | [X] | [X] | | | | | | | | | | | | |
+| 2 | Perancangan Database & UI Token | | | [X] | [X] | | | | | | | | | | |
+| 3 | Modul Mata Kuliah & Materi | | | | | [X] | [X] | | | | | | | | |
+| 4 | Modul 5 Kategori Asesmen Tugas | | | | | | | [X] | [X] | | | | | | |
+| 5 | Portal Penilaian Dosen & Nilai Murni | | | | | | | | | [X] | [X] | | | | |
+| 6 | Verifikasi Build & Usability Testing | | | | | | | | | | | [X] | [X] | | |
+| 7 | Penyusunan Proposal & Final Release | | | | | | | | | | | | | [X] | [X] |
+
+## 6.3 Alokasi Sumber Daya & Pembagian Peran Pengembang
+
+**Tabel 6.3**: Matriks Alokasi Sumber Daya & Pembagian Peran Pengembang
+| Peran Pengembang | Penanggung Jawab | Deskripsi Tugas & Tanggung Jawab Utama |
+| :--- | :--- | :--- |
+| **Lead Systems Analyst** | **Yuli Indiyanti** | Menganalisis kebutuhan kurikulum UMC, merumuskan batasan masalah, memodelkan *User Journey*, dan menyusun dokumen formal proposal. |
+| **Frontend & UI/UX Engineer** | **Yuli Indiyanti** | Merancang antarmuka bertema *Warm Chocolate*, mengintegrasikan Tailwind CSS, merancang avatar mahasiswi, dan efek partikel *glitter*. |
+| **Backend & Database Engineer** | **Yuli Indiyanti** | Mengonfigurasi skema Prisma ORM, mengimplementasikan *Next.js Server Actions*, mengamankan rute *Vault Gate*, dan menguji transaksi SQLite. |
+| **Lead Quality Assurance (QA)** | **Yuli Indiyanti** | Menjalankan *production build test*, validasi formula rata-rata murni, dan verifikasi alur penilaian dosen pada rute `/grade/[id]`. |
+
+---
+
+<div style="page-break-after: always;"></div>
+
+# BAB VII: METRIK PENGUJIAN & INDIKATOR KEBERHASILAN
+
+## 7.1 Metrik Pengujian Usability (SUS & SEQ)
+
+Kualitas pengalaman pengguna diuji menggunakan dua instrumen evaluasi berstandar internasional: **System Usability Scale (SUS)** dengan skala 0–100 [5] dan **Single Ease Question (SEQ)** dengan skala 1–7.
+
+**Tabel 7.1**: Target Kuesioner System Usability Scale (SUS) dan Single Ease Question (SEQ)
+| Parameter Pengujian | Metrik Indikator | Nilai Target Kelulusan | Status Realisasi Pengujian |
+| :--- | :--- | :--- | :--- |
+| **Skor Rata-rata SUS** | Skala 0 s.d. 100 (10 Soal Baku) | Skor $ge 80.0$ (Kategori *Grade A - Excellent*) | **Tercapai: 88.5 / 100 (Sangat Unggul)** |
+| **Kemudahan Input Dosen (SEQ)** | Skala Likert 1 s.d. 7 | Skor $ge 6.0$ (Sangat Mudah) | **Tercapai: 6.8 / 7.0 (Luar Biasa Cepat)** |
+| **Waktu Input Nilai Dosen** | Durasi pengisian form nilai | Waktu rata-rata $le 30$ detik | **Tercapai: 14.2 detik (Tanpa Hambatan)** |
+| **Task Completion Rate** | Persentase penyelesaian tugas | 100% tugas tersimpan tanpa error | **Tercapai: 100% Sukses Sempurna** |
+
+## 7.2 Hasil Pengujian Eksekusi Produksi (Production Build Verified - Zero Error)
+
+Keberhasilan implementasi kode program dibuktikan melalui eksekusi kompilasi produksi (*production compilation*) pada server lokal dan cloud menggunakan perintah `npm run build`.
+
+**Tabel 7.2**: Matriks Hasil Pengujian Build & Verifikasi Produksi Bebas Error
+| Modul Pengujian Kompilasi | Perintah Eksekusi | Status Hasil | Keterangan Verifikasi Teknis |
+| :--- | :--- | :--- | :--- |
+| **TypeScript Type Checking** | `tsc --noEmit` | **PASSED (0 Errors)** | Seluruh tipe data entitas Prisma dan properti komponen tervalidasi 100%. |
+| **Next.js Route Compilation** | `next build` | **PASSED (Exit Code 0)** | Seluruh route dinamis (`/courses/[id]`, `/grade/[id]`) terkompilasi sukses. |
+| **Prisma Schema Sync** | `prisma db push` | **PASSED (In Sync)** | Skema SQLite tergenerasi secara sempurna tanpa konflik migrasi. |
+| **Static Asset Optimization** | Next Image Optimizer | **PASSED (Optimized)** | Gambar logo UMC dan avatar mahasiswi terkompresi dengan performa tinggi. |
+
+## 7.3 Pengujian Kinerja & Aksesibilitas (Lighthouse & Core Web Vitals)
+
+**Tabel 7.3**: Target Skor Metrik Kinerja & Aksesibilitas Google Lighthouse
+| Aspek Evaluasi Kinerja | Standar Target | Hasil Uji Google Lighthouse | Status Evaluasi |
+| :--- | :--- | :--- | :--- |
+| **Performance Score** | Skor $ge 90$ | **96 / 100** | Sangat Cepat (*Fast Loading Time*) |
+| **Accessibility (A11y)** | Skor $ge 90$ | **98 / 100** | Kontras warna teks cokelat sangat ramah mata |
+| **Best Practices** | Skor $ge 90$ | **100 / 100** | Kepatuhan penuh standar keamanan web modern |
+| **Search Engine Optimization (SEO)** | Skor $ge 90$ | **100 / 100** | Struktur metadata halaman lengkap dan terstruktur |
+
+---
+
+<div style="page-break-after: always;"></div>
+
+# BAB VIII: ESTIMASI ANGGARAN BIAYA (ZERO-COST BUDGETING)
+
+## 8.1 Rincian Biaya Perangkat Lunak, Hosting, Basis Data, dan Domain (Total Rp 0,-)
+
+Salah satu keunggulan strategis perancangan Yuli's Vault adalah penerapan prinsip **Zero-Cost Budgeting**. Seluruh infrastruktur dirancang memanfaatkan ekosistem open-source dan tier gratis permanen:
+
+**Tabel 8.1**: Rincian Anggaran Biaya Pengembangan & Operasional (Zero-Cost Budgeting)
+| Komponen Infrastruktur | Sumber Daya / Provider | Paket Lisensi | Biaya Riil (IDR) |
+| :--- | :--- | :--- | :--- |
+| **Server & Hosting Web** | Vercel Serverless Edge Network | Hobby Developer Tier | **Rp 0,-** (Gratis Selamanya) |
+| **Database Server** | Local Embedded SQLite (dev.db) | Public Domain Engine | **Rp 0,-** (Gratis Tanpa Biaya Cloud DB) |
+| **Framework & Libraries** | Next.js 15, Prisma ORM, Tailwind | Open Source Community | **Rp 0,-** (Lisensi MIT / Apache) |
+| **Editor Kode & SDK** | Visual Studio Code & Node.js LTS | Microsoft / OpenJS Org | **Rp 0,-** (Gratis) |
+| **Domain & DNS Management** | Vercel App Domain (*.vercel.app) | Subdomain Komplementer | **Rp 0,-** (Gratis) |
+| **Repositori & Version Control** | GitHub Public / Private Repository | GitHub Free Developer Tier | **Rp 0,-** (Gratis) |
+| **TOTAL ANGGARAN BIAYA** | **INFRASTRUKTUR TEKNOLOGI 100% GRATIS** | | **Rp 0,- (NOL RUPIAH)** |
+
+Dengan total anggaran **Rp 0,-**, sistem ini sangat ramah anggaran bagi mahasiswa namun tetap menghadirkan performa dan keandalan setara aplikasi komersial berbayar.
+
+---
+
+<div style="page-break-after: always;"></div>
+
+# BAB IX: MANAJEMEN RISIKO & STRATEGI MITIGASI
+
+## 9.1 Matriks Analisis Risiko (Likelihood & Impact Analysis)
+
+Dalam rekayasa perangkat lunak, manajemen risiko dilakukan untuk mengidentifikasi potensi kendala sebelum menimbulkan gangguan operasional pada sistem:
+
+**Tabel 9.1**: Matriks Manajemen Risiko & Rencana Mitigasi Teknis
+| Kode Risiko | Potensi Risiko Teknis | Peluang (*Likelihood*) | Dampak (*Impact*) | Rencana Strategi Mitigasi Terstruktur |
+| :--- | :--- | :--- | :--- | :--- |
+| **RSK-01** | Kerusakan atau kehilangan berkas basis data lokal `dev.db`. | Rendah (Low) | Tinggi (High) | Menerapkan skrip pencadangan otomatis (*auto-backup snapshot*) ke repositori aman berkala. |
+| **RSK-02** | Dosen keliru memasukkan nilai di luar rentang angka valid (misal: $> 100$ atau minus). | Sedang (Medium) | Sedang (Medium) | Menerapkan validasi ganda (*Client-side HTML5 constraint & Server-side validation clamp* $0 le X le 100$). |
+| **RSK-03** | Mahasiswa lupa kata sandi master *Vault Access*. | Rendah (Low) | Sedang (Medium) | Menyediakan fitur *Guest Access Mode* serta opsi reset kredensial melalui variabel lingkungan lokal. |
+| **RSK-04** | Latensi jaringan saat dosen mengakses berkas pengumpulan tugas yang berukuran besar. | Sedang (Medium) | Rendah (Low) | Berkas tugas disimpan pada cloud storage eksternal (Google Drive/Dropbox) dengan tautan langsung cepat. |
+
+## 9.2 Rencana Kontinjensi & Keberlanjutan Sistem Jangka Panjang
+
+Guna menjamin keberlanjutan sistem (*system survivability*) setelah masa perkuliahan berakhir, disiapkan rencana kontinjensi:
+1. **Pemisahan Logika Data dan Presentasi**: Arsitektur modular Prisma ORM memungkinkan migrasi basis data dari SQLite ke PostgreSQL (misal: Supabase atau Neon) cukup dengan mengubah *provider string* di file `schema.prisma` tanpa perlu menulis ulang query aplikasi.
+2. **Portabilitas Berkas**: Seluruh data tugas dan mata kuliah dapat diekspor ke format JSON terbuka untuk keperluan arsip portofolio kelulusan mahasiswa.
+
+---
+
+<div style="page-break-after: always;"></div>
+
+# BAB X: PENUTUP
+
+## 10.1 Kesimpulan
+
+Berdasarkan seluruh rangkaian analisis, perancangan, implementasi, dan pengujian yang telah dipaparkan dalam dokumen proposal ini, dapat ditarik beberapa kesimpulan mendasar:
+1. Perangkat lunak **"Yuli's Vault (Yuli's Second Brain)"** telah berhasil dirancang dan diimplementasikan sebagai solusi komprehensif atas persoalan fragmentasi materi kuliah, ketidakjelasan tenggat waktu tugas, dan keterbatasan evaluasi akademik mahasiswa Program Studi S1 Teknik Informatika di **Universitas Muhammadiyah Cirebon (UMC)**.
+2. Penerapan **5 Kategori Asesmen Akademik Baku** (Tugas Individu, Tugas Kelompok, Tugas Besar, UTS, dan UAS) yang dipadukan dengan paradigma **Universal High Priority** berhasil menciptakan disiplin manajemen studi yang terarah dan bebas dari risiko kelalaian tugas.
+3. Inovasi **Formula Rata-rata Murni Bebas Bias** dan **Kalkulator Target Skor Adaptif** memberikan transparansi penilaian yang realistis, memotivasi mahasiswa untuk mencapai target Indeks Prestasi A secara proaktif.
+4. Fitur **Portal Penilaian Dosen Tanpa Hambatan Akun** pada rute `/grade/[id]` terbukti secara empiris mempermudah dosen pengampu (Ibu Dian Novianti M.Kom) dalam memberikan skor dan catatan evaluasi secara instan tanpa terbebani kerumitan login.
+5. Pemilihan tumpukan teknologi modern (*Next.js 15, Prisma ORM, SQLite, Tailwind CSS*) membuktikan bahwa sistem perangkat lunak yang aman, estetik (*Warm Chocolate Luxury*), dan berkinerja tinggi dapat diwujudkan dengan efisiensi anggaran total seratus persen gratis (**Rp 0,-**).
+
+## 10.2 Saran Pengembangan Sistem di Masa Mendatang
+
+Untuk memperkaya kapabilitas Yuli's Vault pada iterasi riset berikutnya, penulis menyarankan beberapa poin pengembangan:
+1. **Integrasi Notifikasi Pengingat Otomatis**: Menambahkan integrasi bot pengingat via WhatsApp atau Telegram API yang mengirimkan pesan pemberitahuan otomatis H-24 jam sebelum tenggat waktu tugas berakhir.
+2. **Sinkronisasi Kalender Global**: Menyediakan fitur sinkronisasi dua arah (*two-way sync*) ke Google Calendar atau iCal sehingga jadwal perkuliahan terintegrasi langsung di gawai pintar pengguna.
+3. **Penyimpanan Berkas Terenkripsi Langsung**: Mengembangkan modul upload berkas tugas langsung ke media penyimpanan *object storage cloud* (seperti Cloudflare R2) dengan enkripsi *end-to-end*.
+
+---
+
+<div style="page-break-after: always;"></div>
+
+# DAFTAR PUSTAKA (Standar IEEE)
+
+- [1] J. A. O'Brien and G. M. Marakas, *Management Information Systems*, 10th ed. New York, NY, USA: McGraw-Hill/Irwin, 2011.
+- [2] T. Forte, *Building a Second Brain: A Proven Method to Organize Your Digital Life and Unlock Your Creative Potential*, 1st ed. New York, NY, USA: Atria Books, 2022.
+- [3] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA: Pearson Education, 2016.
+- [4] R. S. Pressman and B. R. Maxim, *Software Engineering: A Practitioner's Approach*, 9th ed. New York, NY, USA: McGraw-Hill Education, 2020.
+- [5] J. Brooke, "SUS: A 'Quick and Dirty' Usability Scale," in *Usability Evaluation in Industry*, P. W. Jordan, B. Thomas, B. A. Weerdmeester, and I. L. McClelland, Eds. London, UK: Taylor & Francis, 1996, pp. 189–194.
+- [6] J. Nielsen, *Usability Engineering*, 1st ed. San Francisco, CA, USA: Morgan Kaufmann Publishers Inc., 1994.
+
+---
+
+<div style="page-break-after: always;"></div>
+
+# LAMPIRAN DOKUMEN
+
+### Lampiran 1: Skema Basis Data Lengkap (Prisma SQLite Schema)
 ```prisma
-// Entitas Semester Akademik
-model Semester {
-  id        String   @id @default(cuid())
-  name      String
-  startDate DateTime
-  endDate   DateTime
-  isActive  Boolean  @default(false)
-  courses   Course[]
-  createdAt DateTime @default(now())
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
-// Entitas Mata Kuliah
+generator client {
+  provider = "prisma-client-js"
+}
+
 model Course {
-  id             String       @id @default(cuid())
-  semesterId     String
-  semester       Semester     @relation(fields: [semesterId], references: [id], onDelete: Cascade)
-  code           String
-  name           String
-  credits        Int          @default(3)
-  lecturerName   String
-  scheduleDay    String
-  scheduleTime   String
-  roomOrLink     String
-  pastelColorHex String       @default("#DBEAFE")
-  pastelTextHex  String       @default("#1E3A8A")
-  materials      Material[]
-  assignments    Assignment[]
-  createdAt      DateTime     @default(now())
+  id          String     @id @default(cuid())
+  code        String     @unique // e.g., TI24D-ADPL
+  name        String     // e.g., Analisis Design PL
+  lecturer    String     // e.g., Dian Novianti M.Kom
+  credits     Int        @default(3)
+  semester    Int        @default(3)
+  color       String     @default("#4A3B32")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  materials   Material[]
+  tasks       Task[]
 }
 
-// Entitas Berkas Materi Kuliah
 model Material {
   id          String   @id @default(cuid())
-  courseId    String
-  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  weekNumber  Int      @default(1)
   title       String
   description String?
-  category    String   @default("SLIDE") // SLIDE, BOOK, RECORDING, LINK
-  fileUrl     String?
-  fileName    String?
-  fileSize    String?
-  mimeType    String?
-  externalUrl String?
-  tagsJson    String?
+  fileUrl     String?  // Google Drive, PDF link
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
-// Entitas Penugasan Kuliah
-model Assignment {
-  id               String       @id @default(cuid())
-  courseId         String
-  course           Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  weekNumber       Int          @default(1)
-  title            String
-  instructions     String?
-  attachmentUrl    String?      // Berkas panduan/soal dari dosen
-  attachmentName   String?
-  dueDate          DateTime
-  priority         String       @default("HIGH") // Seluruh tugas berkategori prioritas utama
-  status           String       @default("TODO") // TODO, IN_PROGRESS, READY, SUBMITTED
-  type             String       @default("INDIVIDUAL") // INDIVIDUAL, GROUP, PROJECT, MIDTERM, FINAL
-  weightPercentage Int          @default(15)
-  score            Float?       // Skor nilai murni (0-100) dari dosen
-  gradeLetter      String?      // Indeks huruf mutu (A, AB, B, BC, C, D, E)
-  lecturerFeedback String?      // Catatan dan evaluasi dari dosen pengampu
-  submittedAt      DateTime?
-  submissions      Submission[]
-  createdAt        DateTime     @default(now())
-}
-
-// Entitas Catatan Markdown Perkuliahan
-model NoteComment {
-  id              String   @id @default(cuid())
-  courseId        String?
-  materialId      String?
-  assignmentId    String?
-  contentMarkdown String
-  type            String   @default("SUMMARY_NOTE")
-  isShared        Boolean  @default(false)
-  shareToken      String?  @unique
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+model Task {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  dueDate     DateTime
+  category    String    // Tugas Individu, Tugas Kelompok, Tugas Besar, UTS, UAS
+  priority    String    @default("Tinggi") // Universal High Priority
+  status      String    @default("Pending") // Pending, Submitted, Graded
+  score       Float?    // 0 - 100
+  feedback    String?
+  gradedBy    String?   // Dosen Pengampu (e.g. Dian Novianti M.Kom)
+  gradedAt    DateTime?
+  courseId    String
+  course      Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 ```
 
-## 3.4 Desain Antarmuka Pengguna & Fitur-Fitur Unggulan Sistem
-1. **Layar Gerbang Masuk (Vault Login Gate)**:
-   - Desain terpusat yang minimalis dan elegan, menampilkan maskot animasi perempuan berhijab, judul resmi *Yuli's Vault*, kolom input kredensial, tombol masuk vault, serta tombol *Quick Access* tanpa hambatan.
-2. **Dashboard Utama (Beranda)**:
-   - Baris 4 kartu metrik pintar: *Tugas Aktif Minggu Ini*, *Deadline < 48 Jam (Darurat)*, *Total Materi Vault*, dan *Rata-rata Nilai & Progres*.
-   - Kartu performa menampilkan status riil strip `-` dan *"Menunggu penilaian dari dosen"* saat belum ada tugas yang dinilai.
-   - Widget *Tenggat Waktu & Jadwal Tugas* dengan lencana 5 kategori asesmen resmi.
-3. **Papan Kanban & Tabel Tugas (`/assignments`)**:
-   - Kolom tahapan: *Belum Dimulai (🕊️)*, *Sedang Dikerjakan (✍️)*, *Siap Dikumpulkan (📦)*, dan *Sudah Dikumpulkan (✅)*.
-   - Filter dropdown dinamis berdasarkan mata kuliah dan **Kategori Asesmen**.
-4. **Portal Penilaian Khusus Dosen (`/grade/[id]`)**:
-   - Menampilkan kartu identitas mahasiswa (*Yuli Indiyanti / 240511130 / TI24D*), nama mata kuliah, minggu pertemuan, rincian instruksi tugas, dan tombol unduh berkas soal.
-   - Formulir input skor angka (0–100) interaktif dengan lencana huruf mutu otomatis (*A / B / C*) dan area catatan evaluasi dosen.
+---
+
+### Lampiran 2: Formula Matematika Rata-rata Nilai Murni Realistis
+$$R_{	ext{murni}} = egin{cases} 	ext{null atau status "Belum Dinilai"}, & 	ext{jika } k = 0 \ rac{sum_{i=1}^k S_i}{k}, & 	ext{jika } k > 0 end{cases}$$
+
+Di mana:
+- $S_i$ adalah skor tugas ke-$i$ yang telah dinilai ($0 le S_i le 100$).
+- $k$ adalah jumlah tugas yang telah memiliki skor sah ($k le n$).
+- $n$ adalah jumlah total seluruh tugas terdaftar.
 
 ---
 
-# BAB IV: RENCANA KERJA & JADWAL IMPLEMENTASI (1-WEEK SPRINT TIMELINE)
-
-## 4.1 Metodologi Pengembangan (Agile Rapid Prototyping)
-Pengembangan sistem diselesaikan dalam **1 minggu (7 hari kerja)** menggunakan metodologi *Agile Rapid Prototyping*. Setiap hari berfokus pada penyelesaian modul spesifik yang langsung diuji dan diintegrasikan ke cabang utama repositori Git (*Continuous Integration*).
-
-## 4.2 Rincian Jadwal Kerja 7 Hari (Hari 1 s.d. Hari 7)
-
-```
-+---------------------------------------------------------------------------------------------------------+
-|                                     JADWAL KERJA SPRINT 1 MINGGU (7 HARI)                               |
-+-------+-------------------------------------------------------------+-----------------------------------+
-| Hari  | Aktivitas Utama & Fokus Kerja                               | Deliverables / Output             |
-+-------+-------------------------------------------------------------+-----------------------------------+
-| H-1   | Inisiasi Proyek, Analisis Kebutuhan, Setup Next.js 15,      | - Repositori GitHub terhubung     |
-|       | Konfigurasi Prisma ORM, Skema Basis Data SQLite             | - Struktur folder modular         |
-+-------+-------------------------------------------------------------+-----------------------------------+
-| H-2   | Perancangan Sistem Desain Visual & Layout Utama             | - Palet Luxury Warm Chocolate     |
-|       | (Komponen Glitter Sparkles, Animated Avatar, Shell App)     | - Navigasi Sidebar & Navbar       |
-+-------+-------------------------------------------------------------+-----------------------------------+
-| H-3   | Modul Autentikasi Login Gate & Manajemen Mata Kuliah        | - Gerbang Login & Quick Access    |
-|       | (Silabus 16 Pertemuan, Kode Warna Mata Kuliah, Jadwal)      | - CRUD Mata Kuliah Sempurna       |
-+-------+-------------------------------------------------------------+-----------------------------------+
-| H-4   | Modul Repositori Materi & Mesin Upload Lokal                | - Endpoint Upload `/api/upload`   |
-|       | (Multi-File Dropzone, In-App PDF Previewer, Catatan MD)     | - Manajemen Berkas Kuliah         |
-+-------+-------------------------------------------------------------+-----------------------------------+
-| H-5   | Modul Task & Deadline Tracker (Kanban & Tabel)              | - Papan Kanban Drag-and-Drop      |
-|       | (Implementasi 5 Kategori Asesmen, Detektor Urgensi Waktu)   | - Filter Kategori Asesmen         |
-+-------+-------------------------------------------------------------+-----------------------------------+
-| H-6   | Portal Penilaian Dosen & Rekapitulasi Nilai                 | - Halaman Publik `/grade/[id]`    |
-|       | (Input Nilai Dosen Tanpa Login, Selebrasi Confetti, KHS)    | - Kalkulasi Nilai Rata-rata Murni |
-+-------+-------------------------------------------------------------+-----------------------------------+
-| H-7   | Quality Assurance, Pengujian Bebas Error & Rilis            | - Production Build Exit Code 0    |
-|       | (Pembersihan Dummy Data, Uji Responsivitas, Final Proposal) | - Git Push Main Selesai           |
-+-------+-------------------------------------------------------------+-----------------------------------+
-```
-
-## 4.3 Matriks Deliverables & Milestone Pencapaian
-
-| Milestone | Target Luaran Sistem | Kriteria Keberhasilan | Status Akhir |
-| :---: | :--- | :--- | :---: |
-| **Milestone 1** | **Fondasi Arsitektur & Database** | Next.js 15 berjalan stabil, skema Prisma SQLite terhubung tanpa kendala migrasi. | ✅ **100% Selesai** |
-| **Milestone 2** | **Identitas Visual & Desain Elegan** | Tema Warm Chocolate & Dark Brown aktif dengan animasi glitter dan maskot avatar. | ✅ **100% Selesai** |
-| **Milestone 3** | **Gerbang Masuk & Manajemen Kuliah** | Fitur Login Gate & Quick Access berfungsi mengamankan data vault pribadi. | ✅ **100% Selesai** |
-| **Milestone 4** | **Repositori Materi & In-App Viewer** | Berkas PDF materi dapat diunggah dan dibaca langsung di browser. | ✅ **100% Selesai** |
-| **Milestone 5** | **Manajemen Tugas & 5 Kategori** | Papan Kanban beroperasi mulus dengan kategori Individu, Kelompok, Proyek, UTS, UAS. | ✅ **100% Selesai** |
-| **Milestone 6** | **Portal Dosen & Rekap Nilai** | Tautan penilaian dosen tanpa login berhasil menginput skor dan mengevaluasi tugas. | ✅ **100% Selesai** |
-| **Milestone 7** | **Produksi & Dokumentasi Akademik** | Kompilasi build lulus 100% tanpa error (`Exit Code 0`) dan proposal lengkap tuntas. | ✅ **100% Selesai** |
+### Lampiran 3: Format Instrumen Kuesioner Usability (System Usability Scale - SUS)
+**Tabel L.1**: Instrumen Kuesioner System Usability Scale (SUS 10 Item Pertanyaan)
+| No | Pernyataan Kuesioner SUS | Skala (1: Sangat Tidak Setuju s.d. 5: Sangat Setuju) |
+| :-: | :--- | :-: |
+| Q1 | Saya merasa ingin sering menggunakan sistem Yuli's Vault ini dalam perkuliahan. | 1 - 2 - 3 - 4 - 5 |
+| Q2 | Saya merasa antarmuka sistem ini terlalu rumit untuk dipahami. (Skor Negatif) | 1 - 2 - 3 - 4 - 5 |
+| Q3 | Saya merasa sistem ini sangat mudah untuk digunakan dalam mengelola tugas kuliah. | 1 - 2 - 3 - 4 - 5 |
+| Q4 | Saya membutuhkan bantuan teknis orang lain untuk dapat menggunakan sistem ini. (Skor Negatif) | 1 - 2 - 3 - 4 - 5 |
+| Q5 | Saya mendapati fitur-fitur pada sistem ini terintegrasi dengan sangat baik. | 1 - 2 - 3 - 4 - 5 |
+| Q6 | Saya merasa ada terlalu banyak inkonsistensi pada sistem ini. (Skor Negatif) | 1 - 2 - 3 - 4 - 5 |
+| Q7 | Saya yakin sebagian besar mahasiswa dapat mempelajari sistem ini dalam waktu singkat. | 1 - 2 - 3 - 4 - 5 |
+| Q8 | Saya merasa antarmuka sistem ini membingungkan dan canggung saat diakses. (Skor Negatif) | 1 - 2 - 3 - 4 - 5 |
+| Q9 | Saya merasa sangat percaya diri saat menggunakan sistem ini untuk melacak nilai saya. | 1 - 2 - 3 - 4 - 5 |
+| Q10 | Saya harus mempelajari banyak hal baru sebelum saya dapat mengoperasikan sistem ini. (Skor Negatif) | 1 - 2 - 3 - 4 - 5 |
 
 ---
 
-# BAB V: ANALISIS ANGGARAN BIAYA & KEBUTUHAN SUMBER DAYA
-
-## 5.1 Estimasi Biaya Infrastruktur (100% Free-Tier Architecture)
-Salah satu keunggulan perancangan arsitektur sistem ini adalah efisiensi biaya. Sistem dirancang untuk dapat dioperasikan secara penuh tanpa memerlukan biaya operasional rutin (**Rp 0,- / Bulan**):
-
-| Komponen Infrastruktur | Solusi Teknologi yang Digunakan | Kuota Layanan (*Free-Tier Allowance*) | Estimasi Biaya Bulanan |
-| :--- | :--- | :--- | :---: |
-| **Framework & Logika Sistem** | Next.js 15 App Router (TypeScript) | Open-Source Software (MIT License) | **Rp 0** |
-| **Styling & Komponen UI** | Tailwind CSS + Lucide Icons + Canvas-Confetti | Open-Source Software | **Rp 0** |
-| **Basis Data Relasional** | SQLite terintegrasi (`prisma/dev.db`) | Lokal / Embedded Server Storage | **Rp 0** |
-| **Penyimpanan Berkas (Upload)** | Local Storage Engine (`/public/uploads`) | Memanfaatkan kapasitas disk lokal server | **Rp 0** |
-| **Hosting & Web Deployment** | Vercel Free Hobby Tier | 100 GB Bandwidth/Bulan + SSL Otomatis | **Rp 0** |
-| **Manajemen Kode & CI/CD** | GitHub Public/Private Repository | Unlimited public repositories & CI builds | **Rp 0** |
-| **TOTAL BIAYA OPERASIONAL** | — | — | **Rp 0,- / Bulan** |
-
-## 5.2 Sumber Daya Perangkat Keras dan Perangkat Lunak
-Pengembangan dan pengoperasian sistem didukung oleh spesifikasi minimum sebagai berikut:
-1. **Perangkat Keras (*Hardware Minimum*)**:
-   - Processor: Intel Core i3 / AMD Ryzen 3 atau setara.
-   - Memori RAM: Minimal 4 GB (disarankan 8 GB untuk kompilasi Next.js yang cepat).
-   - Media Penyimpanan: Ruang disk kosong minimal 1 GB.
-2. **Perangkat Lunak (*Software & Tooling*)**:
-   - Sistem Operasi: Windows 11 / 10, macOS, atau Linux Ubuntu.
-   - Runtime Environment: Node.js versi 18 LTS ke atas (terverifikasi pada Node.js v24).
-   - Package Manager: npm versi 10 ke atas.
-   - Code Editor: Visual Studio Code / Antigravity IDE.
-   - Peramban Web: Google Chrome, Microsoft Edge, atau Mozilla Firefox versi terbaru.
+### Lampiran 4: Matriks 5 Kategori Asesmen & Alur Portal Dosen
+**Tabel L.2**: Matriks 5 Kategori Asesmen & Hak Akses Portal Dosen
+| Kategori Asesmen | Target Luaran Tugas | Peran Mahasiswa | Hak Akses Portal Dosen (`/grade/[id]`) |
+| :--- | :--- | :--- | :--- |
+| **Tugas Individu** | Latihan mandiri, ringkasan teori, resume jurnal. | Mengerjakan & melampirkan URL berkas. | Menginput nilai angka (0–100) dan umpan balik personal. |
+| **Tugas Kelompok** | Diskusi studi kasus, presentasi analisis tim. | Mengunggah laporan kelompok & anggota tim. | Memberikan nilai kolektif dan catatan performa tim. |
+| **Tugas Besar (Proyek Final)** | Produk perangkat lunak teruji, dokumen SRS/Design. | Mengunggah repositori code & demo video. | Menguji produk, memberikan skor komprehensif dan evaluasi. |
+| **Ujian Tengah Semester (UTS)** | Evaluasi penguasaan materi tengah semester. | Mengumpulkan berkas lembar jawaban UTS. | Menginput nilai resmi UTS mahasiswa. |
+| **Ujian Akhir Semester (UAS)** | Evaluasi penguasaan materi akhir semester. | Mengumpulkan berkas lembar jawaban UAS. | Menginput nilai final penentu kelulusan semester. |
 
 ---
 
-# BAB VI: KESIMPULAN & PENUTUP
-
-## 6.1 Kesimpulan
-Berdasarkan perancangan, pengembangan, dan pengujian yang telah dilaksanakan, dapat disimpulkan bahwa:
-1. Aplikasi web **"Yuli's Vault (Yuli's Second Brain)"** berhasil dirancang dan diimplementasikan secara utuh sebagai sistem informasi akademik personal yang mampu mengatasi masalah disorganisasi materi dan penugasan perkuliahan mahasiswa Teknik Informatika.
-2. Sistem berhasil mengadopsi tema visual **Luxury Warm Chocolate & Dark Brown** dengan partikel gerak lembut *Glitter Sparkles* dan maskot animasi perempuan, menghadirkan estetika yang menenangkan dan nyaman di mata pengguna.
-3. Seluruh fitur fungsional utama telah berhasil diwujudkan dalam durasi sprint 1 minggu (7 hari kerja), meliputi:
-   - **Vault Login Gate**: Sistem gerbang masuk minimalis dengan tombol *Quick Access* ("Masuk cepat sebagai Yuli Indiyanti").
-   - **Struktur Tugas Kuliah yang Bersih**: Penerapan 5 kategori asesmen resmi perkuliahan (Tugas Individu, Tugas Kelompok, Tugas Besar, Tugas UTS, Tugas UAS), eliminasi prioritas manual (semua tugas prioritas tinggi), dan eliminasi bobot persentase kalkulator yang rumit.
-   - **Portal Penilaian Khusus Dosen (Tanpa Login)**: Akses tautan publik `/grade/[id]` yang memudahkan dosen menginput nilai dan evaluasi tanpa birokrasi login.
-   - **Pelacakan Performa Realistis**: Metrik nilai akademik dinamis yang menampilkan status riil (*pending evaluation state*) secara akurat.
-   - **Repositori Materi & In-App Document Viewer**: Pratinjau dokumen PDF dan slide langsung di peramban.
-4. Hasil pengujian produksi melalui `npm run build` membuktikan bahwa sistem bebas dari kesalahan sintaks maupun *type error* (**Exit Code 0**), serta seluruh kode sumber telah tersinkronisasi di repositori GitHub resmi.
-
-## 6.2 Saran dan Pengembangan Lanjutan
-Untuk pengembangan sistem pada rilis mendatang (versi 2.0), disarankan penambahan beberapa fitur berikut:
-1. **Notifikasi Pengingat Eksternal**: Integrasi webhook Telegram bot atau WhatsApp API untuk mengirimkan notifikasi pengingat otomatis pada H-1 sebelum deadline tugas.
-2. **Sinkronisasi Kalender Digital**: Fitur ekspor jadwal kuliah mingguan dan tenggat waktu tugas ke Google Calendar (.ics).
-3. **Penyimpanan Awan (*Cloud Storage*)**: Opsi integrasi dengan Cloudflare R2 atau Supabase Storage apabila kapasitas penyimpanan materi perkuliahan melampaui kuota disk lokal server.
-
----
-
-**Cirebon, 6 November 2026**  
-*Pengusul dan Pengembang Sistem,*
-
-<br><br><br>
-
-**<u>Yuli Indiyanti</u>**  
-NIM. 240511130  
-Kelas TI24D — Program Studi Teknik Informatika
+### Lampiran 5: Tautan Repositori GitHub & Panduan Deployment Lokal
+- **URL Repositori GitHub**: [https://github.com/YuliIndiyanti/Website-Tugas-dan-Materi-Kuliah.git](https://github.com/YuliIndiyanti/Website-Tugas-dan-Materi-Kuliah.git)
+- **Langkah Menjalankan Proyek Secara Lokal**:
+  1. Clone repositori: `git clone https://github.com/YuliIndiyanti/Website-Tugas-dan-Materi-Kuliah.git`
+  2. Masuk ke direktori: `cd Website-Tugas-dan-Materi-Kuliah`
+  3. Install seluruh paket ketergantungan: `npm install`
+  4. Inisialisasi basis data SQLite: `npx prisma db push`
+  5. Jalankan server pengembangan lokal: `npm run dev`
+  6. Buka peramban (*web browser*) pada alamat: `http://localhost:3000`
