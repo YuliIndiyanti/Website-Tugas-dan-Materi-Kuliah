@@ -90,7 +90,7 @@ NIM: 240511130
   - [3.2 User Persona (Mahasiswa S1 & Dosen Pengampu)](#32-user-persona-mahasiswa-s1--dosen-pengampu) .................................................... 17
   - [3.3 User Journey Mapping (5 Tahap Interaksi Utama)](#33-user-journey-mapping-5-tahap-interaksi-utama) ................................................. 19
   - [3.4 Struktur Navigasi & Arsitektur Informasi (Sitemap)](#34-struktur-navigasi--arsitektur-informasi-sitemap) ............................................ 20
-- [BAB IV: SPESIFIKASI FITUR SISTEM & DESAIN MULTIMEDIA INTERAKTIF](#bab-iv-spesifikasi-fitur-sistem--desain-multimedia-interaktif) ..... 22
+- [BAB IV: SPESIFIKASI FITUR SISTEM & PERANCANGAN ANTARMUKA PENGGUNA (UI/UX)](#bab-iv-spesifikasi-fitur-sistem--desain-multimedia-interaktif) ..... 22
   - [4.1 Spesifikasi Kebutuhan Fungsional (FR Matrix: MOD-01 s.d. MOD-10)](#41-spesifikasi-kebutuhan-fungsional-fr-matrix-mod-01-sd-mod-10) ................ 22
   - [4.2 Logika Bisnis & Alur Penilaian Dosen Tanpa Hambatan Akun (Seamless Tokenized Flow)](#42-logika-bisnis--alur-penilaian-dosen-tanpa-hambatan-akun-seamless-tokenized-flow) 25
   - [4.3 Desain Antarmuka Visual & Identitas Estetika (Warm Chocolate, Glitter, Avatar)](#43-desain-antarmuka-visual--identitas-estetika-warm-chocolate-glitter-avatar) 27
@@ -338,7 +338,7 @@ Arsitektur informasi Yuli's Vault dirancang dengan hierarki dangkal (*shallow hi
 
 <div style="page-break-after: always;"></div>
 
-# BAB IV: SPESIFIKASI FITUR SISTEM & DESAIN MULTIMEDIA INTERAKTIF
+# BAB IV: SPESIFIKASI FITUR SISTEM & PERANCANGAN ANTARMUKA PENGGUNA (UI/UX)
 
 ## 4.1 Spesifikasi Kebutuhan Fungsional (FR Matrix: MOD-01 s.d. MOD-10)
 
@@ -356,7 +356,7 @@ Kebutuhan fungsional perangkat lunak mendefinisikan kapabilitas dan layanan spes
 | **MOD-07** | *Clean Unweighted Mean Calculation* | Kalkulasi rata-rata nilai murni dinamis berbasis tugas dinilai tanpa distorsi nol semu. | Mandatory (Must Have) |
 | **MOD-08** | *Target Grade Calculator* | Algoritma simulasi skor minimal sisa tugas untuk mencapai target Indeks A ($\ge 85$), B, atau C. | Important (Should Have) |
 | **MOD-09** | *Lecturer Direct Grading Portal* | Rute tautan mandiri \`/grade/[id]\` untuk input nilai dosen tanpa memerlukan pembuatan akun. | Mandatory (Must Have) |
-| **MOD-10** | *Interactive Multimedia & Avatar* | Desain bertema *Warm Chocolate*, partikel kilau emas (*sparkles*), dan avatar animasi interaktif. | Important (Should Have) |
+| **MOD-10** | *Interactive UI & Avatar Aesthetic* | Desain bertema *Warm Chocolate*, partikel kilau emas (*sparkles*), dan avatar animasi interaktif. | Important (Should Have) |
 
 ## 4.2 Logika Bisnis & Alur Penilaian Dosen Tanpa Hambatan Akun (Seamless Tokenized Flow)
 

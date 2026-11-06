@@ -452,7 +452,7 @@ const tocEntries = [
   { title: "  3.2 User Persona", page: "14" },
   { title: "  3.3 User Journey Mapping", page: "15" },
   { title: "  3.4 Arsitektur Informasi & Peta Situs (Sitemap)", page: "16" },
-  { title: "BAB IV SPESIFIKASI FITUR & DESAIN MULTIMEDIA INTERAKTIF", page: "17", bold: true },
+  { title: "BAB IV SPESIFIKASI FITUR & PERANCANGAN ANTARMUKA (UI/UX)", page: "17", bold: true },
   { title: "  4.1 Spesifikasi Modul Fungsional (Prioritas P0 & P1)", page: "17" },
   { title: "  4.2 Algoritma & Logika Bisnis Sistem", page: "19" },
   { title: "  4.3 Sistem Desain (Design System) & Identitas Visual Luxury Coffee", page: "19" },
@@ -988,9 +988,9 @@ children.push(
   new Paragraph({ children: [new PageBreak()] })
 );
 
-// 9. BAB IV SPESIFIKASI FITUR & DESAIN MULTIMEDIA INTERAKTIF (hal 17)
+// 9. BAB IV SPESIFIKASI FITUR & PERANCANGAN ANTARMUKA PENGGUNA (UI/UX) (hal 17)
 children.push(
-  makeChapterTitle("BAB IV\nSPESIFIKASI FITUR & DESAIN MULTIMEDIA INTERAKTIF"),
+  makeChapterTitle("BAB IV\nSPESIFIKASI FITUR & PERANCANGAN ANTARMUKA PENGGUNA (UI/UX)"),
   makeSubchapterTitle("4.1 Spesifikasi Modul Fungsional (Prioritas P0 & P1)"),
   makeTableTitle("4.1", "Matriks Kebutuhan Fungsional Berdasarkan Prioritas P0 dan P1"),
   new Table({
@@ -1034,7 +1034,7 @@ children.push(
           makeCell("MOD-04", { align: AlignmentType.CENTER }),
           makeCell("In-App Document Viewer: Pembaca dokumen PDF dan slide langsung di peramban tanpa unduh ulang."),
           makeCell("P0 (Wajib)", { bold: true, align: AlignmentType.CENTER }),
-          makeCell("Multimedia", { align: AlignmentType.CENTER }),
+          makeCell("UI/UX & Visual", { align: AlignmentType.CENTER }),
         ],
       }),
       new TableRow({
@@ -2073,13 +2073,25 @@ const outDocxPathAlt = path.join(__dirname, "..", "PROPOSAL_PERANCANGAN_WEBSITE_
 const artifactDocx = "C:\\Users\\hp envy\\.gemini\\antigravity\\brain\\9f985953-fa86-4103-abb9-9a564021a241\\PROPOSAL_PERANCANGAN_WEBSITE_YULIS_VAULT.docx";
 
 Packer.toBuffer(doc).then((buffer) => {
-  fs.writeFileSync(outDocxPathAlt, buffer);
-  fs.writeFileSync(artifactDocx, buffer);
-  console.log("Successfully generated DOCX to:", outDocxPathAlt);
   try {
-    fs.writeFileSync(outDocxPath, buffer);
-    console.log("Successfully updated primary DOCX:", outDocxPath);
-  } catch (err) {
-    console.warn("Notice: PROPOSAL_PERANCANGAN_WEBSITE_YULIS_VAULT.docx is currently open in Word. Saved as PROPOSAL_PERANCANGAN_WEBSITE_YULIS_VAULT_UMC_10_BAB.docx instead.");
+    fs.writeFileSync(artifactDocx, buffer);
+    console.log("Successfully updated artifact DOCX:", artifactDocx);
+  } catch (e) {
+    console.warn("Artifact write notice:", e.message);
+  }
+
+  const targets = [
+    outDocxPathAlt,
+    outDocxPath,
+    path.join(__dirname, "..", "PROPOSAL_PERANCANGAN_WEBSITE_YULIS_VAULT_FINAL.docx")
+  ];
+
+  for (const t of targets) {
+    try {
+      fs.writeFileSync(t, buffer);
+      console.log("Successfully saved DOCX to:", t);
+    } catch (err) {
+      console.warn("Notice: " + path.basename(t) + " is currently open in Word. Skipped.");
+    }
   }
 });
