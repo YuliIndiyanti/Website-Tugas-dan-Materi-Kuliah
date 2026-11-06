@@ -221,23 +221,10 @@ const children = [];
 children.push(
   new Paragraph({
     alignment: AlignmentType.CENTER,
-    spacing: { before: 0, after: 60, line: 260 },
+    spacing: { before: 0, after: 140, line: 300 },
     children: [
       new TextRun({
-        text: "PROPOSAL PROYEK PENGEMBANGAN\nSISTEM INFORMASI & MANAJEMEN AKADEMIK",
-        bold: true,
-        size: 28, // 14pt
-        color: "000000",
-        font: "Times New Roman",
-      }),
-    ],
-  }),
-  new Paragraph({
-    alignment: AlignmentType.CENTER,
-    spacing: { before: 160, after: 140, line: 300 },
-    children: [
-      new TextRun({
-        text: "PERANCANGAN USER INTERFACE (UI) DAN USER EXPERIENCE (UX)\nWEBSITE PERSONAL ACADEMIC VAULT DAN TASK MANAGEMENT\nDENGAN FITUR PORTAL PENILAIAN DOSEN INTERAKTIF\n(YULI'S VAULT)",
+        text: "PROPOSAL PERANCANGAN SISTEM INFORMASI AKADEMIK PERSONAL\nDAN MANAJEMEN TUGAS KULIAH BERBASIS WEB\n\"YULI'S VAULT (YULI'S SECOND BRAIN)\"",
         bold: true,
         size: 28, // 14pt
         color: "000000",
@@ -2028,24 +2015,7 @@ const doc = new Document({
           },
         },
       },
-      headers: {
-        default: new Header({
-          children: [
-            new Paragraph({
-              alignment: AlignmentType.RIGHT,
-              children: [
-                new TextRun({
-                  text: "Yuli's Vault — Proposal Proyek Sistem Informasi Akademik",
-                  font: "Times New Roman",
-                  size: 18, // 9pt
-                  color: "666666",
-                  italics: true,
-                }),
-              ],
-            }),
-          ],
-        }),
-      },
+      
       footers: {
         default: new Footer({
           children: [
@@ -2081,6 +2051,7 @@ Packer.toBuffer(doc).then((buffer) => {
   }
 
   const targets = [
+    path.join(__dirname, "..", "PROPOSAL_PERANCANGAN_WEBSITE_YULIS_VAULT_REVISI_FINAL.docx"),
     outDocxPathAlt,
     outDocxPath,
     path.join(__dirname, "..", "PROPOSAL_PERANCANGAN_WEBSITE_YULIS_VAULT_FINAL.docx")
