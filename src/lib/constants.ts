@@ -119,14 +119,14 @@ export const URGENCY_CONFIG = {
   },
 };
 
-export const GRADE_CONFIG: Record<string, { bgHex: string; textHex: string }> = {
-  A: { bgHex: "#D8C4AF", textHex: "#2E1A0A" },
-  AB: { bgHex: "#E4D4C3", textHex: "#462B14" },
-  B: { bgHex: "#EDE0D2", textHex: "#54371C" },
-  BC: { bgHex: "#F3EADF", textHex: "#4C331E" },
-  C: { bgHex: "#F6EDE0", textHex: "#5B3B18" },
-  D: { bgHex: "#F7E2DD", textHex: "#7A271A" },
-  E: { bgHex: "#F7E2DD", textHex: "#7A271A" },
+export const GRADE_CONFIG: Record<string, { label: string; bgHex: string; textHex: string }> = {
+  A: { label: "Sangat Baik", bgHex: "#D8C4AF", textHex: "#2E1A0A" },
+  AB: { label: "Lebih dari Baik", bgHex: "#E4D4C3", textHex: "#462B14" },
+  B: { label: "Baik", bgHex: "#EDE0D2", textHex: "#54371C" },
+  BC: { label: "Cukup Baik", bgHex: "#F3EADF", textHex: "#4C331E" },
+  C: { label: "Cukup", bgHex: "#F6EDE0", textHex: "#5B3B18" },
+  D: { label: "Kurang", bgHex: "#F7E2DD", textHex: "#7A271A" },
+  E: { label: "Gagal", bgHex: "#F7E2DD", textHex: "#7A271A" },
 };
 
 export const ASSIGNMENT_TYPE_CONFIG: Record<
